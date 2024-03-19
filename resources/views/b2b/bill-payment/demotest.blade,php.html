@@ -1,0 +1,980 @@
+@extends("layouts.app")
+@section("content")
+<style>
+        .hidden {
+            display: none;
+        }
+    </style>
+<div class="conatiner-fluid content-inner mt-n5 py-0" style="min-height: 112px;">
+   <div class="row">
+      <div class="row">
+         <div class="col-lg-12">
+            <div class="card">
+                 <div class="card-body">
+                    <div class="d-flex flex-wrap align-items-center justify-content-between">
+                       <div class="d-flex flex-wrap align-items-center">
+
+                          <div class="d-flex flex-wrap align-items-center mb-3 mb-sm-0">
+                             <h4 class="me-2 h4">AEPS - Web</h4>
+
+                          </div>
+                       </div>
+                    </div>
+                 </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<div class="page-wrapper" style="width: 94%; margin-left: 20px;">
+   <div class="content container-fluid">
+      <div class="card">
+         <div class="card-header header-info ">
+            <h4 class="card-title">Aadhar Enabled Payment System</h4>
+         </div>
+         <div class="card-body">
+            <!--  -->
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+               <li class="nav-item" role="presentation"><button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Cash Withdrawal</button></li>
+               <li class="nav-item" role="presentation"><button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Balance Enquiry</button></li>
+               <li class="nav-item" role="presentation"><button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Mini Statement</button></li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+               <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                  <form action="{{route("withdrawal")}}" id="withdrawal" method="post" accept-charset="utf-8">
+                     @csrf
+                     <input type="hidden" name="csrf_test_name" value="dea06fead102adfc8e9a7c5b836aff53">
+                     <input type="hidden" value="Withdrawal" name="remark">
+                     <input type="hidden" value="CW" name="type">
+                     <div class="row" style="margin-top: 30px;">
+                        <div class="col-md-6">
+                           <div class="form-row">
+                              <div class="col-md-12 mb-3">
+                                 <label for="type">Mobile Number <span class="required">*</span></label>
+                                 <input type="tel" min="0" maxlength="10" minlength="10" onkeypress="javascript:return isNumber(event)" name="mobile" class="form-control" id="mobile" placeholder="Enter 10 Digit Mobile No" value="" required="">
+                              </div>
+                              <div class="col-md-12 mb-3">
+                                 <label for="type">Aadhar Number <span class="required">*</span></label>
+                                 <input type="tel" min="0" maxlength="12" minlength="12" onkeypress="javascript:return isNumber(event)" name="aadhar" class="form-control" id="aadhar" placeholder="Enter 12 Digit Aadhar No" value="" required="">
+                              </div>
+                              <div class="col-md-12 mb-3">
+                                 <label for="type">Bank Name<span class="required">*</span></label>
+                                 <select class="form-control chosen" name="bank" id="bank" required="" live-search="true">
+                                    <option value=""> -- Select Bank --</option>
+                                    <option value="990320">Airtel Payment Bank</option>
+                                    <option value="608112">Allahabad Bank</option>
+                                    <option value="607024">Allahabad UP Gramin Bank</option>
+                                    <option value="607076">Andhra Bank</option>
+                                    <option value="607198">Andhra Pradesh Grameena Vikash Bank</option>
+                                    <option value="607121">Andhra Pragathi Grameena Bank</option>
+                                    <option value="607051">AP Mahesh Coop Urban Bank Ltd</option>
+                                    <option value="607024">Aryavart Bank</option>
+                                    <option value="607064">Assam Gramin Vikash Bank</option>
+                                    <option value="608087">AU Small Finance Bank</option>
+                                    <option value="607153">Axis Bank</option>
+                                    <option value="607063">Bangiya Gramin Vikash Bank</option>
+                                    <option value="606985">Bank Of Baroda</option>
+                                    <option value="508505">Bank of India</option>
+                                    <option value="607387">Bank of Maharashtra</option>
+                                    <option value="606995">Baroda Gujarat Gramin Bank</option>
+                                    <option value="607280">Baroda Rajasthan Kshetriya Gramin Bank</option>
+                                    <option value="606993">Baroda Uttar Pradesh Gramin Bank </option>
+                                    <option value="607396">Canara Bank</option>
+                                    <option value="607082">Catholic Syrian Bank</option>
+                                    <option value="607264">Central Bank of India</option>
+                                    <option value="607080">Chaitanya Godavari Gramin Bank</option>
+                                    <option value="607214">Chhattisgarh Rajya Gramin Bank</option>
+                                    <option value="607324">City Union Bank </option>
+                                    <option value="607184">Corporation Bank</option>
+                                    <option value="607136">Dakshin Bihar Gramin Bank</option>
+                                    <option value="508547">Dena Bank</option>
+                                    <option value="607099">Dena Gujarat Gramin Bank</option>
+                                    <option value="607218">Ellaquai Dehati Bank</option>
+                                    <option value="508998">Equitas Small Finance Bank</option>
+                                    <option value="607363">Federal Bank</option>
+                                    <option value="817304">Fincare Small Finance Bank</option>
+                                    <option value="608001">Fino Payments Bank</option>
+                                    <option value="607024">Gramin bank of Aryavart</option>
+                                    <option value="607152">HDFC Bank</option>
+                                    <option value="607140">Himachal Pradesh Gramin Bank</option>
+                                    <option value="508534">ICICI Bank</option>
+                                    <option value="607095">IDBI Bank</option>
+                                    <option value="608117">IDFC First Bank</option>
+                                    <option value="608314">India Post Payment Bank</option>
+                                    <option value="607105">Indian bank</option>
+                                    <option value="607126">Indian Overseas Bank</option>
+                                    <option value="607189">IndusInd Bank</option>
+                                    <option value="607440">Jammu &amp; Kashmir Bank </option>
+                                    <option value="607210">Jharkhand Gramin Bank</option>
+                                    <option value="607210">Jharkhand Rajya Gramin Bank</option>
+                                    <option value="607270">Karnataka Bank</option>
+                                    <option value="607512">Karnataka Gramin Bank</option>
+                                    <option value="607122">Karnataka Vikas Grameena Bank </option>
+                                    <option value="508662">Karur Vysya Bank</option>
+                                    <option value="607365">Kashi Gomati Samyut Gramin Bank</option>
+                                    <option value="607399">Kerala Gramin Bank</option>
+                                    <option value="990309">Kotak Mahindra Bank</option>
+                                    <option value="607058">Lakshmi Vilas Bank</option>
+                                    <option value="607203">Langpi Dehangi Rural Bank</option>
+                                    <option value="607136">Madhya Bihar Gramin Bank erstwhile Dakshin Bihar Gramin Bank</option>
+                                    <option value="607022">Madhya Pradesh Gramin Bank</option>
+                                    <option value="607232">Madhyanchal Gramin Bank</option>
+                                    <option value="607000">Maharashtra Gramin Bank </option>
+                                    <option value="607062">Manipur Rural Bank </option>
+                                    <option value="607206">Meghalaya Rural Bank</option>
+                                    <option value="607230">Mizoram Rural Bank</option>
+                                    <option value="607022">Narmada Jhabua Gramin Bank</option>
+                                    <option value="607060">Odisha Gramya Bank </option>
+                                    <option value="607027">Oriental Bank of Commerce</option>
+                                    <option value="607052">Pallavan Grama Bank</option>
+                                    <option value="607059">Pandyan Grama Bank</option>
+                                    <option value="607079">Paschim Banga Gramin Bank</option>
+                                    <option value="607400">Pragathi Krishna Gramin Bank</option>
+                                    <option value="607135">Prathama Bank</option>
+                                    <option value="607135">Prathma UP Gramin Bank</option>
+                                    <option value="607054">Puduvai Bharathiar Grama Bank</option>
+                                    <option value="607087">Punjab &amp; Sind Bank</option>
+                                    <option value="607138">Punjab Gramin Bank</option>
+                                    <option value="607027">Punjab National Bank</option>
+                                    <option value="607212">Purvanchal Gramin Bank</option>
+                                    <option value="607509">Rajasthan Marudhara Gramin Bank</option>
+                                    <option value="607393">Ratnakar Bank</option>
+                                    <option value="607053">Saptagiri Grameena Bank</option>
+                                    <option value="607139">Sarva Haryana Gramin Bank</option>
+                                    <option value="607135">Sarva UP Gramin Bank </option>
+                                    <option value="607200">Saurashtra Gramin Bank</option>
+                                    <option value="607119">Shivalik Mercantile Cooperative Bank </option>
+                                    <option value="607475">South Indian Bank</option>
+                                    <option value="607094">State Bank of India</option>
+                                    <option value="607580">Syndicate Bank</option>
+                                    <option value="607187">Tamilnad Mercantile Bank</option>
+                                    <option value="607052">TamilNadu Grama Bank</option>
+                                    <option value="607195">Telangana Grameena Bank</option>
+                                    <option value="652150">The Saraswat Co-operative Bank Ltd</option>
+                                    <option value="607065">Tripura Gramin Bank</option>
+                                    <option value="607066">UCO Bank</option>
+                                    <option value="508991">Ujjivan Small Finance Bank Limited</option>
+                                    <option value="607161">Union Bank of India</option>
+                                    <option value="607646">United Bank Of India</option>
+                                    <option value="607234">Utkal Gramin Bank</option>
+                                    <option value="607073">Uttar Banga Kshetriya Gramin Bank </option>
+                                    <option value="607069">Uttar Bihar Grameen Bank </option>
+                                    <option value="607197">Uttarakhand Gramin Bank</option>
+                                    <option value="607210">Vananchal Gramin Bank</option>
+                                    <option value="607020">Vidarbha Konkan Gramin Bank</option>
+                                    <option value="607075">Vijaya Bank</option>
+                                    <option value="607618">YES Bank</option>
+                                    <option value="608032">Paytm Payments Bank</option>
+                                 </select>
+                               <!--  <div class="chosen-container chosen-container-single" style="width: 487px;" title="" id="bank_chosen">
+                                    <a class="chosen-single">
+                                       <span> -- Select Bank --</span>
+                                       <div>
+                                          <b></b>
+                                       </div>
+                                    </a>
+                                    <div class="chosen-drop">
+                                       <div class="chosen-search">
+                                          <input type="text" autocomplete="off">
+                                       </div>
+                                       <ul class="chosen-results"></ul>
+                                    </div>
+                                 </div> -->
+                              </div>
+                              <div class="col-md-12 mb-3">
+                                 <p>
+                                 </p>
+                                 <div class="form-group">
+                                    <input type="checkbox" checked="" readonly=""> I/Customer hereby accepts and confirm all the terms &amp; conditions under best of my knowledge.
+                                 </div>
+                                 <p></p>
+                                 <p>
+                                 </p>
+                                 <div class="form-group">
+                                    <input type="checkbox" checked="" readonly=""> I/Retailer hereby accepts and confirm all the terms &amp; conditions under best of my knowledge.
+                                 </div>
+                                 <p></p>
+                                 <p>
+                                 </p>
+                                 <div class="form-group confirm">
+                                    Note: You're not allowed to do more than 5 transactions of each transaction mode for same aadhar
+                                 </div>
+                                 <p></p>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                           <div class="form-row">
+                              <div class="col-md-12 mb-3">
+                                 <label for="type">Device <span class="required">*</span></label>
+                                 <br>
+                                 <label class="btn btn-outline-primary id1" for="btn-check-outlined" style="padding: 3px 2px 3px 20px;box-shadow: gray 1px 2px 2px 1px;background-color: aliceblue;border: none;"> <input type="radio" id="id1" class="form-check-input" name="device" value="Morpho" style="left:23px;">Morpho
+                                 </label>
+                                 <label class="btn btn-outline-primary id2" for="btn-check-outlined" style="padding: 3px 2px 3px 20px;box-shadow: gray 1px 2px 2px 1px;background-color: aliceblue;border: none;"> <input type="radio" id="id2" class="form-check-input" name="device" value="Morpho" style="left:23px;">Mantra
+                                 </label>
+                                 <label class="btn btn-outline-primary id3" for="btn-check-outlined" style="padding: 3px 2px 3px 20px;box-shadow: gray 1px 2px 2px 1px;background-color: aliceblue;border: none;"> <input type="radio" id="id3" class="form-check-input" name="device" value="Morpho" style="left:23px;">Other
+                                 </label>
+                              </div>
+                              <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+                              <script src="{{ asset('assets/jquery/jquery.js') }}"></script>
+                              <script src="{{ asset('assets/jquery/testSDKMFS100ByVikash.js') }}"></script>
+                              <script src="{{ asset('assets/css/vstyles.css') }}"></script>
+                              <script>
+                                 $(document).ready(function(){
+                                            $("#id1").click(function(){
+                                                $(".id1").css("background-color","var(--bs-primary-shade-20)");
+                                                $(".id1").css("color","white");
+                                                $(".id2").css("background-color","white");
+                                                $(".id3").css("background-color","white");
+                                                $(".id2").css("color","var(--bs-primary-shade-20)");
+                                                $(".id3").css("color","var(--bs-primary-shade-20)");
+
+                                            });
+                                            $("#id2").click(function(){
+                                                $(".id2").css("background-color","var(--bs-primary-shade-20)");
+                                                $(".id2").css("color","white");
+                                                $(".id1").css("background-color","white");
+                                                $(".id3").css("background-color","white");
+                                                $(".id1").css("color","var(--bs-primary-shade-20)");
+                                                $(".id3").css("color","var(--bs-primary-shade-20)");
+                                            });
+                                            $("#id3").click(function(){
+                                                $(".id3").css("background-color","var(--bs-primary-shade-20)");
+                                                $(".id3").css("color","white");
+                                                $(".id2").css("background-color","white");
+                                                $(".id1").css("background-color","white");
+                                                $(".id2").css("color","var(--bs-primary-shade-20)");
+                                                $(".id1").css("color","var(--bs-primary-shade-20)");
+                                            });
+                                            });
+
+
+
+                                 </script>
+
+                              <div class="col-md-12 mb-3">
+                                 <label for="type">Withdrawal Amount <span class="required">*</span>
+                                 </label>
+                                 <br>
+                                 <button type="button" class="btn btn-outline-primary rounded-pill btns" data-amount="500">₹ 500</button>
+                                 <button type="button" class="btn btn-outline-primary rounded-pill btns" data-amount="1000">₹ 1000</button>
+                                 <button type="button" class="btn btn-outline-primary rounded-pill btns" data-amount="2000">₹ 2000</button>
+                                  <button type="button" class="btn btn-outline-primary rounded-pill btns" data-amount="3000">₹ 3000</button>
+                                  <button type="button" class="btn btn-outline-primary rounded-pill btns" data-amount="5000">₹ 5000</button>
+                                  <button type="button" class="btn btn-outline-primary rounded-pill btns" data-amount="10000">₹ 10,000</button>
+                                 <input type="text" style="margin-top: 7px;" id="amountInput"  onkeypress="javascript:return isNumber(event)" name="amount" class="form-control"  placeholder="Enter the amount" value="">
+                              </div>
+                              <div class="col-md-12 mb-3">
+                                <label for="type">Biometrics<span class="required">*</span></label>
+                                <div class="fingerprint" style="border: 1px solid black;width:150px;min-height:120px;text-align:center">
+                                   <img src="{{ asset('assets/images/fingerprint.png') }}" style="height:100px;padding-top: 8px;display:" id="fingerprint1">
+                                </div>
+                             </div>
+                              <input type="submit" id="submit" class="btn btn-success" placeholder="Capture Fingerprint">
+                               <!-- <button onclick="showImage()">Show Image</button> -->
+                              </div>
+                        </div>
+                     </div>
+                  </form>
+               </div>
+               <!-------------------------------- Cash Withdrawal --------------------------->
+               <!--------------------------------------- Balance enquory -------------------------->
+               <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                  <form action="{{route("balanceEnquiry")}}" id="be" method="post" accept-charset="utf-8">
+                     @csrf
+                     <input type="hidden" name="csrf_test_name" value="dea06fead102adfc8e9a7c5b836aff53">
+                     <input type="hidden" value="Enquiry" name="remark">
+                     <input type="hidden" value="BE" name="type">
+                     <div class="row" style="margin-top: 30px;">
+                        <div class="col-md-6">
+                           <div class="form-row">
+                              <div class="col-md-12 mb-3">
+                                 <label for="type">Mobile Number <span class="required">*</span></label>
+                                 <input type="tel" min="0" maxlength="10" minlength="10" onkeypress="javascript:return isNumber(event)" name="mobile" class="form-control" id="mobile" placeholder="Enter 10 Digit Mobile No" value="" required="">
+                              </div>
+                              <div class="col-md-12 mb-3">
+                                 <label for="type">Aadhar Number <span class="required">*</span></label>
+                                 <input type="tel" min="0" maxlength="12" minlength="12" onkeypress="javascript:return isNumber(event)" name="aadhar" class="form-control" id="aadhar" placeholder="Enter 12 Digit Aadhar No" value="" required="">
+                              </div>
+                              <div class="col-md-12 mb-3">
+                                 <label for="type">Bank Name<span class="required">*</span></label>
+                                 <select class="form-control chosen2" name="bank" id="bank" required="" live-search="true">
+                                    <option value=""> -- Select Bank --</option>
+                                    <option value="990320">Airtel Payment Bank</option>
+                                    <option value="608112">Allahabad Bank</option>
+                                    <option value="607024">Allahabad UP Gramin Bank</option>
+                                    <option value="607076">Andhra Bank</option>
+                                    <option value="607198">Andhra Pradesh Grameena Vikash Bank</option>
+                                    <option value="607121">Andhra Pragathi Grameena Bank</option>
+                                    <option value="607051">AP Mahesh Coop Urban Bank Ltd</option>
+                                    <option value="607024">Aryavart Bank</option>
+                                    <option value="607064">Assam Gramin Vikash Bank</option>
+                                    <option value="608087">AU Small Finance Bank</option>
+                                    <option value="607153">Axis Bank</option>
+                                    <option value="607063">Bangiya Gramin Vikash Bank</option>
+                                    <option value="606985">Bank Of Baroda</option>
+                                    <option value="508505">Bank of India</option>
+                                    <option value="607387">Bank of Maharashtra</option>
+                                    <option value="606995">Baroda Gujarat Gramin Bank</option>
+                                    <option value="607280">Baroda Rajasthan Kshetriya Gramin Bank</option>
+                                    <option value="606993">Baroda Uttar Pradesh Gramin Bank </option>
+                                    <option value="607396">Canara Bank</option>
+                                    <option value="607082">Catholic Syrian Bank</option>
+                                    <option value="607264">Central Bank of India</option>
+                                    <option value="607080">Chaitanya Godavari Gramin Bank</option>
+                                    <option value="607214">Chhattisgarh Rajya Gramin Bank</option>
+                                    <option value="607324">City Union Bank </option>
+                                    <option value="607184">Corporation Bank</option>
+                                    <option value="607136">Dakshin Bihar Gramin Bank</option>
+                                    <option value="508547">Dena Bank</option>
+                                    <option value="607099">Dena Gujarat Gramin Bank</option>
+                                    <option value="607218">Ellaquai Dehati Bank</option>
+                                    <option value="508998">Equitas Small Finance Bank</option>
+                                    <option value="607363">Federal Bank</option>
+                                    <option value="817304">Fincare Small Finance Bank</option>
+                                    <option value="608001">Fino Payments Bank</option>
+                                    <option value="607024">Gramin bank of Aryavart</option>
+                                    <option value="607152">HDFC Bank</option>
+                                    <option value="607140">Himachal Pradesh Gramin Bank</option>
+                                    <option value="508534">ICICI Bank</option>
+                                    <option value="607095">IDBI Bank</option>
+                                    <option value="608117">IDFC First Bank</option>
+                                    <option value="608314">India Post Payment Bank</option>
+                                    <option value="607105">Indian bank</option>
+                                    <option value="607126">Indian Overseas Bank</option>
+                                    <option value="607189">IndusInd Bank</option>
+                                    <option value="607440">Jammu &amp; Kashmir Bank </option>
+                                    <option value="607210">Jharkhand Gramin Bank</option>
+                                    <option value="607210">Jharkhand Rajya Gramin Bank</option>
+                                    <option value="607270">Karnataka Bank</option>
+                                    <option value="607512">Karnataka Gramin Bank</option>
+                                    <option value="607122">Karnataka Vikas Grameena Bank </option>
+                                    <option value="508662">Karur Vysya Bank</option>
+                                    <option value="607365">Kashi Gomati Samyut Gramin Bank</option>
+                                    <option value="607399">Kerala Gramin Bank</option>
+                                    <option value="990309">Kotak Mahindra Bank</option>
+                                    <option value="607058">Lakshmi Vilas Bank</option>
+                                    <option value="607203">Langpi Dehangi Rural Bank</option>
+                                    <option value="607136">Madhya Bihar Gramin Bank erstwhile Dakshin Bihar Gramin Bank</option>
+                                    <option value="607022">Madhya Pradesh Gramin Bank</option>
+                                    <option value="607232">Madhyanchal Gramin Bank</option>
+                                    <option value="607000">Maharashtra Gramin Bank </option>
+                                    <option value="607062">Manipur Rural Bank </option>
+                                    <option value="607206">Meghalaya Rural Bank</option>
+                                    <option value="607230">Mizoram Rural Bank</option>
+                                    <option value="607022">Narmada Jhabua Gramin Bank</option>
+                                    <option value="607060">Odisha Gramya Bank </option>
+                                    <option value="607027">Oriental Bank of Commerce</option>
+                                    <option value="607052">Pallavan Grama Bank</option>
+                                    <option value="607059">Pandyan Grama Bank</option>
+                                    <option value="607079">Paschim Banga Gramin Bank</option>
+                                    <option value="607400">Pragathi Krishna Gramin Bank</option>
+                                    <option value="607135">Prathama Bank</option>
+                                    <option value="607135">Prathma UP Gramin Bank</option>
+                                    <option value="607054">Puduvai Bharathiar Grama Bank</option>
+                                    <option value="607087">Punjab &amp; Sind Bank</option>
+                                    <option value="607138">Punjab Gramin Bank</option>
+                                    <option value="607027">Punjab National Bank</option>
+                                    <option value="607212">Purvanchal Gramin Bank</option>
+                                    <option value="607509">Rajasthan Marudhara Gramin Bank</option>
+                                    <option value="607393">Ratnakar Bank</option>
+                                    <option value="607053">Saptagiri Grameena Bank</option>
+                                    <option value="607139">Sarva Haryana Gramin Bank</option>
+                                    <option value="607135">Sarva UP Gramin Bank </option>
+                                    <option value="607200">Saurashtra Gramin Bank</option>
+                                    <option value="607119">Shivalik Mercantile Cooperative Bank </option>
+                                    <option value="607475">South Indian Bank</option>
+                                    <option value="607094">State Bank of India</option>
+                                    <option value="607580">Syndicate Bank</option>
+                                    <option value="607187">Tamilnad Mercantile Bank</option>
+                                    <option value="607052">TamilNadu Grama Bank</option>
+                                    <option value="607195">Telangana Grameena Bank</option>
+                                    <option value="652150">The Saraswat Co-operative Bank Ltd</option>
+                                    <option value="607065">Tripura Gramin Bank</option>
+                                    <option value="607066">UCO Bank</option>
+                                    <option value="508991">Ujjivan Small Finance Bank Limited</option>
+                                    <option value="607161">Union Bank of India</option>
+                                    <option value="607646">United Bank Of India</option>
+                                    <option value="607234">Utkal Gramin Bank</option>
+                                    <option value="607073">Uttar Banga Kshetriya Gramin Bank </option>
+                                    <option value="607069">Uttar Bihar Grameen Bank </option>
+                                    <option value="607197">Uttarakhand Gramin Bank</option>
+                                    <option value="607210">Vananchal Gramin Bank</option>
+                                    <option value="607020">Vidarbha Konkan Gramin Bank</option>
+                                    <option value="607075">Vijaya Bank</option>
+                                    <option value="607618">YES Bank</option>
+                                    <option value="608032">Paytm Payments Bank</option>
+                                 </select>
+                                <!-- <div class="chosen-container chosen-container-single" style="width: 0px;" title="" id="bank_chosen">
+                                    <a class="chosen-single">
+                                       <span> -- Select Bank --</span>
+                                       <div><b></b></div>
+                                    </a>
+                                    <div class="chosen-drop">
+                                       <div class="chosen-search"><input type="text" autocomplete="off"></div>
+                                       <ul class="chosen-results"></ul>
+                                    </div>
+                                 </div> -->
+                              </div>
+                              <div class="col-md-12 mb-3">
+                                 <p>
+                                 </p>
+                                 <div class="form-group">
+                                    <input type="checkbox" checked="" readonly=""> I/Customer hereby accepts and confirm all the terms &amp; conditions under best of my knowledge.
+                                 </div>
+                                 <p></p>
+                                 <p>
+                                 </p>
+                                 <div class="form-group">
+                                    <input type="checkbox" checked="" readonly=""> I/Retailer hereby accepts and confirm all the terms &amp; conditions under best of my knowledge.
+                                 </div>
+                                 <p></p>
+                                 <p>
+                                 </p>
+                                 <div class="form-group confirm">
+                                    Note: You're not allowed to do more than 5 transactions of each transaction mode for same aadhar
+                                 </div>
+                                 <p></p>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                           <div class="form-row">
+                              <div class="col-md-12 mb-3">
+                                 <label for="type">Device <span class="required">*</span></label>
+                                 <br>
+                                 <label class="btn btn-outline-primary id1" for="btn-check-outlined" style="padding: 3px 2px 3px 20px;box-shadow: gray 1px 2px 2px 1px;background-color: aliceblue;border: none;"> <input type="radio" id="id1" class="form-check-input" name="device" value="Morpho" style="left:23px;">Morpho
+                                 </label>
+                                 <label class="btn btn-outline-primary id2" for="btn-check-outlined" style="padding: 3px 2px 3px 20px;box-shadow: gray 1px 2px 2px 1px;background-color: aliceblue;border: none;"> <input type="radio" id="id2" class="form-check-input" name="device" value="Morpho" style="left:23px;">Mantra
+                                 </label>
+                                 <label class="btn btn-outline-primary id3" for="btn-check-outlined" style="padding: 3px 2px 3px 20px;box-shadow: gray 1px 2px 2px 1px;background-color: aliceblue;border: none;"> <input type="radio" id="id3" class="form-check-input" name="device" value="Morpho" style="left:23px;">Other
+                                 </label>
+                              </div>
+                              <div class="col-md-12 mb-3">
+                                 <label for="type">Biometrics<span class="required">*</span></label>
+                                 <div class="fingerprint" style="border: 1px solid black;width:150px;min-height:120px;text-align:center">
+                                    <img src="{{ asset('assets/images/fingerprint.png') }}" style="height:100px;padding-top: 8px;display:" id="fingerprint2">
+                                 </div>
+                              </div>
+                              <button type="submit" id="submit" class="btn btn-success">Capture1 Fingerprint</button>
+                           </div>
+                        </div>
+                     </div>
+                  </form>
+               </div>
+               <!--------------------------  balance enquiry end ------------------------->
+               <!---------------------  mini statement ----------------------------------->
+               <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                  <form action="{{route("miniStatement")}}" id="ms" method="post" accept-charset="utf-8">
+                     @csrf
+                     <input type="hidden" name="csrf_test_name" value="dea06fead102adfc8e9a7c5b836aff53">
+                     <input type="hidden" value="Mini Statement" name="remark">
+                     <input type="hidden" value="MS" name="type">
+                     <div class="row" style="margin-top: 30px;">
+                        <div class="col-md-6">
+                           <div class="form-row">
+                              <div class="col-md-12 mb-3">
+                                 <label for="type">Mobile Number <span class="required">*</span></label>
+                                 <input type="tel" min="0" maxlength="10" minlength="10" onkeypress="javascript:return isNumber(event)" name="mobile" class="form-control" id="mobile" placeholder="Enter 10 Digit Mobile No" value="" required="">
+                              </div>
+                              <div class="col-md-12 mb-3">
+                                 <label for="type">Aadhar Number <span class="required">*</span></label>
+                                 <input type="tel" min="0" maxlength="12" minlength="12" onkeypress="javascript:return isNumber(event)" name="aadhar" class="form-control" id="aadhar" placeholder="Enter 12 Digit Aadhar No" value="" required="">
+                              </div>
+                              <div class="col-md-12 mb-3">
+                                 <label for="type">Bank Name<span class="required">*</span></label>
+                                 <select class="form-control chosen3" name="bank" id="bank" required="" live-search="true">
+                                    <option value=""> -- Select Bank --</option>
+                                    <option value="990320">Airtel Payment Bank</option>
+                                    <option value="608112">Allahabad Bank</option>
+                                    <!-- <option value="607024">Allahabad UP Gramin Bank</option>
+                                    <option value="607076">Andhra Bank</option>
+                                    <option value="607198">Andhra Pradesh Grameena Vikash Bank</option>
+                                    <option value="607121">Andhra Pragathi Grameena Bank</option>
+                                    <option value="607051">AP Mahesh Coop Urban Bank Ltd</option>
+                                    <option value="607024">Aryavart Bank</option>
+                                    <option value="607064">Assam Gramin Vikash Bank</option>
+                                    <option value="608087">AU Small Finance Bank</option>
+                                    <option value="607153">Axis Bank</option>
+                                    <option value="607063">Bangiya Gramin Vikash Bank</option>
+                                    <option value="606985">Bank Of Baroda</option>
+                                    <option value="508505">Bank of India</option>
+                                    <option value="607387">Bank of Maharashtra</option>
+                                    <option value="606995">Baroda Gujarat Gramin Bank</option>
+                                    <option value="607280">Baroda Rajasthan Kshetriya Gramin Bank</option>
+                                    <option value="606993">Baroda Uttar Pradesh Gramin Bank </option>
+                                    <option value="607396">Canara Bank</option>
+                                    <option value="607082">Catholic Syrian Bank</option>
+                                    <option value="607264">Central Bank of India</option>
+                                    <option value="607080">Chaitanya Godavari Gramin Bank</option>
+                                    <option value="607214">Chhattisgarh Rajya Gramin Bank</option>
+                                    <option value="607324">City Union Bank </option>
+                                    <option value="607184">Corporation Bank</option>
+                                    <option value="607136">Dakshin Bihar Gramin Bank</option>
+                                    <option value="508547">Dena Bank</option>
+                                    <option value="607099">Dena Gujarat Gramin Bank</option>
+                                    <option value="607218">Ellaquai Dehati Bank</option>
+                                    <option value="508998">Equitas Small Finance Bank</option>
+                                    <option value="607363">Federal Bank</option>
+                                    <option value="817304">Fincare Small Finance Bank</option>
+                                    <option value="608001">Fino Payments Bank</option>
+                                    <option value="607024">Gramin bank of Aryavart</option>
+                                    <option value="607152">HDFC Bank</option>
+                                    <option value="607140">Himachal Pradesh Gramin Bank</option>
+                                    <option value="508534">ICICI Bank</option>
+                                    <option value="607095">IDBI Bank</option>
+                                    <option value="608117">IDFC First Bank</option>
+                                    <option value="608314">India Post Payment Bank</option>
+                                    <option value="607105">Indian bank</option>
+                                    <option value="607126">Indian Overseas Bank</option>
+                                    <option value="607189">IndusInd Bank</option>
+                                    <option value="607440">Jammu &amp; Kashmir Bank </option>
+                                    <option value="607210">Jharkhand Gramin Bank</option>
+                                    <option value="607210">Jharkhand Rajya Gramin Bank</option>
+                                    <option value="607270">Karnataka Bank</option>
+                                    <option value="607512">Karnataka Gramin Bank</option>
+                                    <option value="607122">Karnataka Vikas Grameena Bank </option>
+                                    <option value="508662">Karur Vysya Bank</option>
+                                    <option value="607365">Kashi Gomati Samyut Gramin Bank</option>
+                                    <option value="607399">Kerala Gramin Bank</option>
+                                    <option value="990309">Kotak Mahindra Bank</option>
+                                    <option value="607058">Lakshmi Vilas Bank</option>
+                                    <option value="607203">Langpi Dehangi Rural Bank</option>
+                                    <option value="607136">Madhya Bihar Gramin Bank erstwhile Dakshin Bihar Gramin Bank</option>
+                                    <option value="607022">Madhya Pradesh Gramin Bank</option>
+                                    <option value="607232">Madhyanchal Gramin Bank</option>
+                                    <option value="607000">Maharashtra Gramin Bank </option>
+                                    <option value="607062">Manipur Rural Bank </option>
+                                    <option value="607206">Meghalaya Rural Bank</option>
+                                    <option value="607230">Mizoram Rural Bank</option>
+                                    <option value="607022">Narmada Jhabua Gramin Bank</option>
+                                    <option value="607060">Odisha Gramya Bank </option>
+                                    <option value="607027">Oriental Bank of Commerce</option>
+                                    <option value="607052">Pallavan Grama Bank</option>
+                                    <option value="607059">Pandyan Grama Bank</option>
+                                    <option value="607079">Paschim Banga Gramin Bank</option>
+                                    <option value="607400">Pragathi Krishna Gramin Bank</option>
+                                    <option value="607135">Prathama Bank</option>
+                                    <option value="607135">Prathma UP Gramin Bank</option>
+                                    <option value="607054">Puduvai Bharathiar Grama Bank</option>
+                                    <option value="607087">Punjab &amp; Sind Bank</option>
+                                    <option value="607138">Punjab Gramin Bank</option>
+                                    <option value="607027">Punjab National Bank</option>
+                                    <option value="607212">Purvanchal Gramin Bank</option>
+                                    <option value="607509">Rajasthan Marudhara Gramin Bank</option>
+                                    <option value="607393">Ratnakar Bank</option>
+                                    <option value="607053">Saptagiri Grameena Bank</option>
+                                    <option value="607139">Sarva Haryana Gramin Bank</option>
+                                    <option value="607135">Sarva UP Gramin Bank </option>
+                                    <option value="607200">Saurashtra Gramin Bank</option>
+                                    <option value="607119">Shivalik Mercantile Cooperative Bank </option>
+                                    <option value="607475">South Indian Bank</option>
+                                    <option value="607094">State Bank of India</option>
+                                    <option value="607580">Syndicate Bank</option>
+                                    <option value="607187">Tamilnad Mercantile Bank</option>
+                                    <option value="607052">TamilNadu Grama Bank</option>
+                                    <option value="607195">Telangana Grameena Bank</option>
+                                    <option value="652150">The Saraswat Co-operative Bank Ltd</option>
+                                    <option value="607065">Tripura Gramin Bank</option>
+                                    <option value="607066">UCO Bank</option>
+                                    <option value="508991">Ujjivan Small Finance Bank Limited</option>
+                                    <option value="607161">Union Bank of India</option>
+                                    <option value="607646">United Bank Of India</option>
+                                    <option value="607234">Utkal Gramin Bank</option>
+                                    <option value="607073">Uttar Banga Kshetriya Gramin Bank </option>
+                                    <option value="607069">Uttar Bihar Grameen Bank </option>
+                                    <option value="607197">Uttarakhand Gramin Bank</option>
+                                    <option value="607210">Vananchal Gramin Bank</option>
+                                    <option value="607020">Vidarbha Konkan Gramin Bank</option>
+                                    <option value="607075">Vijaya Bank</option>
+                                    <option value="607618">YES Bank</option>
+                                    <option value="608032">Paytm Payments Bank</option> -->
+                                 </select>
+
+                               <!--  <div class="chosen-container chosen-container-single" style="width: 0px;" title="" id="bank_chosen">
+                                    <a class="chosen-single">
+                                       <span> -- Select Bank --</span>
+                                       <div><b></b></div>
+                                    </a>
+                                    <div class="chosen-drop">
+                                       <div class="chosen-search"><input type="text" autocomplete="off"></div>
+                                       <ul class="chosen-results"></ul>
+                                    </div>
+                                 </div> -->
+                              </div>
+                              <div class="col-md-12 mb-3">
+                                 <p>
+                                 </p>
+                                 <div class="form-group">
+                                    <input type="checkbox" checked="" readonly=""> I/Customer hereby accepts and confirm all the terms &amp; conditions under best of my knowledge.
+                                 </div>
+                                 <p></p>
+                                 <p>
+                                 </p>
+                                 <div class="form-group">
+                                    <input type="checkbox" checked="" readonly=""> I/Retailer hereby accepts and confirm all the terms &amp; conditions under best of my knowledge.
+                                 </div>
+                                 <p></p>
+                                 <p>
+                                 </p>
+                                 <div class="form-group confirm">
+                                    Note: You're not allowed to do more than 5 transactions of each transaction mode for same aadhar
+                                 </div>
+                                 <p></p>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                           <div class="form-row">
+                              <div class="col-md-12 mb-3">
+                                 <label for="type">Device <span class="required">*</span></label>
+                                 <br>
+                                 <label class="btn btn-outline-primary id1" for="btn-check-outlined" style="padding: 3px 2px 3px 20px;box-shadow: gray 1px 2px 2px 1px;background-color: aliceblue;border: none;"> <input type="radio" id="id1" class="form-check-input" name="device" value="Morpho" style="left:23px;">Morpho
+                                 </label>
+                                 <label class="btn btn-outline-primary id2" for="btn-check-outlined" style="padding: 3px 2px 3px 20px;box-shadow: gray 1px 2px 2px 1px;background-color: aliceblue;border: none;"> <input type="radio" id="id2" class="form-check-input" name="device" value="Morpho" style="left:23px;">Mantra
+                                 </label>
+                                 <label class="btn btn-outline-primary id3" for="btn-check-outlined" style="padding: 3px 2px 3px 20px;box-shadow: gray 1px 2px 2px 1px;background-color: aliceblue;border: none;"> <input type="radio" id="id3" class="form-check-input" name="device" value="Morpho" style="left:23px;">Other
+                                 </label>
+                              </div>
+                              <div class="col-md-12 mb-3">
+                                 <label for="type">Biometrics<span class="required">*</span></label>
+                                 <div class="fingerprint" style="border: 1px solid black;width:150px;min-height:120px;text-align:center">
+                                    <img src="{{ asset('assets/images/fingerprint.png') }}" style="height:100px;padding-top: 8px;display:" id="fingerprint3">
+                                 </div>
+                              </div>
+                              <button type="submit" id="submit" class="btn btn-success">Capture2 Fingerprint</button>
+                           </div>
+                        </div>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<script>
+
+   	/**
+* Balance Enquiry
+*/
+$(function() {
+$("#be").submit(function(e) {
+e.preventDefault();
+$("#divLoading").addClass("show");
+var uri = "http://localhost:11100/rd/capture";
+// params += "&PidXML=" + encodeURIComponent(enc_pid_b64);
+params = '<PidOptions ver="1.0"> <Opts fCount="1" fType="2" format="0" pidVer="2.0" timeout="20000" env="P" posh="LEFT_INDEX" />';
+params += '</PidOptions>';
+var xmlhttp = new XMLHttpRequest();
+xmlhttp.onreadystatechange = function() {
+if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+// SucessInfo(xmlhttp.responseText);
+$("#fingerprint2").fadeIn(3000);
+$.toast({
+heading: 'Success!',
+text: "Fingerprint Scanned Successfully",
+position: 'top-right',
+loaderBg: '#ff6849',
+icon: 'success',
+hideAfter: 5000,
+stack: 6
+});
+var data = new FormData(document.getElementById("be"));
+data.append('pid', xmlhttp.responseText);
+$.ajax({
+type: 'POST',
+url: $('#be').attr('action'),
+data: data,
+dataType: 'json',
+contentType: false,
+cache: false,
+processData: false,
+beforeSend: function() {
+$('#submit').attr("disabled", "disabled");
+$("#submit").html('Please Wait..');
+},
+success: function(response) { //console.log(response);
+$("#divLoading").removeClass("show");
+$("#submit").removeAttr("disabled");
+$("#submit").html('Capture Fingerprint');
+if (response.status == 200) {
+if (response.response_code == 1) {
+$('#be').trigger("reset");
+var msg = response.message + "<br>Current Balance is Rs." + response.bal;
+swal("Success", msg, "success");
+window.setTimeout(function(){location.reload()},5000);
+} else {
+swal("Warning!", response.message, "warning");
+}
+} else {
+$.toast({
+heading: 'Error!',
+text: response.message,
+position: 'top-right',
+loaderBg: '#ff6849',
+icon: 'error',
+hideAfter: 5000,
+stack: 6
+});
+}
+},
+error: function(xhr) {
+$("#divLoading").removeClass("show");
+$("#submit").removeAttr("disabled");
+// $('#validation-errors').append('<div class="alert alert-danger">'+value+'</div');
+$.toast({
+heading: 'Error!',
+text: xhr.message,
+position: 'top-right',
+loaderBg: '#ff6849',
+icon: 'error',
+hideAfter: 3000,
+stack: 6
+});
+}
+});
+} else if (xmlhttp.status == 404) {
+$("#divLoading").removeClass("show");
+failCall(xmlhttp.status)
+} else if (xmlhttp.status == 503) {
+$("#divLoading").removeClass("show");
+alert("server Unavailable");
+}
+}
+xmlhttp.onerror = function() {
+$("#divLoading").removeClass("show");
+failCall(xmlhttp.status);
+}
+xmlhttp.onabort = function() {
+$("#divLoading").removeClass("show");
+alert("Aborted");
+}
+xmlhttp.open("CAPTURE", uri, true);
+//xmlhttp.send(encodeURIComponent(params));
+xmlhttp.send(params);
+});
+/**
+* Mini statement
+*/
+$("#ms").submit(function(e) {
+e.preventDefault();
+$("#divLoading").addClass("show");
+var uri = "http://localhost:11100/rd/capture";
+// params += "&PidXML=" + encodeURIComponent(enc_pid_b64);
+params = '<PidOptions ver="1.0"> <Opts fCount="1" fType="2" format="0" pidVer="2.0" timeout="20000" env="P" posh="LEFT_INDEX" />';
+params += '</PidOptions>';
+var xmlhttp = new XMLHttpRequest();
+xmlhttp.onreadystatechange = function() {
+if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+// SucessInfo(xmlhttp.responseText);
+$("#fingerprint3").fadeIn(3000);
+$.toast({
+heading: 'Success!',
+text: "Fingerprint Scanned Successfully",
+position: 'top-right',
+loaderBg: '#ff6849',
+icon: 'success',
+hideAfter: 5000,
+stack: 6
+});
+var data = new FormData(document.getElementById("ms"));
+data.append('pid', xmlhttp.responseText);
+$.ajax({
+type: 'POST',
+url: $('#ms').attr('action'),
+data: data,
+dataType: 'json',
+contentType: false,
+cache: false,
+processData: false,
+beforeSend: function() {
+$('#submit').attr("disabled", "disabled");
+$("#submit").html('Please Wait..');
+},
+success: function(response) { //console.log(response);
+$("#divLoading").removeClass("show");
+$("#submit").removeAttr("disabled");
+$("#submit").html('Capture Fingerprint');
+$(".show_balance").html(response.updated_user_balance);
+if (response.status == 200) {
+if (response.response_code == 1) {
+$('#ms').trigger("reset");
+swal("Success", response.message, "success");
+setTimeout(function() {
+window.location.href = "https://smartbanking.co.in/project//admin/AepsController/mini_statement/" + response.res_id;
+}, 2000);
+window.setTimeout(function(){location.reload()},5000);
+} else {
+swal("Warning!", response.message, "warning");
+}
+} else {
+$.toast({
+heading: 'Error!',
+text: response.message,
+position: 'top-right',
+loaderBg: '#ff6849',
+icon: 'error',
+hideAfter: 5000,
+stack: 6
+});
+}
+},
+error: function(xhr) {
+$("#divLoading").removeClass("show");
+$("#submit").removeAttr("disabled");
+// $('#validation-errors').append('<div class="alert alert-danger">'+value+'</div');
+$.toast({
+heading: 'Error!',
+text: xhr.message,
+position: 'top-right',
+loaderBg: '#ff6849',
+icon: 'error',
+hideAfter: 3000,
+stack: 6
+});
+}
+});
+} else if (xmlhttp.status == 404) {
+$("#divLoading").removeClass("show");
+failCall(xmlhttp.status)
+} else if (xmlhttp.status == 503) {
+$("#divLoading").removeClass("show");
+alert("server Unavailable");
+}
+}
+xmlhttp.onerror = function() {
+$("#divLoading").removeClass("show");
+failCall(xmlhttp.status);
+}
+xmlhttp.onabort = function() {
+$("#divLoading").removeClass("show");
+alert("Aborted");
+}
+xmlhttp.open("CAPTURE", uri, true);
+//xmlhttp.send(encodeURIComponent(params));
+xmlhttp.send(params);
+});
+/**
+* Withdrawal
+*/
+$("#withdrawal").submit(function(e) {
+
+e.preventDefault();
+$("#divLoading").addClass("show");
+var uri = "http://localhost:11100/rd/capture";
+// params += "&PidXML=" + encodeURIComponent(enc_pid_b64);
+params = '<PidOptions ver="1.0"> <Opts fCount="1" fType="2" format="0" pidVer="2.0" timeout="20000" env="P" posh="LEFT_INDEX" />';
+params += '</PidOptions>';
+var xmlhttp = new XMLHttpRequest();
+xmlhttp.onreadystatechange = function() {
+if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+// SucessInfo(xmlhttp.responseText);
+$("#fingerprint1").fadeIn(3000);
+$.toast({
+heading: 'Success!',
+text: "Fingerprint Scanned Successfully",
+position: 'top-right',
+loaderBg: '#ff6849',
+icon: 'success',
+hideAfter: 5000,
+stack: 6
+});
+var data = new FormData(document.getElementById("withdrawal"));
+data.append('pid', xmlhttp.responseText);
+$.ajax({
+type: 'POST',
+url: $('#withdrawal').attr('action'),
+data: data,
+dataType: 'json',
+contentType: false,
+cache: false,
+processData: false,
+beforeSend: function() {
+$('#submit').attr("disabled", "disabled");
+$("#submit").html('Please Wait..');
+},
+success: function(response) { //console.log(response);
+$("#divLoading").removeClass("show");
+$("#submit").removeAttr("disabled");
+$("#submit").html('Capture Fingerprint');
+$(".show_balance").html(response.updated_user_balance);
+if (response.status == 200) {
+if (response.response_code == 1) {
+$('#withdrawal').trigger("reset");
+// swal("Success", response.message, "success");
+swal({
+title: "Success",
+text: response.message,
+type: "success"
+},
+function() {
+var win = window.open('https://smartbanking.co.in/project/admin/InvoiceController/aadharpay/' + response.id, '_blank');
+if (win) {
+win.focus();
+window.setTimeout(function(){location.reload()},4000);
+} else {
+//Browser has blocked it
+swal("Warning!", 'Please allow popup for this side', "error");
+}
+});
+setTimeout(() => {
+location.reload();
+}, 7000);
+} else {
+swal("Warning!", response.message, "warning");
+}
+} else if (response.status == 405) {
+swal("Low Balance!", response.message, "error");
+} else {
+$.toast({
+heading: 'Error!',
+text: response.message,
+position: 'top-right',
+loaderBg: '#ff6849',
+icon: 'error',
+hideAfter: 5000,
+stack: 6
+});
+}
+},
+error: function(xhr) {
+$("#divLoading").removeClass("show");
+$("#submit").removeAttr("disabled");
+// $('#validation-errors').append('<div class="alert alert-danger">'+value+'</div');
+$.toast({
+heading: 'Error!',
+text: xhr.message,
+position: 'top-right',
+loaderBg: '#ff6849',
+icon: 'error',
+hideAfter: 3000,
+stack: 6
+});
+}
+});
+} else if (xmlhttp.status == 404) {
+$("#divLoading").removeClass("show");
+failCall(xmlhttp.status)
+} else if (xmlhttp.status == 503) {
+$("#divLoading").removeClass("show");
+alert("server Unavailable");
+}
+}
+xmlhttp.onerror = function() {
+$("#divLoading").removeClass("show");
+failCall(xmlhttp.status);
+}
+xmlhttp.onabort = function() {
+$("#divLoading").removeClass("show");
+alert("Aborted");
+}
+xmlhttp.open("CAPTURE", uri, true);
+//xmlhttp.send(encodeURIComponent(params));
+xmlhttp.send(params);
+});
+});
+</script>
+
+@endsection
+
