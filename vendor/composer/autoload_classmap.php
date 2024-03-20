@@ -88,6 +88,8 @@ return array(
     'App\\Models\\CompanyBank' => $baseDir . '/app/Models/CompanyBank.php',
     'App\\Models\\DmtBeneficiary' => $baseDir . '/app/Models/DmtBeneficiary.php',
     'App\\Models\\Ekyc' => $baseDir . '/app/Models/Ekyc.php',
+    'App\\Models\\Fund_request' => $baseDir . '/app/Models/Fund_request.php',
+    'App\\Models\\Fund_transfer' => $baseDir . '/app/Models/Fund_transfer.php',
     'App\\Models\\Invoice' => $baseDir . '/app/Models/Invoice.php',
     'App\\Models\\JWT' => $baseDir . '/app/Models/JWT.php',
     'App\\Models\\Licbill' => $baseDir . '/app/Models/Licbill.php',

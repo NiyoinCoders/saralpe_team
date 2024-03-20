@@ -724,6 +724,8 @@ class ComposerStaticInita1519fa3a038a50178854c375e975578
         'App\\Models\\CompanyBank' => __DIR__ . '/../..' . '/app/Models/CompanyBank.php',
         'App\\Models\\DmtBeneficiary' => __DIR__ . '/../..' . '/app/Models/DmtBeneficiary.php',
         'App\\Models\\Ekyc' => __DIR__ . '/../..' . '/app/Models/Ekyc.php',
+        'App\\Models\\Fund_request' => __DIR__ . '/../..' . '/app/Models/Fund_request.php',
+        'App\\Models\\Fund_transfer' => __DIR__ . '/../..' . '/app/Models/Fund_transfer.php',
         'App\\Models\\Invoice' => __DIR__ . '/../..' . '/app/Models/Invoice.php',
         'App\\Models\\JWT' => __DIR__ . '/../..' . '/app/Models/JWT.php',
         'App\\Models\\Licbill' => __DIR__ . '/../..' . '/app/Models/Licbill.php',
