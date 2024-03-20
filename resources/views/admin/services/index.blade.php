@@ -50,34 +50,39 @@
                                 </p>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <div class="modal-body">
-                                <div class="card px-4 rounded-0 py-2">
+                            <form id="edit_form">
+                                <div class="modal-body">
+                                    <div class="card px-4 rounded-0 py-2">
 
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="form-label text-dark" for="to-amount">
-                                                        Service Name<span class="text-danger">*</span></label>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label class="form-label text-dark" for="to-amount">
+                                                            Service Name<span class="text-danger">*</span></label>
 
-                                                    <input type="text" class="form-control text-dark" id="to-amount" value="" placeholder="Mobile Recharge">
+                                                        <input type="hidden" class="form-control text-dark" id="Service_IDEdit" name="service_id" value="">
+                                                        <input type="text" class="form-control text-dark" id="ServiceNameEdit" name="service_name" value="" placeholder="Service Name">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div>
-                                                    <label class="form-label text-dark" for="to-amount">
-                                                        Image/Icon<span class="text-danger">*</span></label>
-                                                    <input class="form-control text-black" type="file" placeholder="Choose file" aria-label=".form-control example">
+                                                <div class="col-md-12">
+                                                    <div>
+                                                        <label class="form-label text-dark" for="to-amount">
+                                                            Image/Icon<span class="text-danger">*</span></label>
+                                                        <input class="form-control text-black" type="file" placeholder="Choose file" name="service_image" aria-label=".form-control example">
+                                                        <input type="hidden" id="Old_ServiceImgPath" name="old_service_imagePath">
+                                                        <img class="pt-3" width="200px" id="EditserviceImage">
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Update</button>
-                            </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Update</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -93,7 +98,7 @@
                                 </p>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <form id="edit_form">
+                            <form id="add_form">
                                 <div class="modal-body">
                                     <div class="card px-4 rounded-0 py-2">
 
@@ -167,7 +172,7 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <button value="${value.id}" class="btn btn-sm btn-soft-info" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bi bi-pen"></i></button>
+                                        <button id="editBtn" value="${value.id}" class="btn btn-sm btn-soft-info" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bi bi-pen"></i></button>
                                     </td>
                                 </tr>`
                         i++;
@@ -178,7 +183,7 @@
             })
         }
         fetchData();
-        $(document).on('submit', '#edit_form', function(e) {
+        $(document).on('submit', '#add_form', function(e) {
             e.preventDefault();
             var formData = new FormData(this);
             formData.append('_token', '{{ csrf_token() }}');
@@ -193,7 +198,7 @@
                     console.log(response);
                     if (response.success) {
                         $('#exampleModaladd').modal('hide');
-                        $('#edit_form')[0].reset();
+                        $('#add_form')[0].reset();
                         $('#alertMsg').html(response.success);
                         $('#alertMsg').removeClass('d-none');
                         setTimeout(() => {
@@ -205,6 +210,50 @@
                         response.errors.service_name ? $('#err_service_name').html(response.errors.service_name) : $('#err_service_name').html('');
                         response.errors.service_image ? $('#err_service_image').html(response.errors.service_image) : $('#err_service_image').html('');
                     }
+                }
+            })
+        });
+        $(document).on('submit', '#edit_form', function(e) {
+            e.preventDefault();
+            var formData = new FormData(this);
+            formData.append('_token', '{{ csrf_token() }}');
+            $.ajax({
+                url: '{{route("edit_service")}}',
+                type: "POST",
+                dataType: "JSON",
+                contentType: false,
+                processData: false,
+                data: formData,
+                success: function(response) {
+                    if (response.success) {
+                        $('#exampleModal').modal('hide');
+                        $('#edit_form')[0].reset();
+                        $('#alertMsg').html(response.success);
+                        $('#alertMsg').removeClass('d-none');
+                        setTimeout(() => {
+                            $('#alertMsg').addClass('d-none');
+                        }, 2000);
+                        fetchData();
+                    }
+                }
+            })
+        });
+        $(document).on('click', '#editBtn', function() {
+            var id = $(this).val();
+            $.ajax({
+                url: '{{route("Fetch_serviceByID")}}',
+                type: "GET",
+                dataType: "JSON",
+                data: {
+                    id: id
+                },
+                success: function(response) {
+                    var ImgUrl = "{{ asset(':path') }}";
+                    ImgUrl = ImgUrl.replace(':path', response.service_image);
+                    response.service_name ? $('#ServiceNameEdit').val(response.service_name) : '';
+                    response.service_image ? $('#EditserviceImage').attr('src', ImgUrl) : '';
+                    response.id ? $('#Service_IDEdit').val(response.id) : '';
+                    response.service_image ? $('#Old_ServiceImgPath').val(response.service_image) : '';
                 }
             })
         });

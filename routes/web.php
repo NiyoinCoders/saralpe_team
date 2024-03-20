@@ -353,6 +353,8 @@ Route::group(['prefix' => 'b2b'], function () {
         Route::get('manage_services', [HomeController::class, 'manage_services'])->name('manage_services');
         Route::post('add_service', [ServicesController::class, 'add_service'])->name('add_service');
         Route::get('get_services', [ServicesController::class, 'get_services'])->name('get_services');
+        Route::post('edit_service', [ServicesController::class, 'edit_service'])->name('edit_service');
+        Route::get('Fetch_serviceByID', [ServicesController::class, 'Fetch_serviceByID'])->name('Fetch_serviceByID');
 
         // manage services end
 
