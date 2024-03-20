@@ -36,6 +36,7 @@ use App\Http\Controllers\AndroidApiController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\CompanyBankController;
 use App\Http\Controllers\CommissionController;
+use App\Http\Controllers\ServicesController;
 use App\Mail\UserOTPMail;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
@@ -316,14 +317,14 @@ Route::group(['prefix' => 'b2b'], function () {
         Route::post('pending_user', [UserController::class, 'pending_user_update'])->name('pending-user.update');
 
         // users manage 
-       // Route::get('users', [UserController::class, 'index'])->name('all-user.index');
-        
+        // Route::get('users', [UserController::class, 'index'])->name('all-user.index');
+
         //Route::resource('users', UserController::class);
         Route::get('users', [UserController::class, 'index'])->name('users.index');
-Route::post('users', [UserController::class, 'store'])->name('users.store');
-Route::get('users/create', [UserController::class, 'create'])->name('users.create');
-Route::get('users/{id}', [UserController::class, 'edit'])->name('users.edit');
-Route::put('users/{id}', [UserController::class, 'update'])->name('users.update');
+        Route::post('users', [UserController::class, 'store'])->name('users.store');
+        Route::get('users/create', [UserController::class, 'create'])->name('users.create');
+        Route::get('users/{id}', [UserController::class, 'edit'])->name('users.edit');
+        Route::put('users/{id}', [UserController::class, 'update'])->name('users.update');
         Route::get('add_Users', [UserController::class, 'add_Users'])->name('add_Users');
         // commision manage 
         Route::get('commision_slots', [HomeController::class, 'commision_slots'])->name('commision_slots');
@@ -334,20 +335,28 @@ Route::put('users/{id}', [UserController::class, 'update'])->name('users.update'
 
         // company bank
         Route::get('banks', [CompanyBankController::class, 'index'])->name('banks.index');
-Route::post('banks', [CompanyBankController::class, 'store'])->name('banks.store');
-Route::get('banks/create', [CompanyBankController::class, 'create'])->name('banks.create');
-Route::get('banks/{id}', [CompanyBankController::class, 'edit'])->name('banks.edit');
-Route::put('banks/{id}', [CompanyBankController::class, 'update'])->name('banks.update');
-Route::get('changeStatus', [CompanyBankController::class, 'changeStatus'])->name('changeStatus');
-Route::get('banklist', [CompanyBankController::class, 'banklist'])->name('banklist');
-       
+        Route::post('banks', [CompanyBankController::class, 'store'])->name('banks.store');
+        Route::get('banks/create', [CompanyBankController::class, 'create'])->name('banks.create');
+        Route::get('banks/{id}', [CompanyBankController::class, 'edit'])->name('banks.edit');
+        Route::put('banks/{id}', [CompanyBankController::class, 'update'])->name('banks.update');
+        Route::get('changeStatus', [CompanyBankController::class, 'changeStatus'])->name('changeStatus');
+        Route::get('banklist', [CompanyBankController::class, 'banklist'])->name('banklist');
+
         // fund
         Route::get('fund_request', [HomeController::class, 'fund_request'])->name('fund_request');
         Route::get('fund_transfer', [HomeController::class, 'fund_transfer'])->name('fund_transfer');
         Route::get('all_fund_transfer', [HomeController::class, 'all_fund_transfer'])->name('all_fund_transfer');
-        // manage services 
+
+
+        // manage services start
         Route::get('services', [HomeController::class, 'services'])->name('services');
         Route::get('manage_services', [HomeController::class, 'manage_services'])->name('manage_services');
+        Route::post('add_service', [ServicesController::class, 'add_service'])->name('add_service');
+        Route::get('get_services', [ServicesController::class, 'get_services'])->name('get_services');
+
+        // manage services end
+
+
         ////////////Ticket mange ////////////////////////
 
         Route::get('ticket', [HomeController::class, 'ticket'])->name('ticket');
