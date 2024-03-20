@@ -15,10 +15,10 @@ class CreateServicesTable extends Migration
     {
         Schema::create('services', function (Blueprint $table) {
             $table->id();
-            $table->string('service_name')->null();
-            $table->text('service_image')->null();
-            $table->string('status')->null();
-            $table->integer('for_slot')->comment('1= yes, 0=no')->nullable();
+            $table->string('service_name', 100)->nullable();
+            $table->text('service_image')->nullable();
+            $table->integer('status')->nullable();
+            $table->integer('for_slot')->default(1)->comment('1= yes, 0=no');
             $table->timestamps();
         });
     }

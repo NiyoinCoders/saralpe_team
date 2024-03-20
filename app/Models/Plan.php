@@ -9,6 +9,8 @@ class Plan extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'name', 'status'
+        'channel_id',
+        'plan_name',
+        'status'
     ];
 }
