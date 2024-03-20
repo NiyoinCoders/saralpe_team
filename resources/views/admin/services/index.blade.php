@@ -199,6 +199,7 @@
                         setTimeout(() => {
                             $('#alertMsg').addClass('d-none');
                         }, 2000);
+                        fetchData();
                     }
                     if (response.errors) {
                         response.errors.service_name ? $('#err_service_name').html(response.errors.service_name) : $('#err_service_name').html('');
