@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
-
+use Illuminate\Http\RedirectResponse;
 use App\Events\DataInserted;
 use App\Notifications\YourNotification;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -35,11 +35,11 @@ class UserController extends Controller
         //return view("admin.user.index"); 
     }
 
-    public function add_Users(){
+     /* public function add_Users(){
         $roles=\DB::table('roles')->get();
         $services=\DB::table('dc_services')->get();
-        return view("admin.user.add",compact('roles','services')); 
-    }
+        return view("admin.user.createOrUpdate",compact('roles','services')); 
+    }  */
     public function pending_user()
     {
         $users = DB::table("users")
@@ -75,6 +75,9 @@ class UserController extends Controller
     public function create()
     {
         //
+        $roles=\DB::table('roles')->get();
+        $services=\DB::table('dc_services')->get();
+        return view("admin.user.createOrUpdate",compact('roles','services')); 
     }
     /**
      * Store a newly created resource in storage.
@@ -82,7 +85,7 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         //
         $request->validate([
@@ -95,6 +98,8 @@ class UserController extends Controller
         return redirect()->route('users.index')
                         ->with('success','User created successfully.');
     }
+    
+
     /**
      * Display the specified resource.
      *
@@ -111,11 +116,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, $id)
-    {
-      //  dd('edit');
-        //
-    }
+   
     /**
      * Update the specified resource in storage.
      *
@@ -123,7 +124,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function Update(Request $request, $id)
+   /*  public function Update(Request $request, $id)
     {
 
 //        dd($request->all());
@@ -158,7 +159,7 @@ class UserController extends Controller
 
 
         return redirect('/admin/users')->with('message', 'User updated successfully!');
-    }
+    } */
 
     /**
      * Remove the specified resource from storage.
@@ -167,7 +168,31 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-
+     public function edit($id): View
+     {
+         $User = User::find($id);
+         return view('admin.user.createOrUpdate',compact('User'));
+     }
+   
+     /**
+      * Update the specified resource in storage.
+      */
+     public function update(Request $request, $id): RedirectResponse
+     {
+         $User = User::find($id);
+           
+         $request->validate([
+             'name' => 'required',
+             'email' => 'required'
+         ]);
+     
+         $input = $request->all();
+             
+         $User->update($input);
+       
+         return redirect()->route('users.index')
+                         ->with('success','User updated successfully');
+     }
     public function destroy($id)
     {
 

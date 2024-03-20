@@ -84,16 +84,14 @@
                         <div class="col-md-3 d-none">
                             <div class="form-group">
                                 <label class="form-label text-dark">KYC Status<span class="text-danger">*</span></label>
-                                <select class="form-select mb-3 shadow-none text-dark">
-                                    <option selected="">All</option>
-                                    <option value="admin-self">Admin - Self</option>
-                                    <option value="channel-partner">Channel Partner</option>
-                                    <option value="master-distributor">Master Distributor</option>
-                                    <option value="distributor">Distributor</option>
-                                    <option value="retailer">Retailer</option>
-                                    <option value="B2C">B2C</option>
-                                    <option value="employee">Employee</option>
-                                    <option value="white-label">White Label</option>
+                                
+                                    <select class="form-control" name="kyc_status" id="kyc_status">
+									<option value="">All</option>
+									<option value="-1">Not Submitted</option>
+									<option value="1">Verified</option>
+									<option value="2">Pending</option>
+									<option value="3">Rejected</option>
+								</select>
                                 </select>
                             </div>
                         </div>
