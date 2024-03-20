@@ -9,6 +9,9 @@ class Service extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'service_name', 'service_image', 'status', 'for_slot'
+        'service_name',
+        'service_image',
+        'status',
+        'for_slot'
     ];
 }
