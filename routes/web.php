@@ -383,6 +383,13 @@ Route::group(['prefix' => 'b2b'], function () {
         // Plans Start
         Route::get('add-plans', [PlanController::class, 'index'])->name('plans.index');
         Route::get('list-plans', [PlanController::class, 'plans_list'])->name('plans.plans');
+        Route::post('add-plan', [PlanController::class, 'add_plan'])->name('add-plan');
+        Route::post('edit_plan', [PlanController::class, 'edit_plan'])->name('edit_plan');
+        Route::get('get_plans', [PlanController::class, 'get_plans'])->name('get_plans');
+        Route::get('Fetch_planByID', [PlanController::class, 'Fetch_planByID'])->name('Fetch_planByID');
+        Route::post('planStatusChange', [PlanController::class, 'planStatusChange'])->name('planStatusChange');
+        Route::get('Delete_planByID', [PlanController::class, 'Delete_planByID'])->name('Delete_planByID');
+
         // Plans End
 
         // whatsapi
