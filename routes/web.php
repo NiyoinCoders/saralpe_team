@@ -355,6 +355,8 @@ Route::group(['prefix' => 'b2b'], function () {
         Route::get('get_services', [ServicesController::class, 'get_services'])->name('get_services');
         Route::post('edit_service', [ServicesController::class, 'edit_service'])->name('edit_service');
         Route::get('Fetch_serviceByID', [ServicesController::class, 'Fetch_serviceByID'])->name('Fetch_serviceByID');
+        Route::post('serviceStatusChange', [ServicesController::class, 'serviceStatusChange'])->name('serviceStatusChange');
+        Route::get('Delete_serviceByID', [ServicesController::class, 'Delete_serviceByID'])->name('Delete_serviceByID');
 
         // manage services end
 

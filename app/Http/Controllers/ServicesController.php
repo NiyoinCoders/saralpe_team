@@ -76,4 +76,20 @@ class ServicesController extends Controller
         $data = Service::findOrFail($request->id);
         return response($data);
     }
+    public function Delete_serviceByID(Request $request)
+    {
+        $data = Service::findOrFail($request->id);
+        if (File::exists(public_path($data->service_image))) {
+            File::delete(public_path($data->service_image));
+        }
+        $data->delete();
+        return response()->json(['success' => 'Service Deleted Successfully!'], 200);
+    }
+    public function serviceStatusChange(Request $request)
+    {
+        $service = Service::findOrFail($request->id);
+        $data['status'] = $request->value;
+        $service->update($data);
+        return response()->json(['success' => 'Service Status Updated Successfully!'], 200);
+    }
 }

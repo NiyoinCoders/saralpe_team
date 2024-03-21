@@ -159,7 +159,12 @@
                     console.log(response);
                     var html;
                     var i = 1;
-                    $.each(response, function(index, value) {
+                    if(response == ''){
+                        html += `<tr>
+                                    <td colspan="5" class="text-danger text-center">No Record Found!</td>
+                                </tr>`
+                    }else{
+                        $.each(response, function(index, value) {
                         var date = value.created_at;
                         var dateOnly = new Date(date).toISOString().split('T')[0];
                         html += `<tr>
@@ -168,21 +173,47 @@
                                     <td>${dateOnly}</td>
                                     <td>
                                         <div class="form-check form-switch form-check-inline">
-                                            <input class="form-check-input" type="checkbox" id="switch2" ${value.status == 1 ? 'checked': ''} />
+                                            <input class="form-check-input" type="checkbox" id="switch2" ${value.status == 1 ? 'checked': ''} data_id="${value.id}" />
                                         </div>
                                     </td>
                                     <td>
                                         <button id="editBtn" value="${value.id}" class="btn btn-sm btn-soft-info" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bi bi-pen"></i></button>
+                                        <button id="deleteBtn" value="${value.id}" class="btn btn-sm btn-danger" ><i class="bi bi-trash"></i></button>
                                     </td>
                                 </tr>`
                         i++;
                     });
+                    }
                     $('#tbody').html(html);
 
                 }
             })
         }
         fetchData();
+        $(document).on('change', '#switch2', function() {
+            var id = $(this).attr('data_id');
+            var value = $(this).prop('checked') ? 1 : 0;
+            $.ajax({
+                url: "{{route('serviceStatusChange')}}",
+                type: 'POST',
+                dataType: "JSON",
+                data: {
+                    id: id,
+                    value: value,
+                    _token: "{{ csrf_token() }}"
+                },
+                success: function(response) {
+                    if (response.success) {
+                        $('#alertMsg').html(response.success);
+                        $('#alertMsg').removeClass('d-none');
+                        setTimeout(() => {
+                            $('#alertMsg').addClass('d-none');
+                        }, 2000);
+                        fetchData();
+                    }
+                }
+            });
+        })
         $(document).on('submit', '#add_form', function(e) {
             e.preventDefault();
             var formData = new FormData(this);
@@ -254,6 +285,27 @@
                     response.service_image ? $('#EditserviceImage').attr('src', ImgUrl) : '';
                     response.id ? $('#Service_IDEdit').val(response.id) : '';
                     response.service_image ? $('#Old_ServiceImgPath').val(response.service_image) : '';
+                }
+            })
+        });
+        $(document).on('click', '#deleteBtn', function() {
+            var id = $(this).val();
+            $.ajax({
+                url: '{{route("Delete_serviceByID")}}',
+                type: "GET",
+                dataType: "JSON",
+                data: {
+                    id: id
+                },
+                success: function(response) {
+                    if (response.success) {
+                        $('#alertMsg').html(response.success);
+                        $('#alertMsg').removeClass('d-none');
+                        setTimeout(() => {
+                            $('#alertMsg').addClass('d-none');
+                        }, 2000);
+                        fetchData();
+                    }
                 }
             })
         });
