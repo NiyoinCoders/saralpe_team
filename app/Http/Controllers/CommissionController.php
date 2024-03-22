@@ -17,7 +17,7 @@ class CommissionController extends Controller
         $rules = [
             'user_type' => 'required|string',
             'plan_id' => 'required|string',
-            'serves__id' => 'required|string',
+            'service_id' => 'required|string',
             'commission_type' => 'required|string',
             'from_amount' => 'required|integer',
             'to_amount' => 'required|integer',
@@ -42,20 +42,45 @@ class CommissionController extends Controller
 
         $commissionData = $validator->validated();
         Commission::create($commissionData);
-        return response()->json(['success' => 'Commission Added Successfully!']);
+        return response()->json(['success' => 'Commission Added Successfully!'], 201);
     }
+
     public function list_Commission()
     {
         $commissions = Commission::all();
-        return response()->json($commissions);
+        $commissionData = [];
+
+        foreach ($commissions as $commission) {
+            $role = Role::where('id', $commission->user_type)->first();
+            $service = Service::where('id', $commission->service_id)->first();
+            $plan = Plan::where('id', $commission->plan_id)->first();
+            $data = [
+                'id' => $commission->id,
+                'user_type' => $role->name,
+                'service_name' => $service->service_name,
+                'commission_type' => $commission->commission_type,
+                'from_amount' => $commission->from_amount,
+                'to_amount' => $commission->to_amount,
+                'percentage' => $commission->percentage,
+                'commission_amt' => $commission->commission_amt,
+                'plan' => $plan->plan_name,
+                'chain_type' => $commission->chain_type,
+                'status' => $commission->status,
+            ];
+            $commissionData[] = $data;
+        }
+
+        return response()->json($commissionData);
     }
     public function edit_Commission($id)
     {
-        $commissions = Commission::where('id', $id)->get();
-        $service = Service::all();
-        $role = Role::all();
-        $plans = Plan::all();
+        $commission = Commission::find($id);
 
-        return view('admin.commision.edit')->with(['commissions' => $commissions, 'plans' => $plans, 'service' => $service, 'role' => $role]);
+        return view('admin.commision.edit')->with([
+            'commissions' => $commission,
+            'plans' => Plan::all(),
+            'services' => Service::all(),
+            'roles' => Role::all(),
+        ]);
     }
 }

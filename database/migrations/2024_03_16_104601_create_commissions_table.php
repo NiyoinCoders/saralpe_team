@@ -17,10 +17,10 @@ class CreateCommissionsTable extends Migration
             $table->id();
             $table->string('channel_id', 25)->nullable();
             $table->integer('user_type')->nullable();
-            $table->integer('new_user_type');
+            $table->integer('new_user_type')->nullable();
             $table->integer('service_id')->nullable();
-            $table->enum('commission_type', ['1', '2'])->nullable()->comment('1=by amount, 2=percentage');
-            $table->text('for_specific_user')->comment('specific user id');
+            $table->string('commission_type')->nullable();
+            $table->text('for_specific_user')->nullable();
             $table->decimal('from_amount', 8, 2)->nullable();
             $table->decimal('to_amount', 8, 2)->nullable();
             $table->decimal('percentage', 8, 2)->nullable();

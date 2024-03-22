@@ -62,7 +62,7 @@
                         Showing <span>0</span> to <span>0</span> of <span>0</span> entries
                     </div>
                     <div class="col-md-6 d-flex justify-content-end">
-                      
+
                         <!-- edit model  start here-->
                         <!-- delete model start  -->
                         <div class="modal fade" id="exampleModaldeletebank" tabindex="-1" aria-labelledby="exampleModalLabeldeletebank" aria-hidden="true">
@@ -113,20 +113,20 @@
             success: function(response) {
                 var html;
                 var i = 1;
+                console.log(response)
                 $.each(response, function(index, value) {
-                    var CommissionData = JSON.parse(value.data);
                     var url = "{{ route('edit_Commission', ['id' => ':id']) }}";
                     url = url.replace(':id', value.id);
 
                     html += `<tr>
                                 <td>${i}</td>
-                                <td>${CommissionData.user_type}</td>
-                                <td>${CommissionData.serves_type}</td>
-                                <td>${CommissionData.commission_type}</td>
-                                <td>Rs. ${CommissionData.from_amount}-${CommissionData.to_amount}</td>
-                                <td>Rs. ${CommissionData.commission_amount ? CommissionData.commission_amount : CommissionData.commission_percentage}</td>
-                                <td>${CommissionData.plan}</td>
-                                <td>${CommissionData.chain_type}</td>
+                                <td>${value.user_type}</td>
+                                <td>${value.service_name}</td>
+                                <td>${value.commission_type}</td>
+                                <td>Rs. ${value.from_amount}-${value.to_amount}</td>
+                                <td>Rs. ${value.commission_amt ? value.commission_amt : value.percentage}</td>
+                                <td>${value.plan}</td>
+                                <td>${value.chain_type}</td>
                                 <td>
                                     <div class="form-check form-switch form-check-inline">
                                         <input class="form-check-input" type="checkbox" id="switch2" ${value.status == 1 ? 'checked' : ''} />

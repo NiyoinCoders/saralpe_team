@@ -41,7 +41,7 @@
 
                         <div class="form-group">
                             <label class="form-label text-dark">Service<span class="text-danger">* <span id="error_serves_type"></span></span></label>
-                            <select class="form-select mb-3 shadow-none text-dark" name="serves__id" id="ItemIservestype">
+                            <select class="form-select mb-3 shadow-none text-dark" name="service_id" id="ItemIservestype">
                                 <option value="" selected="">--Choose--</option>
                                 @foreach($services as $service)
                                 <option value="{{$service['id']}}">{{$service['service_name']}}</option>
@@ -55,8 +55,8 @@
                             <label class="form-label text-dark">Commission Type<span class="text-danger">* <span id="error_commission_type"></span></span></label>
                             <select id="commission_op" class="form-select mb-3 shadow-none text-dark" name="commission_type">
                                 <option value="" selected="">--Choose--</option>
-                                <option value="1">By Amount</option>
-                                <option value="2">By Percentage</option>
+                                <option value="Amount">By Amount</option>
+                                <option value="Percentage">By Percentage</option>
                             </select>
                         </div>
 
@@ -90,8 +90,8 @@
                             <label class="form-label text-dark">Transaction Type<span class="text-danger">* <span id="error_transaction_type"></span></span></label>
                             <select class="form-select mb-3 shadow-none text-dark" name="type">
                                 <option value="" selected="">--Choose--</option>
-                                <option value="credit">Credit</option>
-                                <option value="debit">Debit</option>
+                                <option value="C">Credit</option>
+                                <option value="D">Debit</option>
                             </select>
                         </div>
 
@@ -134,15 +134,15 @@
                             response.errors.chain_type ? $('#error_chain_type').html(response.errors.chain_type) : $('#error_chain_type').html('');
                             response.errors.commission_type ? $('#error_commission_type').html(response.errors.commission_type) : $('#error_commission_type').html('');
                             response.errors.from_amount ? $('#error_from_amount').html(response.errors.from_amount) : $('#error_from_amount').html('');
-                            response.errors.plan ? $('#error_plan').html(response.errors.plan) : $('#error_plan').html('');
-                            response.errors.serves_type ? $('#error_serves_type').html(response.errors.serves_type) : $('#error_serves_type').html('');
-                            response.errors.tds_gst ? $('#error_tds_gst').html(response.errors.tds_gst) : $('#error_tds_gst').html('');
+                            response.errors.plan_id ? $('#error_plan').html(response.errors.plan_id) : $('#error_plan').html('');
+                            response.errors.service_id ? $('#error_serves_type').html(response.errors.service_id) : $('#error_serves_type').html('');
+                            response.errors.charges ? $('#error_tds_gst').html(response.errors.charges) : $('#error_tds_gst').html('');
                             response.errors.to_amount ? $('#error_to_amount').html(response.errors.to_amount) : $('#error_to_amount').html('');
-                            response.errors.transaction_type ? $('#error_transaction_type').html(response.errors.transaction_type) : $('#error_transaction_type').html('');
+                            response.errors.type ? $('#error_transaction_type').html(response.errors.type) : $('#error_transaction_type').html('');
                             response.errors.user_type ? $('#error_user_type').html(response.errors.user_type) : $('#error_user_type').html('');
                             response.errors.username ? $('#error_username').html(response.errors.username) : $('#error_username').html('');
-                            response.errors.commission_percentage ? $('#error_commission_percentage').html(response.errors.commission_percentage) : $('#error_commission_percentage').html('');
-                            response.errors.commission_amount ? $('#error_commission_amount').html(response.errors.commission_amount) : $('#error_commission_amount').html('');
+                            response.errors.percentage ? $('#error_commission_percentage').html(response.errors.percentage) : $('#error_commission_percentage').html('');
+                            response.errors.commission_amt ? $('#error_commission_amount').html(response.errors.commission_amt) : $('#error_commission_amount').html('');
                         }
                         if (response.success) {
                             $('#alertMsg').removeClass('d-none');
