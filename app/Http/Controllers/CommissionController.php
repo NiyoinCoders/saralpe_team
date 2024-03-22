@@ -40,8 +40,8 @@ class CommissionController extends Controller
             return response()->json(['errors' => $validator->errors()]);
         }
 
-        $commissionData = json_encode($validator->validated());
-        Commission::create(['data' => $commissionData]);
+        $commissionData = $validator->validated();
+        Commission::create($commissionData);
         return response()->json(['success' => 'Commission Added Successfully!']);
     }
     public function list_Commission()
