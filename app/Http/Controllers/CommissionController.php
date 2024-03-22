@@ -16,22 +16,22 @@ class CommissionController extends Controller
     {
         $rules = [
             'user_type' => 'required|string',
-            'plan' => 'required|string',
-            'serves_type' => 'required|string',
+            'plan_id' => 'required|string',
+            'serves__id' => 'required|string',
             'commission_type' => 'required|string',
             'from_amount' => 'required|integer',
             'to_amount' => 'required|integer',
-            'tds_gst' => 'required|integer',
+            'charges' => 'required|integer',
             'chain_type' => 'required|string',
-            'transaction_type' => 'required|string',
+            'type' => 'required|string',
             'username' => 'required|string',
         ];
 
-        if ($request->has('commission_amount')) {
-            $rules['commission_amount'] = 'required|integer';
+        if ($request->has('commission_amt')) {
+            $rules['commission_amt'] = 'required|integer';
         }
-        if ($request->has('commission_percentage')) {
-            $rules['commission_percentage'] = 'required|integer';
+        if ($request->has('percentage')) {
+            $rules['percentage'] = 'required|integer';
         }
 
         $validator = Validator::make($request->all(), $rules);

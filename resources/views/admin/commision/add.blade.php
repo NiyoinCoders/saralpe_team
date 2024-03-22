@@ -23,38 +23,28 @@
                             <label class="form-label text-dark">User Type<span class="text-danger">* <span id="error_user_type"></span></span></label>
                             <select class="form-select mb-3 shadow-none text-dark" name="user_type">
                                 <option value="" selected="">--Choose--</option>
-                                <option value="admin-self">Admin - Self</option>
-                                <option value="channel-partner">Channel Partner</option>
-                                <option value="master-distributor">Master Distributor</option>
-                                <option value="distributor">Distributor</option>
-                                <option value="retailer">Retailer</option>
-                                <option value="B2C">B2C</option>
-                                <option value="employee">Employee</option>
-                                <option value="white-label">White Label</option>
+                                @foreach($user_types as $user_type)
+                                <option value="{{$user_type['id']}}">{{$user_type['name']}}</option>
+                                @endforeach
                             </select>
                         </div>
 
                         <div class="form-group">
                             <label class="form-label text-dark">Plan<span class="text-danger">* <span id="error_plan"></span></span></label>
-                            <select class="form-select mb-3 shadow-none text-dark" name="plan">
+                            <select class="form-select mb-3 shadow-none text-dark" name="plan_id">
                                 <option value="" selected="">--Choose--</option>
-                                <option value="Smart Retailer">Smart Retailer</option>
-                                <option value="Smart Distributor">Smart Distributor</option>
-                                <option value="Smart Super Distributor">Smart Super Distributor</option>
-                                <option value="Master Starter">Master Starter</option>
-                                <option value="fos">fos</option>
-                                <option value="VIP Pack">VIP Pack</option>
-                                <option value="Vivek">Vivek</option>
-                                <option value="SBV Distributor">SBV Distributor</option>
+                                @foreach($plans as $plan)
+                                <option value="{{$plan['id']}}">{{$plan['plan_name']}}</option>
+                                @endforeach
                             </select>
                         </div>
 
                         <div class="form-group">
                             <label class="form-label text-dark">Service<span class="text-danger">* <span id="error_serves_type"></span></span></label>
-                            <select class="form-select mb-3 shadow-none text-dark" name="serves_type" id="ItemIservestype">
+                            <select class="form-select mb-3 shadow-none text-dark" name="serves__id" id="ItemIservestype">
                                 <option value="" selected="">--Choose--</option>
-                                @foreach($serves as $serve)
-                                <option value="{{$serve->id}}">{{$serve->service_name}}</option>
+                                @foreach($services as $service)
+                                <option value="{{$service['id']}}">{{$service['service_name']}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -84,7 +74,7 @@
 
                         <div class="form-group">
                             <label class="form-label text-dark" for="tds-gst-charge">TDS/GST (in %)<span class="text-danger">* <span id="error_tds_gst"></span></span></label>
-                            <input type="text" class="form-control text-dark" id="tds-gst-charge" name="tds_gst" value="" placeholder="Enter TDS/GST Charge">
+                            <input type="text" class="form-control text-dark" id="tds-gst-charge" name="charges" value="" placeholder="Enter TDS/GST Charge">
                         </div>
 
                         <div class="form-group">
@@ -98,7 +88,7 @@
 
                         <div class="form-group">
                             <label class="form-label text-dark">Transaction Type<span class="text-danger">* <span id="error_transaction_type"></span></span></label>
-                            <select class="form-select mb-3 shadow-none text-dark" name="transaction_type">
+                            <select class="form-select mb-3 shadow-none text-dark" name="type">
                                 <option value="" selected="">--Choose--</option>
                                 <option value="credit">Credit</option>
                                 <option value="debit">Debit</option>
@@ -241,13 +231,13 @@
         let commisionAmountData = `
                         <div class="form-group">
                             <label class="form-label text-dark" for="commissionAmount">Commission Amount<span class="text-danger">* <span id="error_commission_amount"></span></span></label>
-                            <input type="text" class="form-control text-dark" id="commissionAmount" name="commission_amount" placeholder="Commission Amount">
+                            <input type="text" class="form-control text-dark" id="commissionAmount" name="commission_amt" placeholder="Commission Amount">
                         </div>    
     `;
         let commisionPercentageData = `
                         <div class="form-group">
                             <label class="form-label text-dark" for="commissionPercentage">Commission Percentage<span class="text-danger">* <span id="error_commission_percentage"></span></span></label>
-                            <input type="text" class="form-control text-dark" id="commissionPercentage" name="commission_percentage" placeholder="Commission Percentage">
+                            <input type="text" class="form-control text-dark" id="commissionPercentage" name="percentage" placeholder="Commission Percentage">
                         </div>    
     `;
 
