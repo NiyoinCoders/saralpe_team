@@ -5,6 +5,13 @@
 
 <div class="conatiner-fluid">
     <div class="card px-4 rounded-0 py-2">
+        <div id="alertMsg" class="alert alert-success d-none" role="alert">
+        </div>
+        @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+        @endif
         <!-- table start  -->
         <div class="card-body p-0 mx-4">
             <p class="text-white fw-bold bg-primary px-4 rounded-1 py-2 user-select-none">
@@ -106,19 +113,22 @@
 @section('scripts')
 <script type="text/javascript">
     $(document).ready(function() {
-        $.ajax({
-            url: '{{route("index_Commission")}}',
-            type: "GET",
-            dataType: "JSON",
-            success: function(response) {
-                var html;
-                var i = 1;
-                console.log(response)
-                $.each(response, function(index, value) {
-                    var url = "{{ route('edit_Commission', ['id' => ':id']) }}";
-                    url = url.replace(':id', value.id);
+        function fetchList() {
+            $.ajax({
+                url: '{{route("index_Commission")}}',
+                type: "GET",
+                dataType: "JSON",
+                success: function(response) {
+                    var html;
+                    var i = 1;
+                    console.log(response)
+                    $.each(response, function(index, value) {
+                        var url = "{{ route('edit_Commission', ['id' => ':id']) }}";
+                        url = url.replace(':id', value.id);
 
-                    html += `<tr>
+                        var deleteUrl = "{{ route('delete_Commission', ['id' => ':id']) }}";
+                        deleteUrl = deleteUrl.replace(':id', value.id);
+                        html += `<tr>
                                 <td>${i}</td>
                                 <td>${value.user_type}</td>
                                 <td>${value.service_name}</td>
@@ -129,19 +139,45 @@
                                 <td>${value.chain_type}</td>
                                 <td>
                                     <div class="form-check form-switch form-check-inline">
-                                        <input class="form-check-input" type="checkbox" id="switch2" ${value.status == 1 ? 'checked' : ''} />
+                                        <input class="form-check-input" type="checkbox" id="switch2" data_id="${value.id}" ${value.status == 1 ? 'checked' : ''} />
                                     </div>
                                 </td>
                                 <td>
                                     <a href="${url}" class="btn btn-sm btn-soft-info"><i class="bi bi-pen"></i></a>
-                                    <a href="" class="btn btn-sm btn-soft-danger"><i class="bi bi-trash"></i></a>
+                                    <a href="${deleteUrl}" class="btn btn-sm btn-soft-danger"><i class="bi bi-trash"></i></a>
                                 </td>
                             </tr>`;
-                    i++;
-                });
-                $('#tbody').html(html);
-            }
-        });
-    })
+                        i++;
+                    });
+                    $('#tbody').html(html);
+                }
+            });
+        }
+        fetchList();
+        $(document).on('change', '#switch2', function() {
+            var id = $(this).attr('data_id');
+            var value = $(this).prop('checked') ? 1 : 0;
+            $.ajax({
+                url: "{{route('CommissionStatusChange')}}",
+                type: 'POST',
+                dataType: "JSON",
+                data: {
+                    id: id,
+                    value: value,
+                    _token: "{{ csrf_token() }}"
+                },
+                success: function(response) {
+                    if (response.success) {
+                        $('#alertMsg').html(response.success);
+                        $('#alertMsg').removeClass('d-none');
+                        setTimeout(() => {
+                            $('#alertMsg').addClass('d-none');
+                        }, 2000);
+                        fetchList();
+                    }
+                }
+            });
+        })
+    });
 </script>
 @endsection

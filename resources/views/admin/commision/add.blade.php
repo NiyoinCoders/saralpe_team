@@ -282,10 +282,10 @@
             const commission_op = e.target.value;
 
             switch (commission_op) {
-                case '1':
+                case 'Amount':
                     document.getElementById('commission_box').innerHTML = commisionAmountData;
                     break;
-                case '2':
+                case 'Percentage':
                     document.getElementById('commission_box').innerHTML = commisionPercentageData;
                     break;
                 default:

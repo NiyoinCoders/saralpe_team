@@ -332,6 +332,9 @@ Route::group(['prefix' => 'b2b'], function () {
         Route::post('add_Commission', [CommissionController::class, 'add_Commission'])->name('add_Commission');
         Route::get('index_Commission', [CommissionController::class, 'list_Commission'])->name('index_Commission');
         Route::get('edit_Commission/{id}', [CommissionController::class, 'edit_Commission'])->name('edit_Commission');
+        Route::post('update_Commission', [CommissionController::class, 'update_Commission'])->name('update_Commission');
+        Route::get('delete_Commission/{id}', [CommissionController::class, 'delete_Commission'])->name('delete_Commission');
+        Route::post('CommissionStatusChange', [CommissionController::class, 'CommissionStatusChange'])->name('CommissionStatusChange');
 
         // company bank
         Route::get('banks', [CompanyBankController::class, 'index'])->name('banks.index');

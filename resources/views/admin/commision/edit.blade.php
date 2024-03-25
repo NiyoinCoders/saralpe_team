@@ -20,6 +20,7 @@
                     <div class="d-flex flex-column flex-md-row flex-lg-row flex-xl-row flex-xxl-row flex-wrap gap-4">
 
                         <div class="form-group">
+                            <input type="hidden" name="commission_id" value="{{$commissions->id}}">
                             <label class="form-label text-dark">User Type<span class="text-danger">* <span id="error_user_type"></span></span></label>
                             <select class="form-select mb-3 shadow-none text-dark" name="user_type">
                                 <option value="">--Choose--</option>
@@ -123,7 +124,7 @@
             $(document).on('submit', '#commission_Form', function(e) {
                 e.preventDefault();
                 $.ajax({
-                    url: '{{route("add_Commission")}}',
+                    url: '{{route("update_Commission")}}',
                     type: 'Post',
                     dataType: "JSON",
                     processData: false,
@@ -147,9 +148,9 @@
                         if (response.success) {
                             $('#alertMsg').removeClass('d-none');
                             $('#alertMsg').html(response.success);
-                            $('#commission_Form')[0].reset();
                             setTimeout(() => {
                                 $('#alertMsg').addClass('d-none');
+                                window.location.href = "{{route('commision_slots')}}";
                             }, 2000);
                         }
                     }
@@ -159,133 +160,25 @@
     </script>
     @endsection
     <script>
-        let operatorData = `
-                        <div class="form-group">
-                            <label class="form-label text-dark">Operator<span class="text-danger">* <span id="error_operator"></span></span></label>
-                            <select class="form-select mb-3 shadow-none text-dark" name="operator">
-                                <option >--Choose--</option>
-                                <option value="1">Airtel</option>
-                                <option value="2">BSNL</option>
-                                <option value="3">Idea</option>
-                                <option value="4">Jio</option>
-                                <option value="5">MTNL Delhi</option>
-                                <option value="6">MTNL Mumbai</option>
-                                <option value="7">Vodafone</option>
-                            </select>
-                        </div>
-    `;
-        let operatorCategoryData = `
-                        <div class="form-group">
-                                <label class="form-label text-dark">Operator Category<span class="text-danger">* <span id="error_operator_category"></span></span></label>
-                                <select class="form-select mb-3 shadow-none text-dark" name="operator_category">
-                                    <option value="">-- Choose --</option>
-                                    <option value="Broadband">Broadband</option>
-                                    <option value="Cable">Cable</option>
-                                    <option value="Datacard Postpaid">Datacard Postpaid</option>
-                                    <option value="Datacard Prepaid">Datacard Prepaid</option>
-                                    <option value="dsds">dsds</option>
-                                    <option value="Electricity">Electricity</option>
-                                    <option value="EMI">EMI</option>
-                                    <option value="Fastag">Fastag</option>
-                                    <option value="Gas">Gas</option>
-                                    <option value="Insurance">Insurance</option>
-                                    <option value="Landline">Landline</option>
-                                    <option value="LPG">LPG</option>
-                                    <option value="Municipality">Municipality</option>
-                                    <option value="Postpaid">Postpaid</option>
-                                    <option value="sal007">sal007</option>
-                                    <option value="test">test</option>
-                                    <option value="Water">Water</option>
-                                </select>
-                        </div>
-    `;
+        const commisionAmountData = `<div class="form-group">
+    <label class="form-label text-dark" for="commissionAmount">Commission Amount<span class="text-danger">* <span id="error_commission_amount"></span></span></label>
+    <input type="text" class="form-control text-dark" id="commissionAmount" name="commission_amt" value="{{$commissions->commission_amt ? $commissions->commission_amt: ''}}" placeholder="Commission Amount">
+</div>`;
 
-        let payoutModeData = `
-                        <label class="form-label text-dark">Mode<span class="text-danger">* <span id="error_mode"></span></span></label>
-                        <select class="form-select mb-3 shadow-none text-dark" name="mode">
-                            <option value="">-- Choose --</option><option value="NEFT">NEFT</option>
-                            <option value="IMPS">IMPS</option>
-                            <option value="RTGS">RTGS</option>
-                        </select>
-    `;
+        const commisionPercentageData = `<div class="form-group">
+    <label class="form-label text-dark" for="commissionPercentage">Commission Percentage<span class="text-danger">* <span id="error_commission_percentage"></span></span></label>
+    <input type="text" class="form-control text-dark" id="commissionPercentage" name="percentage"  value="{{$commissions->percentage ? $commissions->percentage: ''}}" placeholder="Commission Percentage">
+</div>`;
 
-        let paymentGatewayModeData = `
-                        <label class="form-label text-dark">Mode<span class="text-danger">* <span id="error_mode"></span></span></label>
-                        <select class="form-select mb-3 shadow-none text-dark" name="mode">
-                            <option value="">-- Choose --</option>
-                            <option value="CREDIT_CARD">Credit Card</option>
-                            <option value="DEBIT_CARD">Debit Card</option>
-                            <option value="NET_BANKING">Net Banking</option>
-                            <option value="UPI">UPI</option>
-                            <option value="Paytm">Paytm</option>
-                            <option value="PhonePe">PhonePe</option>
-                            <option value="AmazonPay">Amazon Pay</option>
-                            <option value="AIRTEL_MONEY">Airtel Money Wallet</option>
-                            <option value="FreeCharge">Freecharge Wallet</option>
-                            <option value="MobiKwik">MobiKwik Wallet</option>
-                            <option value="OLA">Ola Wallet</option>
-                            <option value="JioMoney">JioMoney Wallet</option>
-                        </select>
-    `;
-
-        let commisionAmountData = `
-                        <div class="form-group">
-                            <label class="form-label text-dark" for="commissionAmount">Commission Amount<span class="text-danger">* <span id="error_commission_amount"></span></span></label>
-                            <input type="text" class="form-control text-dark" id="commissionAmount" name="commission_amt" placeholder="Commission Amount">
-                        </div>    
-    `;
-        let commisionPercentageData = `
-                        <div class="form-group">
-                            <label class="form-label text-dark" for="commissionPercentage">Commission Percentage<span class="text-danger">* <span id="error_commission_percentage"></span></span></label>
-                            <input type="text" class="form-control text-dark" id="commissionPercentage" name="percentage" placeholder="Commission Percentage">
-                        </div>    
-    `;
-
-        const service_op = document.getElementById('ItemIservestype');
         const commission_op = document.getElementById('commission_op');
 
-        const handleServiceOption = (e) => {
-            const service_op = e.target.value;
-            console.log(typeof service_op)
-
-
-            switch (service_op) {
-                case '1':
-                    document.getElementById('opertaor_box').innerHTML = operatorData;
-                    break;
-                case '3':
-                    document.getElementById('opertaor_box').innerHTML = operatorCategoryData;
-                    break;
-                case '4':
-                    document.getElementById('opertaor_box').innerHTML = null;
-                    break;
-                case '6':
-                    document.getElementById('opertaor_box').innerHTML = payoutModeData;
-                    break;
-                case '8':
-                    document.getElementById('opertaor_box').innerHTML = null;
-                    break;
-                case '10':
-                    document.getElementById('opertaor_box').innerHTML = paymentGatewayModeData;
-                    break;
-                case '11':
-                    document.getElementById('opertaor_box').innerHTML = null;
-                    break;
-                default:
-                    document.getElementById('opertaor_box').innerHTML = null;
-                    break;
-            }
-
-        }
-
-        const handleCommisionOption = (e) => {
-            const commission_op = e.target.value;
-
-            switch (commission_op) {
-                case '1':
+        const handleCommisionOption = () => {
+            const selectedOption = commission_op.value;
+            switch (selectedOption) {
+                case 'Amount':
                     document.getElementById('commission_box').innerHTML = commisionAmountData;
                     break;
-                case '2':
+                case 'Percentage':
                     document.getElementById('commission_box').innerHTML = commisionPercentageData;
                     break;
                 default:
@@ -294,8 +187,11 @@
             }
         }
 
-        service_op.addEventListener('change', handleServiceOption);
-        commission_op.addEventListener('change', handleCommisionOption)
+        commission_op.addEventListener('change', handleCommisionOption);
+
+        document.addEventListener("DOMContentLoaded", function() {
+            handleCommisionOption();
+        });
     </script>
 
     <!-- ********************** main content end here ********************** -->

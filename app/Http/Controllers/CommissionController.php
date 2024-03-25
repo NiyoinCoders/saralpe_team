@@ -45,6 +45,43 @@ class CommissionController extends Controller
         return response()->json(['success' => 'Commission Added Successfully!'], 201);
     }
 
+    public function update_Commission(Request $request)
+    {
+        $rules = [
+            'user_type' => 'required|string',
+            'plan_id' => 'required|string',
+            'service_id' => 'required|string',
+            'commission_type' => 'required|string',
+            'from_amount' => 'required|numeric',
+            'to_amount' => 'required|numeric',
+            'charges' => 'required|numeric',
+            'chain_type' => 'required|string',
+            'type' => 'required|string',
+            'username' => 'required|string',
+        ];
+
+        if ($request->has('commission_amt')) {
+            $rules['commission_amt'] = 'required|numeric';
+        }
+        if ($request->has('percentage')) {
+            $rules['percentage'] = 'required|numeric';
+        }
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()]);
+        }
+        $commissionData = $validator->validated();
+        $commission = Commission::find($request->commission_id);
+
+        if (!$commission) {
+            return response()->json(['error' => 'Commission not found'], 404);
+        }
+
+        $commission->update($commissionData);
+
+        return response()->json(['success' => 'Commission Updated Successfully!'], 200);
+    }
+
     public function list_Commission()
     {
         $commissions = Commission::all();
@@ -82,5 +119,21 @@ class CommissionController extends Controller
             'services' => Service::all(),
             'roles' => Role::all(),
         ]);
+    }
+    public function delete_Commission($id)
+    {
+        $commission = Commission::find($id);
+        if (!$commission) {
+            return redirect()->back()->with(['error' => 'Commission not found']);
+        }
+        $commission->delete();
+        return redirect()->back()->with(['success' => 'Commission deleted successfully']);
+    }
+    public function CommissionStatusChange(Request $request)
+    {
+        $commission = Commission::findOrFail($request->id);
+        $data['status'] = $request->value;
+        $commission->update($data);
+        return response()->json(['success' => 'Commission Status Updated Successfully!'], 200);
     }
 }
