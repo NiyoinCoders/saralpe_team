@@ -9,6 +9,7 @@ use App\Models\Commission;
 use App\Models\Plan;
 use App\Models\Service;
 use App\Models\Role;
+use Illuminate\Support\Facades\Auth;
 
 class CommissionController extends Controller
 {
@@ -106,18 +107,17 @@ class CommissionController extends Controller
             ];
             $commissionData[] = $data;
         }
-
+       
         return response()->json($commissionData);
     }
     public function edit_Commission($id)
     {
         $commission = Commission::find($id);
-
         return view('admin.commision.edit')->with([
             'commissions' => $commission,
             'plans' => Plan::all(),
             'services' => Service::all(),
-            'roles' => Role::all(),
+            'roles' => Role::where('id', '!=',Auth::id())->get(),
         ]);
     }
     public function delete_Commission($id)
