@@ -688,7 +688,7 @@ class ComposerStaticInita1519fa3a038a50178854c375e975578
         'App\\Http\\Controllers\\RechargePlanController' => __DIR__ . '/../..' . '/app/Http/Controllers/RechargePlanController.php',
         'App\\Http\\Controllers\\ReportController' => __DIR__ . '/../..' . '/app/Http/Controllers/ReportController.php',
         'App\\Http\\Controllers\\RetailerController' => __DIR__ . '/../..' . '/app/Http/Controllers/RetailerController.php',
-        'App\\Http\\Controllers\\SeviceController' => __DIR__ . '/../..' . '/app/Http/Controllers/SeviceController.php',
+        'App\\Http\\Controllers\\ServicesController' => __DIR__ . '/../..' . '/app/Http/Controllers/ServicesController.php',
         'App\\Http\\Controllers\\SuperDistributorController' => __DIR__ . '/../..' . '/app/Http/Controllers/SuperDistributorController.php',
         'App\\Http\\Controllers\\TransactionController' => __DIR__ . '/../..' . '/app/Http/Controllers/TransactionController.php',
         'App\\Http\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserController.php',
