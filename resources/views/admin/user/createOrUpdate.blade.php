@@ -85,6 +85,14 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
+                                <label class="form-label text-black" for="colFormLabelSm">password <span
+                                        class="text-danger">*</span></label>
+                                        <input type="password" name="password" value="{{ old('password', $user->password ?? '') }}" class="form-control" placeholder="Email address">
+                                
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
                                 <label class="form-label text-black" for="colFormLabelSm">Mobile Number<span
                                         class="text-danger">*</span></label>
                                         <input type="text" name="mobile" value="{{ old('mobile', $user->mobile ?? '') }}" class="form-control" placeholder="mobile number">
