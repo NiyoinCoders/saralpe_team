@@ -713,6 +713,7 @@ class ComposerStaticInita1519fa3a038a50178854c375e975578
         'App\\Libraries\\MyLibrary' => __DIR__ . '/../..' . '/app/Libraries/MyLibrary.php',
         'App\\Mail\\CallBackMail' => __DIR__ . '/../..' . '/app/Mail/CallBackMail.php',
         'App\\Mail\\UserOTPMail' => __DIR__ . '/../..' . '/app/Mail/UserOTPMail.php',
+        'App\\Models\\AdminWallet' => __DIR__ . '/../..' . '/app/Models/AdminWallet.php',
         'App\\Models\\ApiResponse' => __DIR__ . '/../..' . '/app/Models/ApiResponse.php',
         'App\\Models\\BankList' => __DIR__ . '/../..' . '/app/Models/BankList.php',
         'App\\Models\\BillPayment' => __DIR__ . '/../..' . '/app/Models/BillPayment.php',

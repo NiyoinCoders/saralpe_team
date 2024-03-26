@@ -77,6 +77,7 @@ return array(
     'App\\Libraries\\MyLibrary' => $baseDir . '/app/Libraries/MyLibrary.php',
     'App\\Mail\\CallBackMail' => $baseDir . '/app/Mail/CallBackMail.php',
     'App\\Mail\\UserOTPMail' => $baseDir . '/app/Mail/UserOTPMail.php',
+    'App\\Models\\AdminWallet' => $baseDir . '/app/Models/AdminWallet.php',
     'App\\Models\\ApiResponse' => $baseDir . '/app/Models/ApiResponse.php',
     'App\\Models\\BankList' => $baseDir . '/app/Models/BankList.php',
     'App\\Models\\BillPayment' => $baseDir . '/app/Models/BillPayment.php',
