@@ -172,7 +172,12 @@ class UserController extends Controller
      public function edit($id): View
      {
          $User = User::find($id);
-         return view('admin.user.createOrUpdate',compact('User'));
+         $roles=\DB::table('roles')->get();
+         $services=\DB::table('services')->get();
+         return view("admin.user.createOrUpdate",compact('roles','services','user'));
+
+        
+         //return view('admin.user.createOrUpdate',compact('User'));
      }
    
      /**
@@ -202,9 +207,18 @@ class UserController extends Controller
     }
     public function card($id)
     {
-    $User = User::find($id);
-    return view('admin.user.card',compact('User')); 
+        $user = User::find($id);
+        $roles=\DB::table('roles')->get();
+        $services=\DB::table('services')->get();
+        return view("admin.user.createOrUpdate",compact('roles','services','user'));
 }
+
+
+ public function kyc($id)
+{
+$User = User::find($id);
+return view('admin.user.card',compact('User')); 
+} 
     public function userStatusChange(Request $request)
     {
         $user = User::findOrFail($request->id);

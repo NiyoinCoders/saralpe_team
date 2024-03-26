@@ -323,8 +323,9 @@ Route::group(['prefix' => 'b2b'], function () {
         Route::get('users', [UserController::class, 'index'])->name('users.index');
         Route::post('users', [UserController::class, 'store'])->name('users.store');
         Route::get('users/create', [UserController::class, 'create'])->name('users.create');
-        Route::get('users/{id}', [UserController::class, 'edit'])->name('users.edit');
+       
         Route::get('users/{id}', [UserController::class, 'card'])->name('users.card');
+       
         Route::put('users/{id}', [UserController::class, 'update'])->name('users.update');
         Route::post('userStatusChange', [PlanController::class, 'userStatusChange'])->name('userStatusChange');
        // Route::get('add_Users', [UserController::class, 'add_Users'])->name('add_Users');
