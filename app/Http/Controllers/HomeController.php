@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Service;
 use App\Models\Role;
 use App\Models\Plan;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -35,7 +36,7 @@ class HomeController extends Controller
     public function commision_slots_add()
     {
         $service = Service::all();
-        $role = Role::all();
+        $role = Role::where('id', '!=', Auth::id())->get();
         $plans = Plan::all();
         return view('admin.commision.add')->with(['services' => $service, 'user_types' => $role, 'plans' => $plans]);
     }
@@ -67,7 +68,8 @@ class HomeController extends Controller
     }
     public function services()
     {
-        return view('admin.services.services');
+        $services = Service::where('status', 1)->get();
+        return view('admin.services.services')->with(['services' => $services]);
     }
     public function ticket()
     {
