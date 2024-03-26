@@ -198,9 +198,13 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $user->delete();
-        return redirect('/admin/users')->with('message', 'Deteted successfully!');
+        return redirect->route('users.index')->with('message', 'Deteted successfully!');
     }
-
+    public function card($id)
+    {
+    $User = User::find($id);
+    return view('admin.user.card',compact('User')); 
+}
     public function userStatusChange(Request $request)
     {
         $user = User::findOrFail($request->id);
@@ -208,4 +212,5 @@ class UserController extends Controller
         $user->update($data);
         return response()->json(['success' => 'User Status Updated Successfully!'], 200);
     }
+    
 }
