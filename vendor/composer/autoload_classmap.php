@@ -52,7 +52,7 @@ return array(
     'App\\Http\\Controllers\\RechargePlanController' => $baseDir . '/app/Http/Controllers/RechargePlanController.php',
     'App\\Http\\Controllers\\ReportController' => $baseDir . '/app/Http/Controllers/ReportController.php',
     'App\\Http\\Controllers\\RetailerController' => $baseDir . '/app/Http/Controllers/RetailerController.php',
-    'App\\Http\\Controllers\\SeviceController' => $baseDir . '/app/Http/Controllers/SeviceController.php',
+    'App\\Http\\Controllers\\ServicesController' => $baseDir . '/app/Http/Controllers/ServicesController.php',
     'App\\Http\\Controllers\\SuperDistributorController' => $baseDir . '/app/Http/Controllers/SuperDistributorController.php',
     'App\\Http\\Controllers\\TransactionController' => $baseDir . '/app/Http/Controllers/TransactionController.php',
     'App\\Http\\Controllers\\UserController' => $baseDir . '/app/Http/Controllers/UserController.php',

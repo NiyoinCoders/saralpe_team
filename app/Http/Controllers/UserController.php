@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use App\Events\DataInserted;
@@ -16,7 +17,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index() :View
     {
          if (Auth::user()->role == 1) {
             $users = DB::table("users")
@@ -72,11 +73,11 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request):View
     {
         //
         $roles=\DB::table('roles')->get();
-        $services=\DB::table('dc_services')->get();
+        $services=\DB::table('services')->get();
         return view("admin.user.createOrUpdate",compact('roles','services')); 
     }
     /**
@@ -195,9 +196,16 @@ class UserController extends Controller
      }
     public function destroy($id)
     {
-
         $user = User::find($id);
         $user->delete();
         return redirect('/admin/users')->with('message', 'Deteted successfully!');
+    }
+
+    public function userStatusChange(Request $request)
+    {
+        $user = User::findOrFail($request->id);
+        $data['status'] = $request->value;
+        $user->update($data);
+        return response()->json(['success' => 'User Status Updated Successfully!'], 200);
     }
 }
