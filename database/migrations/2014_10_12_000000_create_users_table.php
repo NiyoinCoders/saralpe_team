@@ -45,12 +45,12 @@ class CreateUsersTable extends Migration
             $table->string("user_id")->nullable();
             $table->bigInteger("onboarding_status")->comment('0 pending,1 approved,2 pending')->nullable();
             $table->unsignedBigInteger("status");
-            $table->string('pan_image');
-            $table->string('voter_front');
-            $table->string('voter_back');
-            $table->string('driving_front');
-            $table->string('driving_back');
-            $table->string('shopaddress');
+            $table->string('pan_image')->nullable();
+            $table->string('voter_front')->nullable();
+            $table->string('voter_back')->nullable();
+            $table->string('driving_front')->nullable();
+            $table->string('driving_back')->nullable();
+            $table->string('shopaddress')->nullable();
 
             $table->datetime("updated_by")->nullable();
             $table->datetime("created_by")->nullable();

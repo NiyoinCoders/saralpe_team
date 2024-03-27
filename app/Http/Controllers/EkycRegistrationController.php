@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\models\Ekyc;
+
+use App\models\User;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ExportEkyc;
 use DB;
@@ -23,7 +24,7 @@ class EkycRegistrationController extends Controller
             'pannumber'=>'required',
             'pincode'=>'required',
             'dob'=>'required',
-            'stateid'=>'required',
+            
             'pan_image'=>'mimes:jpeg,jpg,png|required|max:10000',
             'voter_front'=>'mimes:jpeg,jpg,png|required|max:10000',
             'voter_back'=>'mimes:jpeg,jpg,png|required|max:10000',
@@ -65,12 +66,12 @@ class EkycRegistrationController extends Controller
     
     
            
-        $post = new Ekyc;
+        $post = new User;
         $post->firmname = $request->firmname;
         $post->pannumber = $request->pannumber;
         $post->pincode = $request->pincode;
         $post->dob = $request->dob;
-        $post->stateid = $request->stateid;
+        $post->state = $request->state;
         $post->pan_image = $pan_image_name;
         $post->voter_front = $voter_front_name;
         $post->voter_back = $voter_back_name;
