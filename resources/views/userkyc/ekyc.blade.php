@@ -32,8 +32,10 @@
         <div class="card">
            
             <div class="card-body">
+            @if (isset($user))
             <form id="form-wizard1" class="mt-3 text-center" method="POST" action="{{route('ekycpost')}}" enctype="multipart/form-data">
-                @csrf
+            @endif   
+            @csrf
                 <!-- fieldsets -->
                 <fieldset>
                     <div class="form-card text-start">
@@ -42,38 +44,38 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">FIRM NAME: *</label>
-                                    <input type="text" id="disabledTextInput" name="firmname" class="form-control" placeholder="" required>
+                                    <input type="text" id="disabledTextInput" name="firm_name" value="{{ old('firm_name', $user->firm_name ?? '') }}" class="form-control" placeholder="" required>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">PAN NUMBER: *</label>
-                                    <input type="text" class="form-control" name="pannumber" placeholder="" required>
+                                    <input type="text" class="form-control" name="pannumber" value="{{ old('pannumber', $user->pan ?? '') }}" placeholder="" required>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">PIN CODE: *</label>
-                                    <input type="text" class="form-control" name="pincode" placeholder="" required>
+                                    <input type="text" class="form-control" name="pincode" value="{{ old('pincode', $user->pincode ?? '') }}" placeholder="" required>
                                 </div>
                             </div>
 
                             <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label">DOB: *</label>
-                                <input type="date" class="form-control" name="dob" placeholder="" required>
+                                <input type="date" class="form-control" name="dob" value="{{ old('dob', $user->dob ?? '') }}" placeholder="" required>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="form-label">STATE ID: *</label>
-                                <input type="text" class="form-control" name="stateid" placeholder="" required>
+                                <label class="form-label">STATE  *</label>
+                                <input type="text" class="form-control" name="state" value="{{ old('state', $user->state ?? '') }}" placeholder="" required>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="form-label">TYPE: *</label>
-                                <input type="text" class="form-control" name="type" placeholder="" required>
+                                <label class="form-label">SHOP_ADDRESS: *</label>
+                                <input type="text" class="form-control" name="shopaddress" value="{{ old('shopaddress', $user->shopaddress ?? '') }}" placeholder="" required>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -81,6 +83,9 @@
                                 <label class="form-label">PAN_IMAGE: *</label>
                                 <input type="file" class="form-control" name="pan_image" placeholder="" required accept="image/*">
                             </div>
+                            @if($user->pan_image)
+                                    <img width="100px" src="{{ asset($user->pan_image) }}" alt="Pan Card Image">
+                                    @endif
                         </div>
 
                         <div class="col-md-4">
@@ -88,6 +93,9 @@
                                 <label class="form-label">VOTER_FRONT: *</label>
                                 <input type="file" class="form-control" name="voter_front" placeholder="" required accept="image/*">
                             </div>
+                            @if($user->voter_front)
+                                    <img width="100px" src="{{ asset($user->pan_image) }}" alt="Pan Card Image">
+                                    @endif
                         </div>
 
                         <div class="col-md-4">
@@ -95,6 +103,9 @@
                                 <label class="form-label">VOTER_Back: *</label>
                                 <input type="file" class="form-control" name="voter_back" placeholder="" required accept="image/*">
                             </div>
+                            @if($user->voter_back)
+                                    <img width="100px" src="{{ asset($user->pan_image) }}" alt="Pan Card Image">
+                                    @endif
                         </div>
 
                         <div class="col-md-4">
@@ -102,6 +113,9 @@
                                 <label class="form-label">DRIVING_FRONT: *</label>
                                 <input type="file" class="form-control" name="driving_front" placeholder="" required accept="image/*">
                             </div>
+                            @if($user->driving_front)
+                                    <img width="100px" src="{{ asset($user->pan_image) }}" alt="Pan Card Image">
+                                    @endif
                         </div>
 
                         
@@ -110,14 +124,12 @@
                                 <label class="form-label">DRIVING_BACK: *</label>
                                 <input type="file" class="form-control" name="driving_back" placeholder="" required accept="image/*">
                             </div>
+                            @if($user->driving_back)
+                                    <img width="100px" src="{{ asset($user->pan_image) }}" alt="Pan Card Image">
+                                    @endif
                         </div>
 
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="form-label">SHOP_ADDRESS: *</label>
-                                <input type="text" class="form-control" name="shopaddress" placeholder="" required>
-                            </div>
-                        </div>
+                       
                       
                         </div>
                     </div>

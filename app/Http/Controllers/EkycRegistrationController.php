@@ -6,21 +6,26 @@ use Illuminate\Http\Request;
 
 use App\models\User;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Auth;
 use App\Exports\ExportEkyc;
 use DB;
 use DataTables;
+use URL;
 
 class EkycRegistrationController extends Controller
 {
     //
 
     public function index(){
-        return view('userkyc.ekyc');
+        $id= Auth::id();
+        $user = User::where('id', $id)->first(); 
+
+        return view('userkyc.ekyc',compact('user'));
     }
     public function ekycpost(Request $request){
         
         $request->validate([
-            'firmname'=>'required',
+            'firm_name'=>'required',
             'pannumber'=>'required',
             'pincode'=>'required',
             'dob'=>'required',
@@ -36,50 +41,61 @@ class EkycRegistrationController extends Controller
          
 
         
-          $path = public_path().'/assets/images/';
+          //$path = public_path().'/assets/images/';
 
-        
+          if ($request->hasFile('pan_image')) {
+            $pancardImg = $request->file('pan_image');
+            $pancardImgName = date('YmdHis') . '_' . uniqid() . '.' . $pancardImg->getClientOriginalExtension();
+            $pancardImg->move(public_path('upload'), $pancardImgName);
+             $pancardImg = URL::to("/upload/$pancardImgName");
+        }
 
-          //upload new file
-          $pan_image = $request->pan_image;
-          $pan_image_name = $pan_image->getClientOriginalName();
-          $pan_image->move($path, $pan_image_name);
+        if ($request->hasFile('driving_front')) {
+            $drivingFimg = $request->file('driving_front');
+            $drivingFimgName = date('YmdHis') . '_' . uniqid() . '.' . $drivingFimg->getClientOriginalExtension();
+            $drivingFimg->move(public_path('upload'), $drivingFimgName);
+            $drivingFimg = URL::to("/upload/$drivingFimgName");
+        }
 
-          $voter_front = $request->voter_front;
-          $voter_front_name = $voter_front->getClientOriginalName();
-          $voter_front->move($path, $voter_front_name);
+        if ($request->hasFile('driving_back')) {
+            $drivingBimg = $request->file('driving_back');
+            $drivingBimgName = date('YmdHis') . '_' . uniqid() . '.' . $drivingBimg->getClientOriginalExtension();
+            $drivingBimg->move(public_path('upload'), $drivingBimgName);
+             $drivingBimg = URL::to("/upload/$drivingBimgName");
+        }
 
-          $voter_back = $request->voter_back;
-          $voter_back_name = $voter_back->getClientOriginalName();
-          $voter_back->move($path, $voter_back_name);
+        if ($request->hasFile('voter_front')) {
+            $voterIDFimg = $request->file('voter_front');
+            $voterIDFimgName = date('YmdHis') . '_' . uniqid() . '.' . $voterIDFimg->getClientOriginalExtension();
+            $voterIDFimg->move(public_path('upload'), $voterIDFimgName);
+            $voterFimg= URL::to("/upload/$voterIDFimgName");
+        }
 
-          $driving_front = $request->driving_front;
-          $driving_front_name = $driving_front->getClientOriginalName();
-          $driving_front->move($path, $driving_front_name);
+        if ($request->hasFile('voter_back')) {
+            $voterIDBimg = $request->file('voter_back');
+            $voterIDBimgName = date('YmdHis') . '_' . uniqid() . '.' . $voterIDBimg->getClientOriginalExtension();
+            $voterIDBimg->move(public_path('upload'), $voterIDBimgName);
+             $voterBimg = URL::to("/upload/$voterIDBimgName");
+        }
 
-          $driving_back = $request->driving_back;
-          $driving_back_name = $driving_back->getClientOriginalName();
-          $driving_back->move($path, $driving_back_name);
-
-
-         
-    
-    
-           
-        $post = new User;
-        $post->firmname = $request->firmname;
-        $post->pannumber = $request->pannumber;
+          
+        $request->firm_name;
+       //exit();
+         $id= Auth::id();
+        $post = User::where('id', $id)->first();      
+        $post->firm_name = $request->firm_name;
+        $post->pan = $request->pannumber;
         $post->pincode = $request->pincode;
         $post->dob = $request->dob;
         $post->state = $request->state;
-        $post->pan_image = $pan_image_name;
-        $post->voter_front = $voter_front_name;
-        $post->voter_back = $voter_back_name;
-        $post->driving_front = $driving_front_name;
-        $post->driving_back = $driving_back_name;
+        $post->pan_image = $pancardImg;
+        $post->voter_front = $voterFimg;
+        $post->voter_back = $voterBimg;
+        $post->driving_front = $drivingFimg;
+        $post->driving_back = $drivingBimg;
         $post->shopaddress = $request->shopaddress;
         $post->save();
-        return back();
+        return redirect('/index')->with('success', 'Form data submitted successfully!');
     }
 
     public function export(){
