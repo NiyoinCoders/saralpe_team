@@ -217,11 +217,13 @@
         var id = $(this).attr('data-id');
         //alert(id);
         var value = $(this).prop('checked') ? 1 : 0;
+        //alert(value);
         $.ajax({
             url: "{{route('userchangeStatus')}}",
             type: 'POST',
             dataType: "JSON",
             data: {
+                
                 id: id,
                 value: value,
                 _token: "{{ csrf_token() }}"

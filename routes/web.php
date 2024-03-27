@@ -329,7 +329,7 @@ Route::group(['prefix' => 'b2b'], function () {
         Route::get('delete/{id}', [UserController::class, 'destroy'])->name('users.delete');
         Route::get('users/{id}', [UserController::class, 'card'])->name('users.card');
         Route::put('users/{id}', [UserController::class, 'update'])->name('users.update');
-        Route::post('userchangeStatus', [PlanController::class, 'userchangeStatus'])->name('userchangeStatus');
+        Route::post('userchangeStatus', [UserController::class, 'userchangeStatus'])->name('userchangeStatus');
        // Route::get('add_Users', [UserController::class, 'add_Users'])->name('add_Users');
         // commision manage 
         Route::get('commision_slots', [HomeController::class, 'commision_slots'])->name('commision_slots');
