@@ -52,19 +52,6 @@ class UsersTableSeeder extends Seeder
             "password"=> Hash::make("superdistributor123"),
             "status"=>1
         ]);
-        $b2cRole = User::create([
-            "name"=>"B2C",
-            "email"=>"b2c@gmail.com",
-            "role"=>6,
-            "password"=> Hash::make("b2c123"),
-            "status"=>1
-        ]);
-        $apiuserRole = User::create([
-            "name"=>"Api User",
-            "email"=>"apiuser@gmail.com",
-            "role"=>7,
-            "password"=> Hash::make("apiuser123"),
-            "status"=>1
-        ]);
+       
     }
 }

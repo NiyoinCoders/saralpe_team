@@ -16,6 +16,7 @@ class Ekyc extends Migration
         //
         Schema::create('ekyc', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('user_id');
             $table->string('firmname');
             $table->integer('pannumber');
             $table->integer('pincode');
