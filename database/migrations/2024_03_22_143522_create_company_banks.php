@@ -20,6 +20,7 @@ class CreateCompanyBanks extends Migration
             $table->string('acc_no');
             $table->string('ifsc_code');
             $table->string('branch_add');
+            $table->integer('status')->default(1);
             $table->timestamps();
         });
     }

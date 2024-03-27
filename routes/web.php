@@ -346,7 +346,7 @@ Route::group(['prefix' => 'b2b'], function () {
         Route::get('banks/create', [CompanyBankController::class, 'create'])->name('banks.create');
         Route::get('banks/{id}', [CompanyBankController::class, 'edit'])->name('banks.edit');
         Route::put('banks/{id}', [CompanyBankController::class, 'update'])->name('banks.update');
-        Route::get('changeStatus', [CompanyBankController::class, 'changeStatus'])->name('changeStatus');
+        Route::post('CompanychangeStatus', [CompanyBankController::class, 'CompanychangeStatus'])->name('CompanychangeStatus');
         Route::get('banklist', [CompanyBankController::class, 'banklist'])->name('banklist');
 
         // fund
