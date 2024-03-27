@@ -163,7 +163,7 @@
                                     <td><button class="btn btn-sm btn-success">Varified</button></td>
                                     <td>
                                         <button  class="btn btn-sm btn-soft-info"><a href="{{ route('users.card',$user->id) }}"><i class="bi bi-credit-card"></i></a></button>
-                         <button class="btn btn-sm btn-soft-info"> <a href="{{ route('users.card',$user->id) }}"><i class="bi bi-pen"></i></a></button>
+                         <button class="btn btn-sm btn-soft-info"> <a href="{{ route('users.edit',$user->id) }}"><i class="bi bi-pen"></i></a></button>
                                      
                                    <button 
                                             class="btn btn-sm btn-soft-danger"><i class="bi bi-trash3"></i></button>
