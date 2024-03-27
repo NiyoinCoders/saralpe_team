@@ -213,7 +213,7 @@ return view('admin.user.card',compact('User'));
 
 
 
-    public function userStatusChange(Request $request)
+    public function userchangeStatus(Request $request)
     {
         $user = User::findOrFail($request->id);
         $data['status'] = $request->value;

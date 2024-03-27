@@ -153,9 +153,8 @@
             <td>
 
             <div class="form-check form-switch form-check-inline">
-            <input data-id="{{$user->id}}" class="form-check-input" type="checkbox" id="switch2" data-onstyle="success"  data-toggle="toggle"  {{ $user->status == 1? 'checked' : '' }}>
-           
-</div>   
+                                    <input data-id="{{$user->id}}" class="form-check-input" type="checkbox" id="switch2" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="InActive" {{ $user->status ? 'checked' : '' }}>
+                                </div>
         </td>
             
                                    
@@ -214,32 +213,23 @@
 
 @section('scripts')
 <script type="text/javascript">
-    $(document).ready(function() {
-     $(document).on('change', '#switch2', function() {
-            var id = $(this).attr('data_id');
-            var value = $(this).prop('checked') ? 1 : 0;
-            $.ajax({
-                url: "{{route('userStatusChange')}}",
-                type: 'POST',
-                dataType: "JSON",
-                data: {
-                    id: id,
-                    value: value,
-                    _token: "{{ csrf_token() }}"
-                },
-                success: function(response) {
-                    if (response.success) {
-                        $('#alertMsg').html(response.success);
-                        $('#alertMsg').removeClass('d-none');
-                        setTimeout(() => {
-                            $('#alertMsg').addClass('d-none');
-                        }, 2000);
-                        fetchData();
-                    }
-                }
-            });
+    $(document).on('change', '#switch2', function() {
+        var id = $(this).attr('data-id');
+        //alert(id);
+        var value = $(this).prop('checked') ? 1 : 0;
+        $.ajax({
+            url: "{{route('userchangeStatus')}}",
+            type: 'POST',
+            dataType: "JSON",
+            data: {
+                id: id,
+                value: value,
+                _token: "{{ csrf_token() }}"
+            },
+            success: function(response) {
+                console.log(response);
+            }
         });
-    
-});
+    })
 </script>
 @endsection

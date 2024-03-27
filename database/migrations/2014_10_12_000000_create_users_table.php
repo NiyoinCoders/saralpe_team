@@ -44,7 +44,7 @@ class CreateUsersTable extends Migration
             $table->string("pincode")->nullable();
             $table->string("user_id")->nullable();
             $table->bigInteger("onboarding_status")->comment('0 pending,1 approved,2 pending')->nullable();
-            $table->unsignedBigInteger("status");
+            $table->integer('status')->default(1);
             $table->string('pan_image')->nullable();
             $table->string('voter_front')->nullable();
             $table->string('voter_back')->nullable();
