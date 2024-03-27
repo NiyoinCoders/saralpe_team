@@ -171,10 +171,10 @@ class UserController extends Controller
 
      public function edit($id): View
      {
-         $User = User::find($id);
-         $roles=\DB::table('roles')->get();
-         $services=\DB::table('services')->get();
-         return view("admin.user.createOrUpdate",compact('roles','services','user'));
+        $user = User::find($id);
+        $roles=\DB::table('roles')->get();
+        $services=\DB::table('services')->get();
+        return view("admin.user.createOrUpdate",compact('roles','services','user'));
 
         
          //return view('admin.user.createOrUpdate',compact('User'));
@@ -203,22 +203,16 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $user->delete();
-        return redirect->route('users.index')->with('message', 'Deteted successfully!');
+        return redirect()->route('users.index')->with('message', 'Deteted successfully!');
     }
     public function card($id)
     {
-        $user = User::find($id);
-        $roles=\DB::table('roles')->get();
-        $services=\DB::table('services')->get();
-        return view("admin.user.createOrUpdate",compact('roles','services','user'));
+        $User = User::find($id);
+return view('admin.user.card',compact('User'));
 }
 
 
- public function kyc($id)
-{
-$User = User::find($id);
-return view('admin.user.card',compact('User')); 
-} 
+
     public function userStatusChange(Request $request)
     {
         $user = User::findOrFail($request->id);

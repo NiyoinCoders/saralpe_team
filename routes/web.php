@@ -325,7 +325,8 @@ Route::group(['prefix' => 'b2b'], function () {
         Route::get('users/create', [UserController::class, 'create'])->name('users.create');
        
        
-        Route::get('users/{id}', [UserController::class, 'edit'])->name('users.edit');
+        Route::get('users/edit/{id}', [UserController::class, 'edit'])->name('users.edit');
+        Route::get('delete/{id}', [UserController::class, 'destroy'])->name('users.delete');
         Route::get('users/{id}', [UserController::class, 'card'])->name('users.card');
         Route::put('users/{id}', [UserController::class, 'update'])->name('users.update');
         Route::post('userStatusChange', [PlanController::class, 'userStatusChange'])->name('userStatusChange');
@@ -475,9 +476,9 @@ Route::get('/profile', function () {
 //     return response($image)->header('Content-type', 'image/png');
 // });
 
-Route::post('/users/edit/{id}/', [UserController::class, 'Update'])->name('users.edit');
 
-Route::get('delete/{id}', [UserController::class, 'destroy']);
+
+
 
 Route::post('/edit/{id}/', [ProductsController::class, 'Update'])->name('product.edit');
 
