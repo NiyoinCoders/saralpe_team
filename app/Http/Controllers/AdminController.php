@@ -46,8 +46,11 @@ class AdminController extends Controller
     /* $user->deposit(10);
 $user->balance; // 10
 echo $user->balanceInt; */
-$user->withdraw(1);
-echo $user->balance; // 9
+/* $user->withdraw(1);
+echo $user->balance; // 9 */
+
+/* $user->forceWithdraw(200, ['description' => 'payment of taxes']);
+$user->balance; // -191 */
 
     }
 }
