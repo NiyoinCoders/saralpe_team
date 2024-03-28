@@ -128,7 +128,7 @@ Route::group(['prefix' => 'b2b'], function () {
         Route::get('invoice', [InvoiceController::class, 'index'])->name('invoice.index');
         Route::get('invoice-view/{invoice_number}', [InvoiceController::class, 'invoice_view'])->name('invoice.view');
         // Cart End
-
+        Route::get('retailer/services', [HomeController::class, 'services'])->name('retailer.services');
         // start loan
         Route::group(['prefix' => 'loan'], function () {
             Route::get('view', [LoanController::class, 'index'])->name('loan.view');
