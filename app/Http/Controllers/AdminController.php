@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\models\User;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -37,5 +37,17 @@ class AdminController extends Controller
         \DB::table('whatsappapitokens')->delete($id);
 
         return redirect()->back()->with('success', 'Api deleted successfully');
+    }
+
+    public function wallet(){
+        $user = User::first();
+    // echo  $user->balanceInt; // 0
+
+    /* $user->deposit(10);
+$user->balance; // 10
+echo $user->balanceInt; */
+$user->withdraw(1);
+echo $user->balance; // 9
+
     }
 }

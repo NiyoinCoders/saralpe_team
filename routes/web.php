@@ -402,6 +402,8 @@ Route::group(['prefix' => 'b2b'], function () {
 
         // whatsapi
         Route::get('api', [AdminController::class, 'api'])->name('admin.api');
+        Route::get('wallet', [AdminController::class, 'wallet'])->name('wallet');
+        
         Route::post('apistore', [AdminController::class, 'apistore'])->name('admin.apistore');
         Route::get('apidestroy/{id}', [AdminController::class, 'apidestroy'])->name('admin.apidestroy');
 
