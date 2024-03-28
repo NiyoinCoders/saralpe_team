@@ -58,7 +58,7 @@
             <span>Money Transfer</span>
         </a>
     </li>
-    <li class="nav-item">
+    <!-- <li class="nav-item">
         <a class="nav-link" aria-current="page" href="https://bancassurance.icicilombard.com/bancakrgapi/bancakrgmsite/MotorQR_KRG/#/motor-insurance">
             <i class="icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
@@ -67,7 +67,7 @@
             </i>
             <span>Insurance</span>
         </a>
-    </li>
+    </li> -->
 
     <li>
         <hr class="hr-horizontal">
