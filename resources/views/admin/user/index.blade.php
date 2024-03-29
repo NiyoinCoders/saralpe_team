@@ -2,10 +2,57 @@
 @section("content")
 
 
-      
+
 <div class="conatiner-fluid">
-            <div class="card px-4 rounded-0 py-2">
-                <!-- <p class="text-white fw-bold bg-primary px-4 mx-4 rounded-1 py-2 user-select-none">
+    <div class="card px-4 rounded-0 py-2">
+        <p class="text-white fw-bold bg-primary px-4 mx-4 rounded-1 py-2 user-select-none">
+            Filter Data
+        </p>
+        <form id="filterSearch" class="px-4 mx-4">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="form-label text-dark">User Type</label>
+                        <select name="user_type" class="form-select mb-3 shadow-none text-dark">
+                            <option selected value="all">All</option>
+                            @foreach($userTables as $userTable)
+                            <option value="{{$userTable['id']}}">{{$userTable['name']}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="form-label text-dark">User Status</label>
+                        <select name="user_status" class="form-select mb-3 shadow-none text-dark">
+                            <option selected value="all">All</option>
+                            <option value="1">Active</option>
+                            <option value="0">In-Active</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="form-label text-dark">KYC Status</label>
+                        <select name="kyc_status" class="form-select mb-3 shadow-none text-dark">
+                            <option selected value="all">All</option>
+                            <option value="1">Approevd</option>
+                            <option value="2">Pending</option>
+                            <option value="3">Rejected</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group ">
+                    <button type="submit" class="btn btn-primary">Filter</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="card px-4 rounded-0 py-2">
+
+        <!-- <p class="text-white fw-bold bg-primary px-4 mx-4 rounded-1 py-2 user-select-none">
                     Filter Data
                 </p>
                 <div class="card-body">
@@ -101,114 +148,112 @@
                     </div>
                 </div> -->
 
-                <!-- table start  -->
-            <div class="card-body p-0 mx-4">
-                    <p class="text-white fw-bold bg-primary px-4 rounded-1 py-2 user-select-none">
-                        User Details
-                    </p>
-                 
-                    <div class="table-responsive">
-                        <table id="datatable" class="table table-striped" data-toggle="data-table">
-                            <thead>
-                                <tr>
-                                   
-                                    <th>Name</th>
-                                    <th>Mobile</th>
-                                    
-                                    <th>Email Id</th>
-                                    <th>Pincode</th>
-                                    <th>Pan</th>
-                                    <th>Aadhar</th>
-                                    <th>State</th>
-                                    <th>City</th>
-                                    <th>Address</th>
-                                    <th>DOB</th>
-                                    <th>Gender</th>
-                                   
-                                    
-                                   
-                                   
-                                    <th>Status</th>
-                                    <th>Kyc Status</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                
-                                @foreach ($users as $user)
-        <tr>
-            
-            <td>{{ $user->name }}</td>
-            <td>{{ $user->mobile }}</td>
-            <td>{{ $user->email }}</td>
-            <td>{{ $user->pincode }}</td>
-            <td>{{ $user->pan }}</td>
-            <td>{{ $user->aadhar }}</td>
-            <td>{{ $user->state }}</td>
-            <td>{{ $user->city }}</td>
-            <td>{{ $user->address }}</td>
-            <td>{{ $user->dob }}</td>
-            <td>{{ $user->gender }}</td>
-            
-            <td>
+        <!-- table start  -->
+        <div class="card-body p-0 mx-4">
+            <p class="text-white fw-bold bg-primary px-4 rounded-1 py-2 user-select-none">
+                User Details
+            </p>
 
-            <div class="form-check form-switch form-check-inline">
+            <div class="table-responsive">
+                <table id="datatable" class="table table-striped" data-toggle="data-table">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+                            <th>Mobile</th>
+
+                            <th>Email Id</th>
+                            <th>Pincode</th>
+                            <th>Pan</th>
+                            <th>Aadhar</th>
+                            <th>State</th>
+                            <th>City</th>
+                            <th>Address</th>
+                            <th>DOB</th>
+                            <th>Gender</th>
+
+
+
+
+                            <th>Status</th>
+                            <th>Kyc Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
+
+                        @foreach ($users as $user)
+                        <tr>
+
+                            <td>{{ $user->name }}</td>
+                            <td>{{ $user->mobile }}</td>
+                            <td>{{ $user->email }}</td>
+                            <td>{{ $user->pincode }}</td>
+                            <td>{{ $user->pan }}</td>
+                            <td>{{ $user->aadhar }}</td>
+                            <td>{{ $user->state }}</td>
+                            <td>{{ $user->city }}</td>
+                            <td>{{ $user->address }}</td>
+                            <td>{{ $user->dob }}</td>
+                            <td>{{ $user->gender }}</td>
+
+                            <td>
+
+                                <div class="form-check form-switch form-check-inline">
                                     <input data-id="{{$user->id}}" class="form-check-input" type="checkbox" id="switch2" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="InActive" {{ $user->status ? 'checked' : '' }}>
                                 </div>
-        </td>
-            
-                                   
-                                    
-                                    <td><button class="btn btn-sm btn-success">Varified</button></td>
-                                    <td>
-                                        <button  class="btn btn-sm btn-soft-info"><a href="{{ route('users.card',$user->id) }}"><i class="bi bi-credit-card"></i></a></button>
-                         <button class="btn btn-sm btn-soft-info"> <a href="{{ route('users.edit',$user->id) }}"><i class="bi bi-pen"></i></a></button>
-                                     
-                                   <button 
-                                            class="btn btn-sm btn-soft-danger"><a href="{{ route('users.delete',$user->id) }}"><i class="bi bi-trash3"></i></a></button>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                            
-                        </table>
+                            </td>
 
-                       
 
-                        <!-- delete model start  -->
-                        <div class="modal fade" id="exampleModaldeleteuser" tabindex="-1"
-                            aria-labelledby="exampleModalLabeldeletebank" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-body py-4">
-                                        <div class="px-4 rounded-0 py-2">
 
-                                            <div class="text-center">
-                                                <i class="bi bi-info-circle text-warning fs-2"></i>
-                                                <h3>Are you sure?</h3>
-                                                <p>You will not be able to recover this data!</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-warning" data-bs-dismiss="modal">No
-                                            Cancel</button>
-                                        <button type="button" class="btn btn-danger">Yes</button>
+                            <td><button class="btn btn-sm btn-success">Varified</button></td>
+                            <td>
+                                <button class="btn btn-sm btn-soft-info"><a href="{{ route('users.card',$user->id) }}"><i class="bi bi-credit-card"></i></a></button>
+                                <button class="btn btn-sm btn-soft-info"> <a href="{{ route('users.edit',$user->id) }}"><i class="bi bi-pen"></i></a></button>
+
+                                <button class="btn btn-sm btn-soft-danger"><a href="{{ route('users.delete',$user->id) }}"><i class="bi bi-trash3"></i></a></button>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+
+                </table>
+
+
+
+                <!-- delete model start  -->
+                <div class="modal fade" id="exampleModaldeleteuser" tabindex="-1" aria-labelledby="exampleModalLabeldeletebank" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-body py-4">
+                                <div class="px-4 rounded-0 py-2">
+
+                                    <div class="text-center">
+                                        <i class="bi bi-info-circle text-warning fs-2"></i>
+                                        <h3>Are you sure?</h3>
+                                        <p>You will not be able to recover this data!</p>
                                     </div>
                                 </div>
                             </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-warning" data-bs-dismiss="modal">No
+                                    Cancel</button>
+                                <button type="button" class="btn btn-danger">Yes</button>
+                            </div>
                         </div>
-                        <!-- delete model end  -->
                     </div>
                 </div>
-                <!-- table end  -->
-
+                <!-- delete model end  -->
             </div>
-
         </div>
+        <!-- table end  -->
 
-    
-   
+    </div>
+
+</div>
+
+
+
 @endsection
 
 @section('scripts')
@@ -223,7 +268,7 @@
             type: 'POST',
             dataType: "JSON",
             data: {
-                
+
                 id: id,
                 value: value,
                 _token: "{{ csrf_token() }}"
@@ -233,5 +278,13 @@
             }
         });
     })
+    $(document).ready(function() {
+        $(document).on('submit', '#filterSearch', function(e) {
+            e.preventDefault();
+            $.ajax({
+
+            });
+        });
+    });
 </script>
 @endsection

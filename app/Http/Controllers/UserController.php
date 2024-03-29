@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -17,9 +19,9 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() :View
+    public function index(): View
     {
-         if (Auth::user()->role == 1) {
+        if (Auth::user()->role == 1) {
             $users = DB::table("users")
                 ->where("users.id", "!=", Auth::id())
                 ->join("roles", "users.role", "roles.id")
@@ -32,11 +34,12 @@ class UserController extends Controller
                 ->select("users.*", "roles.name")
                 ->get();
         }
-        return view("admin.user.index", compact("users")); 
+        $userTable = User::where('id', '!=', Auth::id())->get();
+        return view("admin.user.index", compact("users"))->with(['userTables' => $userTable]);
         //return view("admin.user.index"); 
     }
 
-     /* public function add_Users(){
+    /* public function add_Users(){
         $roles=\DB::table('roles')->get();
         $services=\DB::table('dc_services')->get();
         return view("admin.user.createOrUpdate",compact('roles','services')); 
@@ -64,7 +67,8 @@ class UserController extends Controller
         ]);
         return redirect()->route("all-user.index")->with('status', 'User Role Updated!');
     }
-    public function complete_user(){
+    public function complete_user()
+    {
 
         return view("b2b.user.complete");
     }
@@ -73,12 +77,12 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request):View
+    public function create(Request $request): View
     {
         //
-        $roles=\DB::table('roles')->get();
-        $services=\DB::table('services')->get();
-        return view("admin.user.createOrUpdate",compact('roles','services')); 
+        $roles = \DB::table('roles')->get();
+        $services = \DB::table('services')->get();
+        return view("admin.user.createOrUpdate", compact('roles', 'services'));
     }
     /**
      * Store a newly created resource in storage.
@@ -93,13 +97,13 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required',
         ]);
-      
+
         User::create($request->all());
-       
+
         return redirect()->route('users.index')
-                        ->with('success','User created successfully.');
+            ->with('success', 'User created successfully.');
     }
-    
+
 
     /**
      * Display the specified resource.
@@ -117,7 +121,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-   
+
     /**
      * Update the specified resource in storage.
      *
@@ -125,7 +129,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-   /*  public function Update(Request $request, $id)
+    /*  public function Update(Request $request, $id)
     {
 
 //        dd($request->all());
@@ -169,36 +173,36 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     public function edit($id): View
-     {
+    public function edit($id): View
+    {
         $user = User::find($id);
-        $roles=\DB::table('roles')->get();
-        $services=\DB::table('services')->get();
-        return view("admin.user.createOrUpdate",compact('roles','services','user'));
+        $roles = \DB::table('roles')->get();
+        $services = \DB::table('services')->get();
+        return view("admin.user.createOrUpdate", compact('roles', 'services', 'user'));
 
-        
-         //return view('admin.user.createOrUpdate',compact('User'));
-     }
-   
-     /**
-      * Update the specified resource in storage.
-      */
-     public function update(Request $request, $id): RedirectResponse
-     {
-         $User = User::find($id);
-           
-         $request->validate([
-             'name' => 'required',
-             'email' => 'required'
-         ]);
-     
-         $input = $request->all();
-             
-         $User->update($input);
-       
-         return redirect()->route('users.index')
-                         ->with('success','User updated successfully');
-     }
+
+        //return view('admin.user.createOrUpdate',compact('User'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, $id): RedirectResponse
+    {
+        $User = User::find($id);
+
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required'
+        ]);
+
+        $input = $request->all();
+
+        $User->update($input);
+
+        return redirect()->route('users.index')
+            ->with('success', 'User updated successfully');
+    }
     public function destroy($id)
     {
         $user = User::find($id);
@@ -208,8 +212,8 @@ class UserController extends Controller
     public function card($id)
     {
         $User = User::find($id);
-return view('admin.user.card',compact('User'));
-}
+        return view('admin.user.card', compact('User'));
+    }
 
 
 
@@ -220,5 +224,4 @@ return view('admin.user.card',compact('User'));
         $user->update($data);
         return response()->json(['success' => 'User Status Updated Successfully!'], 200);
     }
-    
 }
