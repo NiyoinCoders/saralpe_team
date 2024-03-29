@@ -24,15 +24,17 @@ class RechargeController extends Controller
     public function prepaid()
     {
 
-        $service = 'recharge/recharge/getoperator';
+         $service = 'recharge/recharge/getoperator';
         $res = json_decode(ApiController::post($service, $service));
       //  dd($res);
         $operators = array();
         if ($res->responsecode == 1) {
             $operators = $res->data;
-        }
-        //dd($operators);
-        return view('b2b.recharge.prepaid', compact('operators'));
+        } 
+        dd($operators);
+        exit();
+       // return view('b2b.recharge.prepaid', compact('operators'));
+        return view('b2b.recharge.prepaid');
     }
     public function dth()
     {
