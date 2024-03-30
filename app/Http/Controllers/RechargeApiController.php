@@ -131,7 +131,12 @@ public function prepaid()
         $circles = A1topup_circles::get();
         return view('b2b.recharge.prepaid',compact('operators','circles'));
     }
-
+    public function dth()
+    {
+        $operators = A1topup_operators::where('operator_service', '=', 'DTH')->get();
+        $circles = A1topup_circles::get();
+        return view('b2b.recharge.dth', compact('operators','circles'));
+    }
     public function doRechargeprepaid(Request $request)
     {
         
@@ -145,17 +150,40 @@ public function prepaid()
             "referenceid" => rand(9999999999,1000000000)
         );
         
-      
+        
+      $amount=$request->amount;
         $user = User::first();
-     $agentbalnce= $user->balance;
-       echo $totalbalance= $agentbalnce-$request->amount;
-    echo "<pre>";
+        $user->deposit(400, ['description' => 'payment of taxes']);
+        //$user->withdraw(200, ['description' => 'payment of taxes']);
+        
+       /* $user->withdraw($amount);
+       echo $agentbalnce= $user->balance;
+       echo "<pre>";
       // echo $debit;
-       print_r($body);
+       print_r($body); */
 
 
 
     }
+
+    public function doRechargedth(Request $request)
+        {
+            
+            $body = array(
+                "operator" => $request->operator,
+                "customer_id" => $request->customer_id,
+                "amount" => $request->amount,
+                "Circle" =>$request->Circle,
+                "referenceid" => rand(9999999999,1000000000)
+            );
+
+            print_r($body);
+            $amount=$request->amount;
+           $auth_id= Auth::id();
+        $user = User::where('id', '=', Auth::id())->first();
+        $user->deposit(400, ['description' => 'payment of taxes']);
+            
+        }
     public function import() 
     {
         Excel::import(new DataImport,request()->file('file'));
