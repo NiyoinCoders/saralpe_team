@@ -46,6 +46,7 @@
             <div class="col-md-3">
                 <div class="form-group ">
                     <button type="submit" class="btn btn-primary">Filter</button>
+                    <button type="button" id="exportButton" class="btn btn-warning">Export Excel</button>
                 </div>
             </div>
         </form>
@@ -257,6 +258,7 @@
 @endsection
 
 @section('scripts')
+<script src="https://cdn.rawgit.com/rainabba/jquery-table2excel/1.1.0/dist/jquery.table2excel.min.js"></script>
 <script type="text/javascript">
     $(document).on('change', '#switch2', function() {
         var id = $(this).attr('data-id');
@@ -279,6 +281,14 @@
         });
     })
     $(document).ready(function() {
+
+        $("#exportButton").on("click", function() {
+            $("#datatable").table2excel({
+                filename: "UserTable",
+                fileext: ".xls"
+            });
+        });
+
         $(document).on('submit', '#filterSearch', function(e) {
             e.preventDefault();
             var formData = new FormData(this);
