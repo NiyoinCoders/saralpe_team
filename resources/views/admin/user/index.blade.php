@@ -13,7 +13,7 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label class="form-label text-dark">User Type</label>
-                        <select name="user_type" class="form-select mb-3 shadow-none text-dark">
+                        <select id="user_type" name="user_type" class="form-select mb-3 shadow-none text-dark">
                             <option selected value="all">All</option>
                             @foreach($userTables as $userTable)
                             <option value="{{$userTable['id']}}">{{$userTable['name']}}</option>
@@ -24,7 +24,7 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label class="form-label text-dark">User Status</label>
-                        <select name="user_status" class="form-select mb-3 shadow-none text-dark">
+                        <select id="user_status" name="user_status" class="form-select mb-3 shadow-none text-dark">
                             <option selected value="all">All</option>
                             <option value="1">Active</option>
                             <option value="0">In-Active</option>
@@ -34,7 +34,7 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label class="form-label text-dark">KYC Status</label>
-                        <select name="kyc_status" class="form-select mb-3 shadow-none text-dark">
+                        <select id="kyc_status" name="kyc_status" class="form-select mb-3 shadow-none text-dark">
                             <option selected value="all">All</option>
                             <option value="1">Approevd</option>
                             <option value="2">Pending</option>
@@ -283,9 +283,44 @@
     $(document).ready(function() {
 
         $("#exportButton").on("click", function() {
-            $("#datatable").table2excel({
-                filename: "UserTable",
-                fileext: ".xls"
+
+            var user_type = $('#user_type').val();
+            var user_status = $('#user_status').val();
+            var kyc_status = $('#kyc_status').val();
+
+            $.ajax({
+                url: '{{ route("userFilter") }}',
+                type: 'POST',
+                dataType: 'JSON',
+                data: {
+                    user_type: user_type,
+                    user_status: user_status,
+                    kyc_status: kyc_status,
+                    _token: "{{ csrf_token() }}",
+                },
+                success: function(response) {
+                    var tempTable = $('<table>');
+                    var headerRow = $('<tr>');
+                    $.each(response[0], function(key, value) {
+                        headerRow.append($('<th>').text(key));
+                    });
+                    tempTable.append(headerRow);
+                    $.each(response, function(index, item) {
+                        var row = $('<tr>');
+                        $.each(item, function(key, value) {
+                            row.append($('<td>').text(value));
+                        });
+                        tempTable.append(row);
+                    });
+                    $('body').append(tempTable);
+                    tempTable.hide();
+                    tempTable.table2excel({
+                        filename: "UserTable",
+                        fileext: ".xls"
+                    });
+                    tempTable.remove();
+                }
+
             });
         });
 
