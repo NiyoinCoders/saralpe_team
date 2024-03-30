@@ -3,6 +3,7 @@
 namespace App\Imports;
   
 use App\Models\A1topup_operators;
+use App\Models\A1topup_circles;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Hash;
@@ -16,10 +17,15 @@ class DataImport implements ToModel, WithHeadingRow
     */
     public function model(array $row)
     {
-        return new A1topup_operators([
+        /* return new A1topup_operators([
             'operator_name'     => $row['name'],
             'operator_code'    => $row['code'], 
-        'operator_service' => $row['service']
-        ]);
+        'operator_service' => $row['service'],
+        ]); */
+         return new A1topup_circles([
+            'circle_state'     => $row['name'],
+            'circle_code'    => $row['code'], 
+       
+        ]); 
     }
 }

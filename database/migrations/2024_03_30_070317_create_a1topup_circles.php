@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateA1topupOperators extends Migration
+class CreateA1topupCircles extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateA1topupOperators extends Migration
      */
     public function up()
     {
-        Schema::create('a1topup__operators', function (Blueprint $table) {
+        Schema::create('a1topup_circles', function (Blueprint $table) {
             $table->id();
-            $table->string('operator_name');
-            $table->string('operator_code');
-            $table->string('operator_service');
+            $table->string('circle_state');
+            $table->string('circle_code');
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class CreateA1topupOperators extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('a1topup__operators');
+        Schema::dropIfExists('a1topup_circles');
     }
 }

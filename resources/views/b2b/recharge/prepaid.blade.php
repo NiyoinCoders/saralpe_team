@@ -50,7 +50,7 @@
                                 @csrf
                                 <!-- Form fields go here -->
                                 <input type="hidden" name="user_id" value="{{ Auth::id() }}">
-                                @csrf
+                               
                                 <div class="form-group">
                                     <label class="form-label" for="email">Prepaid Mobile Number:</label>
                                     <input type="number" class="form-control" id="nameInput" name="phone">
