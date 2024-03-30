@@ -23,7 +23,7 @@ class DataImport implements ToModel, WithHeadingRow
         'operator_service' => $row['service'],
         ]); */
          return new A1topup_circles([
-            'circle_state'     => $row['name'],
+            'circle_state'     => $row['state'],
             'circle_code'    => $row['code'], 
        
         ]); 

@@ -1,13 +1,16 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\models\User;
 use Illuminate\Http\Request;
 
 
 use App\Imports\DataImport;
 use Maatwebsite\Excel\Facades\Excel;
-
+use App\Models\A1topup_operators;
+use App\Models\A1topup_circles;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class RechargeApiController extends Controller
 {
@@ -124,8 +127,34 @@ echo $response;
 
 public function prepaid()
     {
+        $operators = A1topup_operators::where('operator_service', '=', 'mobile')->get();
+        $circles = A1topup_circles::get();
+        return view('b2b.recharge.prepaid',compact('operators','circles'));
+    }
 
-        return view('b2b.recharge.prepaid');
+    public function doRechargeprepaid(Request $request)
+    {
+        
+      
+
+        $body = array(
+            "operator" => $request->operator,
+            "canumber" => $request->phone,
+            "amount" => $request->amount,
+            "Circle" =>$request->Circle,
+            "referenceid" => rand(9999999999,1000000000)
+        );
+        
+      
+        $user = User::first();
+     $agentbalnce= $user->balance;
+       echo $totalbalance= $agentbalnce-$request->amount;
+    echo "<pre>";
+      // echo $debit;
+       print_r($body);
+
+
+
     }
     public function import() 
     {
