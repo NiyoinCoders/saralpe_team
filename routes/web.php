@@ -26,6 +26,8 @@ use App\Http\Controllers\NewregisterController;
 use App\Http\Controllers\NsdlpanController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\RechargeController;
+use App\Http\Controllers\RechargeApiController;
+
 use App\Http\Controllers\RechargePlanController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RetailerController;
@@ -156,13 +158,15 @@ Route::group(['prefix' => 'b2b'], function () {
 
         // Recharge Start
         Route::group(['prefix' => 'recharge'], function () {
-            Route::get('prepaid', [RechargeController::class, 'prepaid'])->name('recharge.prepaid');
-            Route::get('dth', [RechargeController::class, 'dth'])->name('recharge.dth');
-            // Route::get('rechargemobile', [RechargeController::class, 'doRecharge'])->name("recharge.prepaid-store");
-            Route::post('submit-form', [RechargeController::class, 'doRechargeprepaid'])->name('submit-form');
-            Route::post('dth-form', [RechargeController::class, 'doRechargedth'])->name('dth-form');
-            Route::get('status', [RechargeController::class, 'status']);
-            Route::post('status1', [RechargeController::class, 'status1'])->name('rech-status');
+            Route::get('prepaid', [RechargeApiController::class, 'prepaid'])->name('recharge.prepaid');
+            Route::get('dth', [RechargeApiController::class, 'dth'])->name('recharge.dth');
+            // Route::get('rechargemobile', [RechargeApiController::class, 'doRecharge'])->name("recharge.prepaid-store");
+            Route::post('submit-form', [RechargeApiController::class, 'doRechargeprepaid'])->name('submit-form');
+            Route::post('dth-form', [RechargeApiController::class, 'doRechargedth'])->name('dth-form');
+            Route::get('status', [RechargeApiController::class, 'status']);
+            Route::get('import_excel', [RechargeApiController::class, 'import_excel'])->name('import_excel');
+            Route::post('status1', [RechargeApiController::class, 'status1'])->name('rech-status');
+            Route::post('data-import',[RechargeApiController::class,'import'])->name('data.import');
         });
 
         // Recharge End

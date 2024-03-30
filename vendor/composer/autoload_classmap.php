@@ -48,6 +48,7 @@ return array(
     'App\\Http\\Controllers\\PaysprintCallbackController' => $baseDir . '/app/Http/Controllers/PaysprintCallbackController.php',
     'App\\Http\\Controllers\\PlanController' => $baseDir . '/app/Http/Controllers/PlanController.php',
     'App\\Http\\Controllers\\ProductsController' => $baseDir . '/app/Http/Controllers/ProductsController.php',
+    'App\\Http\\Controllers\\RechargeApiController' => $baseDir . '/app/Http/Controllers/RechargeApiController.php',
     'App\\Http\\Controllers\\RechargeController' => $baseDir . '/app/Http/Controllers/RechargeController.php',
     'App\\Http\\Controllers\\RechargePlanController' => $baseDir . '/app/Http/Controllers/RechargePlanController.php',
     'App\\Http\\Controllers\\ReportController' => $baseDir . '/app/Http/Controllers/ReportController.php',
