@@ -22,10 +22,26 @@
                                     <select class="form-select mb-3 shadow-none" name="operator">
                                         <option selected="" value="">Select Your Operator</option>
                                         @foreach ($operators as $operator)
-                                            @if ($operator->category == 'DTH')
-                                                <option value="{{ $operator->id }}">{{ $operator->name }}</option>
-                                            @endif
+                                           
+                                                <option value="{{ $operator->operator_code }}">{{ $operator->operator_name }}</option>
+                                          
                                         @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="pwd">Circle:</label>
+                                    <select class="form-select mb-3 shadow-none" name="Circle" id="circle">
+
+                                           
+                                    <option selected="" value="">Select Your circle</option>
+                                        - @foreach ($circles as $circle)
+                                            
+                                                <option value="{{ $circle->circle_code }}">{{ $circle->circle_state	}}</option>
+                                            
+                                        @endforeach
+                                       
+                                    
+
                                     </select>
                                 </div>
                                 <div class="form-group">
