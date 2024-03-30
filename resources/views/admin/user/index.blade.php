@@ -281,8 +281,62 @@
     $(document).ready(function() {
         $(document).on('submit', '#filterSearch', function(e) {
             e.preventDefault();
-            $.ajax({
+            var formData = new FormData(this);
+            formData.append('_token', '{{ csrf_token() }}');
 
+            $.ajax({
+                url: '{{ route("userFilter") }}',
+                type: 'POST',
+                dataType: 'JSON',
+                processData: false,
+                contentType: false,
+                data: formData,
+                success: function(response) {
+                    var html;
+                    if (response != "") {
+                        $.each(response, function(index, value) {
+                            var userCardUrl = "{{ route('users.card',['id' => ':id']) }}";
+                            userCardUrl = userCardUrl.replace(':id', value.id);
+                            var userEditUrl = "{{ route('users.edit',['id' => ':id']) }}";
+                            userEditUrl = userEditUrl.replace(':id', value.id);
+                            var userDeleteUrl = "{{ route('users.delete',['id' => ':id']) }}";
+                            userDeleteUrl = userDeleteUrl.replace(':id', value.id);
+                            html += `<tr>
+                                        <td>${value.name ? value.name :''}</td>
+                                        <td>${value.mobile ? value.mobile :''}</td>
+                                        <td>${value.email ? value.email : ''}</td>
+                                        <td>${value.pincode ? value.pincode : ''}</td>
+                                        <td>${value.pan ? value.pan : ''}</td>
+                                        <td>${value.aadhar ? value.aadhar:''}</td>
+                                        <td>${value.state ? value.state:''}</td>
+                                        <td>${value.city ? value.city :''}</td>
+                                        <td>${value.address ? value.address :''}</td>
+                                        <td>${value.dob ? value.dob:''}</td>
+                                        <td>${value.gender ? value.gender:''}</td>
+                                        <td>
+                                            <div class="form-check form-switch form-check-inline">
+                                                <input data-id="${value.id}" class="form-check-input" type="checkbox" id="switch2" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="InActive" ${value.status ? 'checked' : '' }>
+                                            </div>
+                                        </td>
+                                        <td><button class="btn btn-sm btn-success">Varified</button></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-soft-info"><a href="${userCardUrl}"><i class="bi bi-credit-card"></i></a></button>
+                                            <button class="btn btn-sm btn-soft-info"> <a href="${userEditUrl}"><i class="bi bi-pen"></i></a></button>
+
+                                            <button class="btn btn-sm btn-soft-danger"><a href="${userDeleteUrl}"><i class="bi bi-trash3"></i></a></button>
+                                        </td>
+                                    </tr>`
+
+                        });
+                        $('#tbody').html(html);
+                    } else {
+                        html = `<tr>
+                                    <td colspan="14" class="text-danger text-center">No Record Found</td>
+                                </tr>`
+                        $('#tbody').html(html);
+
+                    }
+                }
             });
         });
     });

@@ -319,18 +319,19 @@ Route::group(['prefix' => 'b2b'], function () {
         // users manage 
         // Route::get('users', [UserController::class, 'index'])->name('all-user.index');
 
-       
+
         Route::get('users', [UserController::class, 'index'])->name('users.index');
         Route::post('users', [UserController::class, 'store'])->name('users.store');
         Route::get('users/create', [UserController::class, 'create'])->name('users.create');
-       
-       
+
+
         Route::get('users/edit/{id}', [UserController::class, 'edit'])->name('users.edit');
         Route::get('delete/{id}', [UserController::class, 'destroy'])->name('users.delete');
         Route::get('users/{id}', [UserController::class, 'card'])->name('users.card');
         Route::put('users/{id}', [UserController::class, 'update'])->name('users.update');
         Route::post('userchangeStatus', [UserController::class, 'userchangeStatus'])->name('userchangeStatus');
-       // Route::get('add_Users', [UserController::class, 'add_Users'])->name('add_Users');
+        Route::post('userFilter', [UserController::class, 'userFilter'])->name('userFilter');
+        // Route::get('add_Users', [UserController::class, 'add_Users'])->name('add_Users');
         // commision manage 
         Route::get('commision_slots', [HomeController::class, 'commision_slots'])->name('commision_slots');
         Route::get('commision_slots_add', [HomeController::class, 'commision_slots_add'])->name('commision_slots_add');
@@ -403,7 +404,7 @@ Route::group(['prefix' => 'b2b'], function () {
         // whatsapi
         Route::get('api', [AdminController::class, 'api'])->name('admin.api');
         Route::get('wallet', [AdminController::class, 'wallet'])->name('wallet');
-        
+
         Route::post('apistore', [AdminController::class, 'apistore'])->name('admin.apistore');
         Route::get('apidestroy/{id}', [AdminController::class, 'apidestroy'])->name('admin.apidestroy');
 
