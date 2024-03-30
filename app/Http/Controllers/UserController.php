@@ -54,6 +54,25 @@ class UserController extends Controller
             ->get();
         return view("b2b.user.pending", compact("users", "roles"));
     }
+    public function userFilter(Request $request)
+    {
+        $userType = $request->input('user_type');
+        $userStatus = $request->input('user_status');
+        $kycStatus = $request->input('kyc_status');
+        $query = User::query();
+        $query->where('id', '!=', Auth::id());
+        if ($userType !== 'all') {
+            $query->where('role', $userType);
+        }
+        if ($userStatus !== 'all') {
+            $query->where('status', $userStatus);
+        }
+        if ($kycStatus !== 'all') {
+            $query->where('kyc_status', $kycStatus);
+        }
+        $users = $query->get();
+        return response()->json($users);
+    }
     public function pending_user_update(Request $request)
     {
         $request->validate([

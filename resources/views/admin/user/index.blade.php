@@ -13,7 +13,7 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label class="form-label text-dark">User Type</label>
-                        <select name="user_type" class="form-select mb-3 shadow-none text-dark">
+                        <select id="user_type" name="user_type" class="form-select mb-3 shadow-none text-dark">
                             <option selected value="all">All</option>
                             @foreach($userTables as $userTable)
                             <option value="{{$userTable['id']}}">{{$userTable['name']}}</option>
@@ -24,7 +24,7 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label class="form-label text-dark">User Status</label>
-                        <select name="user_status" class="form-select mb-3 shadow-none text-dark">
+                        <select id="user_status" name="user_status" class="form-select mb-3 shadow-none text-dark">
                             <option selected value="all">All</option>
                             <option value="1">Active</option>
                             <option value="0">In-Active</option>
@@ -34,7 +34,7 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label class="form-label text-dark">KYC Status</label>
-                        <select name="kyc_status" class="form-select mb-3 shadow-none text-dark">
+                        <select id="kyc_status" name="kyc_status" class="form-select mb-3 shadow-none text-dark">
                             <option selected value="all">All</option>
                             <option value="1">Approevd</option>
                             <option value="2">Pending</option>
@@ -46,6 +46,7 @@
             <div class="col-md-3">
                 <div class="form-group ">
                     <button type="submit" class="btn btn-primary">Filter</button>
+                    <button type="button" id="exportButton" class="btn btn-warning">Export Excel</button>
                 </div>
             </div>
         </form>
@@ -257,6 +258,7 @@
 @endsection
 
 @section('scripts')
+<script src="https://cdn.rawgit.com/rainabba/jquery-table2excel/1.1.0/dist/jquery.table2excel.min.js"></script>
 <script type="text/javascript">
     $(document).on('change', '#switch2', function() {
         var id = $(this).attr('data-id');
@@ -279,10 +281,107 @@
         });
     })
     $(document).ready(function() {
+
+        $("#exportButton").on("click", function() {
+
+            var user_type = $('#user_type').val();
+            var user_status = $('#user_status').val();
+            var kyc_status = $('#kyc_status').val();
+
+            $.ajax({
+                url: '{{ route("userFilter") }}',
+                type: 'POST',
+                dataType: 'JSON',
+                data: {
+                    user_type: user_type,
+                    user_status: user_status,
+                    kyc_status: kyc_status,
+                    _token: "{{ csrf_token() }}",
+                },
+                success: function(response) {
+                    var tempTable = $('<table>');
+                    var headerRow = $('<tr>');
+                    $.each(response[0], function(key, value) {
+                        headerRow.append($('<th>').text(key));
+                    });
+                    tempTable.append(headerRow);
+                    $.each(response, function(index, item) {
+                        var row = $('<tr>');
+                        $.each(item, function(key, value) {
+                            row.append($('<td>').text(value));
+                        });
+                        tempTable.append(row);
+                    });
+                    $('body').append(tempTable);
+                    tempTable.hide();
+                    tempTable.table2excel({
+                        filename: "UserTable",
+                        fileext: ".xls"
+                    });
+                    tempTable.remove();
+                }
+
+            });
+        });
+
         $(document).on('submit', '#filterSearch', function(e) {
             e.preventDefault();
-            $.ajax({
+            var formData = new FormData(this);
+            formData.append('_token', '{{ csrf_token() }}');
 
+            $.ajax({
+                url: '{{ route("userFilter") }}',
+                type: 'POST',
+                dataType: 'JSON',
+                processData: false,
+                contentType: false,
+                data: formData,
+                success: function(response) {
+                    var html;
+                    if (response != "") {
+                        $.each(response, function(index, value) {
+                            var userCardUrl = "{{ route('users.card',['id' => ':id']) }}";
+                            userCardUrl = userCardUrl.replace(':id', value.id);
+                            var userEditUrl = "{{ route('users.edit',['id' => ':id']) }}";
+                            userEditUrl = userEditUrl.replace(':id', value.id);
+                            var userDeleteUrl = "{{ route('users.delete',['id' => ':id']) }}";
+                            userDeleteUrl = userDeleteUrl.replace(':id', value.id);
+                            html += `<tr>
+                                        <td>${value.name ? value.name :''}</td>
+                                        <td>${value.mobile ? value.mobile :''}</td>
+                                        <td>${value.email ? value.email : ''}</td>
+                                        <td>${value.pincode ? value.pincode : ''}</td>
+                                        <td>${value.pan ? value.pan : ''}</td>
+                                        <td>${value.aadhar ? value.aadhar:''}</td>
+                                        <td>${value.state ? value.state:''}</td>
+                                        <td>${value.city ? value.city :''}</td>
+                                        <td>${value.address ? value.address :''}</td>
+                                        <td>${value.dob ? value.dob:''}</td>
+                                        <td>${value.gender ? value.gender:''}</td>
+                                        <td>
+                                            <div class="form-check form-switch form-check-inline">
+                                                <input data-id="${value.id}" class="form-check-input" type="checkbox" id="switch2" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="InActive" ${value.status ? 'checked' : '' }>
+                                            </div>
+                                        </td>
+                                        <td><button class="btn btn-sm btn-success">Varified</button></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-soft-info"><a href="${userCardUrl}"><i class="bi bi-credit-card"></i></a></button>
+                                            <button class="btn btn-sm btn-soft-info"> <a href="${userEditUrl}"><i class="bi bi-pen"></i></a></button>
+
+                                            <button class="btn btn-sm btn-soft-danger"><a href="${userDeleteUrl}"><i class="bi bi-trash3"></i></a></button>
+                                        </td>
+                                    </tr>`
+
+                        });
+                        $('#tbody').html(html);
+                    } else {
+                        html = `<tr>
+                                    <td colspan="14" class="text-danger text-center">No Record Found</td>
+                                </tr>`
+                        $('#tbody').html(html);
+
+                    }
+                }
             });
         });
     });
