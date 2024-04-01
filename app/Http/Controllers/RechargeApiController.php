@@ -153,13 +153,20 @@ public function prepaid()
 $res = json_decode($jsonData, true);
 
 //echo $res['status'];
-      
+
+
+//recharge::create($data);
+
+
      
-      if($res['status']){
+      if($res['status'] = 'success'){
           $user->withdraw($request->amount);
-          return response(["status"=>"success","recharge succesfully"]);
+          return response()->json(['success' => 'recharge Added Successfully!']);
+         
+         
       }else{
-          return response(["status"=>"Failure","error your transcation is failure"]);
+        return response()->json(['error' => 'transaction is failure']);
+         
 
       }
     
