@@ -152,8 +152,21 @@ public function prepaid()
         
         
       $amount=$request->amount;
-        $user = User::first();
-        $user->deposit(400, ['description' => 'payment of taxes']);
+
+      $auth_id= Auth::id();
+      $user = User::where('id', '=', Auth::id())->first();
+        if($user->balance<$amount)
+        {
+          echo "insufficent balance please add amount in wallet";
+        }
+        else{
+          $user->withdraw($amount);
+          echo $agentbalnce= $user->balance;
+          echo "<pre>";
+         // echo $debit;
+          print_r($body);
+        }
+       // $user->deposit(400, ['description' => 'payment of taxes']);
         //$user->withdraw(200, ['description' => 'payment of taxes']);
         
        /* $user->withdraw($amount);
@@ -179,8 +192,20 @@ public function prepaid()
 
             print_r($body);
             $amount=$request->amount;
+
            $auth_id= Auth::id();
         $user = User::where('id', '=', Auth::id())->first();
+        if($user->balance<$amount)
+        {
+          echo "insufficent balance please add amount in wallet";
+        }
+        else{
+          $user->withdraw($amount);
+          echo $agentbalnce= $user->balance;
+          echo "<pre>";
+         // echo $debit;
+          print_r($body);
+        }
         $user->deposit(400, ['description' => 'payment of taxes']);
             
         }
