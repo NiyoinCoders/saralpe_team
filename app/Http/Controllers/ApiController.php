@@ -48,8 +48,8 @@ class ApiController extends Controller
       
       curl_close($curl); */
      // $response='{"txid":"0","status":"success","opid":"Invalid IP 223.236.46.206","number":"7999897791","amount":"15","orderid":"8543596945"}';
-      $response='{"txid":"0","status":"Failure","opid":"Invalid IP 223.236.46.206","number":"7999897791","amount":"15","orderid":"8543596945"}';
-      echo ($response);
+      //$response='{"txid":"0","status":"Failure","opid":"Invalid IP 223.236.46.206","number":"7999897791","amount":"15","orderid":"8543596945"}';
+     // echo $response;
       
               
                       

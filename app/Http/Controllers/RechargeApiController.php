@@ -143,16 +143,30 @@ public function prepaid()
       $amount=$request->amount;
 
       $service =  'dorecharge';
-      $api=new ApiController();
-      $res = json_decode($api->RechargeAPI($service, $body));
+     // $api=new ApiController();
+     // $res = ($api->RechargeAPI($service, $body));
       //var_dump(json_decode($res));
       //print_r($res);
-   
-      if($res->status){
+      $jsonData='{"txid":"0","status":"Failure","opid":"Invalid IP 223.236.46.206","number":"7999897791","amount":"15","orderid":"8543596945"}';
+     
+
+$res = json_decode($jsonData, true);
+
+//echo $res['status'];
+
+
+//recharge::create($data);
+
+
+     
+      if($res['status'] = 'success'){
           $user->withdraw($request->amount);
-          return response(["status"=>"success","msg"=>$res->message,"refid"=>$res->refid,"ackno"=>$res->ackno]);
+          return response()->json(['success' => 'recharge Added Successfully!']);
+         
+         
       }else{
-          return response(["status"=>"Failure","msg"=>$res->message]);
+        return response()->json(['error' => 'transaction is failure']);
+         
 
       }
     

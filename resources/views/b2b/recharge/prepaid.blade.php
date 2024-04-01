@@ -43,7 +43,18 @@
                             </div>
                         </div>
 
-                       
+                        @if ($errors->any())
+        <div class="alert alert-danger">
+            @foreach ($errors->all() as $error)
+            {{ $error }}
+            @endforeach
+        </div>
+        @endif
+        @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+        @endif
                         <div class="card-body">
                             <div class="alerts"></div>
                             <form method="POST" action="{{ route('submit-form') }}">
