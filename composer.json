@@ -19,6 +19,7 @@
         "phpmailer/phpmailer": "^6.8",
         "simplesoftwareio/simple-qrcode": "^4.2",
         "tymon/jwt-auth": "^1.0",
+        "uxweb/sweet-alert": "^2.0",
         "yajra/laravel-datatables-oracle": "^9.21"
     },
     "require-dev": {

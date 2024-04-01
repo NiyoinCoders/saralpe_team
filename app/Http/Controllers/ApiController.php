@@ -10,11 +10,50 @@ use App\HelperFunctions;
 use App\Helpers\Helper;
 use Illuminate\Support\Facades\Log;
 
+use App\Imports\DataImport;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Models\A1topup_operators;
+use App\Models\A1topup_circles;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Validator;
 class ApiController extends Controller
 {
     // API POST FUNCTION
 
-
+    public function RechargeAPI($service, $body){
+        /* $username=502658;
+        $pwd='64s15jrr';
+        $circlecode='16';
+        $operatorcode='RC';
+        $mobilenumber='7999897791';
+        $amount='1';
+        $orderid=56565765;
+      $curl = curl_init();
+      
+      curl_setopt_array($curl, array(
+        CURLOPT_URL => 'https://business.a1topup.com/recharge/api?username= $username&pwd=$pwd&circlecode=$circlecode&operatorcode=$operatorcode&number=$mobilenumber&amount=$amount&orderid=$orderid&format=json',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'POST',
+        
+      ));
+      
+      $response = curl_exec($curl);
+      
+      curl_close($curl); */
+     // $response='{"txid":"0","status":"success","opid":"Invalid IP 223.236.46.206","number":"7999897791","amount":"15","orderid":"8543596945"}';
+      $response='{"txid":"0","status":"Failure","opid":"Invalid IP 223.236.46.206","number":"7999897791","amount":"15","orderid":"8543596945"}';
+      echo ($response);
+      
+              
+                      
+          } 
     public static function post($service, $body)
     {
 

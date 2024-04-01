@@ -1477,6 +1477,15 @@
             ),
             'dev_requirement' => false,
         ),
+        'uxweb/sweet-alert' => array(
+            'pretty_version' => '2.0.5',
+            'version' => '2.0.5.0',
+            'reference' => 'e9eb83d7d991de0fcb74398a698e0cdfef6d189d',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../uxweb/sweet-alert',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'vlucas/phpdotenv' => array(
             'pretty_version' => 'v5.6.0',
             'version' => '5.6.0.0',
