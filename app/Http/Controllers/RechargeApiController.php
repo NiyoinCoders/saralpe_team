@@ -115,14 +115,14 @@ public function prepaid()
         
       
 
-       
+    /*    
         $validated =  Validator::make($request->all(), [
           'phone' => 'required|max:10',
           'operator' => 'required',
           'amount' => 'required|numeric|min:10'
-      ]);
+      ]); */
       
-      if ($validated->fails()) {
+     /*  if ($validated->fails()) {
           return response(["status" => 'errors', 'messages' =>  $validated->errors()->all()]);
           exit();
       }
@@ -132,7 +132,7 @@ public function prepaid()
       if ($user->balance < $request->amount) {
           return response(["status" => 'error', 'msg' => 'Your Wallet Balance Is Low!']);
           exit();
-      }
+      } */
       $body = array(
         "operator" => $request->operator,
         "canumber" => $request->phone,
@@ -148,7 +148,7 @@ public function prepaid()
       //var_dump(json_decode($res));
       //print_r($res);
       $jsonData='{"txid":"0","status":"Failure","opid":"Invalid IP 223.236.46.206","number":"7999897791","amount":"15","orderid":"8543596945"}';
-     
+      $jsonData='{"txid":"0","status":"sucess","opid":"Invalid IP 223.236.46.206","number":"7999897791","amount":"15","orderid":"8543596945"}';
 
 $res = json_decode($jsonData, true);
 
@@ -160,7 +160,7 @@ $res = json_decode($jsonData, true);
 
      
       if($res['status'] = 'success'){
-          $user->withdraw($request->amount);
+          //$user->withdraw($request->amount);
           return response()->json(['success' => 'recharge Added Successfully!']);
          
          
