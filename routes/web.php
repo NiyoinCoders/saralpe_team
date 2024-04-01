@@ -118,6 +118,16 @@ Route::group(['prefix' => 'b2b'], function () {
         Route::post('miniStatement', [AepsController::class, 'miniStatement'])->name('miniStatement');
         Route::post('apesservies', [AepsController::class, 'apesservies'])->name('apesservies');
 
+        // ticket start
+        Route::get('ticket', [RetailerController::class, 'ticket'])->name('b2b.ticket');
+        Route::get('raise_ticket', [RetailerController::class, 'raise_ticket'])->name('b2b.raise_ticket');
+        Route::get('account_configuration', [RetailerController::class, 'account_configuration'])->name('b2b.account_configuration');
+        Route::get('transaction_related', [RetailerController::class, 'transaction_related'])->name('b2b.transaction_related');
+        Route::get('tech_support', [RetailerController::class, 'tech_support'])->name('b2b.tech_support');
+        Route::get('commision_issue', [RetailerController::class, 'commision_issue'])->name('b2b.commision_issue');
+        Route::get('other', [RetailerController::class, 'other'])->name('b2b.other');
+        // ticket end
+
         // Cart Start
         Route::get('product-detail/{link}', [ProductsController::class, 'details'])->name('product.detail');
         Route::get('all-product', [ProductsController::class, 'view'])->name('all-product.view');
@@ -166,7 +176,7 @@ Route::group(['prefix' => 'b2b'], function () {
             Route::get('status', [RechargeApiController::class, 'status']);
             Route::get('import_excel', [RechargeApiController::class, 'import_excel'])->name('import_excel');
             Route::post('status1', [RechargeApiController::class, 'status1'])->name('rech-status');
-            Route::post('data-import',[RechargeApiController::class,'import'])->name('data.import');
+            Route::post('data-import', [RechargeApiController::class, 'import'])->name('data.import');
         });
 
         // Recharge End

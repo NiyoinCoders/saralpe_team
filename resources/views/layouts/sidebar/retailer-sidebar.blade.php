@@ -450,6 +450,51 @@
             <span>Donation</span>
         </a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="collapse" href="#ticket" role="button" aria-expanded="false" aria-controls="horizontal-menu">
+            <i class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+            </i>
+            <span class="item-name">Tickets</span>
+            <i class="right-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+            </i>
+        </a>
+        <ul class="sub-nav collapse" id="ticket" data-bs-parent="#sidebar-menu">
+            <li class="nav-item">
+                <a class="nav-link " href="{{route('b2b.raise_ticket')}}">
+                    <i class="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
+                            <g>
+                                <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                            </g>
+                        </svg>
+                    </i>
+                    <i class="sidenav-mini-icon"> H </i>
+                    <span class="item-name">Add New </span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="{{route('b2b.ticket')}}">
+                    <i class="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
+                            <g>
+                                <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                            </g>
+                        </svg>
+                    </i>
+                    <i class="sidenav-mini-icon"> D </i>
+                    <span class="item-name">View All</span>
+                </a>
+            </li>
+
+        </ul>
+    </li>
     <li>
         <li class="nav-item">
             <a class="nav-link" aria-current="page" href="{{route('fastag')}}">
