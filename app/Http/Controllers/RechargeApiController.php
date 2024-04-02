@@ -118,24 +118,26 @@ class RechargeApiController extends Controller
 
 
 
-    /*    
+      
         $validated =  Validator::make($request->all(), [
           'phone' => 'required|max:10',
           'operator' => 'required',
           'amount' => 'required|numeric|min:10'
-      ]); */
+      ]); 
 
-    /*  if ($validated->fails()) {
+      if ($validated->fails()) {
           return response(["status" => 'errors', 'messages' =>  $validated->errors()->all()]);
+          
           exit();
       }
 
       $user_id = $request->user_id;
       $user = User::find($user_id);
       if ($user->balance < $request->amount) {
-          return response(["status" => 'error', 'msg' => 'Your Wallet Balance Is Low!']);
+          //return response(["status" => 'error', 'msg' => 'Your Wallet Balance Is Low!']);
+          return redirect()->back()->with(['error' => 'Your Wallet Balance Is Low!']);
           exit();
-      } */
+      } 
     $body = array(
       "operator" => $request->operator,
       "canumber" => $request->phone,
@@ -146,8 +148,8 @@ class RechargeApiController extends Controller
     $amount = $request->amount;
 
     $service =  'dorecharge';
-    // $api=new ApiController();
-    // $res = ($api->RechargeAPI($service, $body));
+     $api=new ApiController();
+     $res = ($api->RechargeAPI($service, $body));
     //var_dump(json_decode($res));
     //print_r($res);
     $jsonData = '{"txid":"0","status":"Failure","opid":"Invalid IP 223.236.46.206","number":"7999897791","amount":"15","orderid":"8543596945"}';
@@ -163,7 +165,7 @@ class RechargeApiController extends Controller
 
 
     if ($res['status'] = 'success') {
-      // $user->withdraw($request->amount);
+      $user->withdraw($request->amount);
       return redirect()->back()->with(['success' => 'recharge Added Successfully!']);
     } else {
       return redirect()->back()->with(['error' => 'transaction is failure']);
