@@ -27,7 +27,11 @@
                 <button class="btn btn-primary btn-sm">Other</button>
             </div>
         </div>
-
+        @if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
         <div class="card-body">
             <form action="{{route('b2b.ticket_add')}}" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -70,13 +74,13 @@
                             <label class="form-label text-dark">Select Issue Type:<span class="text-danger">*</span></label>
                             <div class="d-flex flex-column  flex-md-row gap-md-3">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="issue_type" value="Reports_requirement" id="flexRadioDefault1">
+                                    <input class="form-check-input" type="radio" name="support_issue" value="Reports_requirement" id="flexRadioDefault1">
                                     <label class="form-check-label text-black" for="flexRadioDefault1">
                                         Reports requirement
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="issue_type" value="Suggestion_for_Improvement" id="flexRadioDefault2" checked>
+                                    <input class="form-check-input" type="radio" name="support_issue" value="Suggestion_for_Improvement" id="flexRadioDefault2" checked>
                                     <label class="form-check-label text-black" for="flexRadioDefault2">
                                         Suggestion for Improvement
                                     </label>

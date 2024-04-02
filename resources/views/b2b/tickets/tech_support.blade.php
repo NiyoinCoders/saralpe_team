@@ -27,7 +27,11 @@
                 <button class="btn btn-primary btn-sm">Tech Support</button>
             </div>
         </div>
-
+        @if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
         <div class="card-body">
             <form action="{{route('b2b.ticket_add')}}" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -35,19 +39,19 @@
                     <div class="col-md-6">
                         <input type="hidden" value="tech_support" name="ticket_type">
                         <label for="exampleFormControlInput1" class="form-label text-black">Product Type @error('product_type')
-                        <span class="text-danger">{{ $product_type }}</span>
-                        @enderror</label>
+                            <span class="text-danger">{{ $message  }}</span>
+                            @enderror</label>
                         <select class="form-select text-black form-select-sm" name="product_type" aria-label=".form-select-sm example">
-                            <option selected>Select Product Type</option>
+                            <option value="" selected>Select Product Type</option>
                             @foreach($services as $service)
                             <option value="{{$service->id}}">{{$service->service_name}}</option>
                             @endforeach
                         </select>
-                        
+
                     </div>
                     <div class="col-md-6">
                         <label for="exampleFormControlInput1" class="form-label text-black">Issue Type @error('support_issue')
-                            <span class="text-danger">{{ $support_issue }}</span>
+                            <span class="text-danger">{{ $message  }}</span>
                             @enderror</label>
                         <input class="form-control" type="text" name="support_issue" placeholder="Issue Type">
 
@@ -58,7 +62,7 @@
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="exampleFormControlTextarea1" class="form-label text-black">Request Logs @error('request_logs')
-                                <span class="text-danger">{{ $request_logs }}</span>
+                                <span class="text-danger">{{ $message }}</span>
                                 @enderror</label>
                             <textarea class="form-control" placeholder="Add request Payload here" name="request_logs" id="exampleFormControlTextarea1" rows="3"></textarea>
 
@@ -66,7 +70,9 @@
                     </div>
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label for="exampleFormControlTextarea1" class="form-label text-black">Response Logs:</label>
+                            <label for="exampleFormControlTextarea1" class="form-label text-black">Response Logs @error('response_logs')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror</label>
                             <textarea class="form-control" placeholder="Add response payload here" name="response_logs" id="exampleFormControlTextarea1" rows="3"></textarea>
                         </div>
                     </div>
@@ -75,14 +81,18 @@
                 <div class="row mt-4">
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label for="exampleFormControlTextarea1" class="form-label text-black">Remark: <span class="text-danger">*</span></label>
+                            <label for="exampleFormControlTextarea1" class="form-label text-black">Remark @error('remark')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror</label>
                             <textarea class="form-control" placeholder="Write a brief deascription of your request" name="remark" id="exampleFormControlTextarea1" rows="3"></textarea>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="exampleFormControlTextarea1" class="form-label text-black">Mobile
-                                Number: <span class="text-danger">*</span></label>
+                                Number @error('mobile')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror</label>
                             <input class="form-control" type="text" name="mobile" placeholder="Enter mobile number">
                         </div>
                     </div>
@@ -91,14 +101,15 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="">
+                            <label for="">Only images of type .jpeg .jpg and size 100 kb is allowed</label>
                             <input class="form-control form-control-sm" name="file" id="formFileSm" type="file">
-                            <span class="text-danger">*Only images of type .jpeg .jpg and size 100 kb is
-                                allowed</span>
+                            @error('file')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
 
                     <div class="col-md-6 mt-4 mt-md-0">
-                        <button class="btn btn-sm btn-warning">Reset</button>
                         <button class="btn btn-sm btn-primary">Submit</button>
                     </div>
                 </div>

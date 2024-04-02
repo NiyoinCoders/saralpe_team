@@ -16,8 +16,8 @@ class CreateTickets extends Migration
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
-            $table->string('subject');
-            $table->string('email');
+            $table->string('subject')->nullable();
+            $table->string('email')->nullable();
             $table->string('product_type')->nullable();
             $table->string('issue_type')->nullable();
             $table->longText('description')->nullable();

@@ -27,7 +27,11 @@
                 <button class="btn btn-primary btn-sm">Account Configuration Change</button>
             </div>
         </div>
-
+        @if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
         <div class="card-body">
             <form action="{{route('b2b.ticket_add')}}" method="POST" enctype="multipart/form-data">
                 @csrf

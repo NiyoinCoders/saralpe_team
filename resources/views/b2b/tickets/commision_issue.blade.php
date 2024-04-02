@@ -26,7 +26,11 @@
                 <button class="btn btn-primary btn-sm">Commission Issues</button>
             </div>
         </div>
-
+        @if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
         <div class="card-body">
             <div class="row d-flex justify-content-center px-md-5">
                 <form action="{{route('b2b.ticket_add')}}" method="POST" enctype="multipart/form-data">
