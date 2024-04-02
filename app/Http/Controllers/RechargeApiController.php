@@ -134,7 +134,7 @@ class RechargeApiController extends Controller
       $user_id = $request->user_id;
       $user = User::find($user_id);
       if ($user->balance < $request->amount) {
-          
+          //return response(["status" => 'error', 'msg' => 'Your Wallet Balance Is Low!']);
           return redirect()->back()->with(['error' => 'Your Wallet Balance Is Low!']);
           exit();
       } 
@@ -162,13 +162,16 @@ class RechargeApiController extends Controller
 
     //recharge::create($data);
 
-
+    $number="7999897791";
+    $amount="15";
+    $orderID="8543596945";
+    $txid="5804";
 
     if ($res['status'] = 'success') {
       $user->withdraw($request->amount);
-      return redirect()->back()->with(['success' => 'recharge Added Successfully!']);
+      return redirect()->back()->with(['success' => 'recharge Added Successfully!',"<br>","txid"=>$txid,"number"=>$number,"amount"=>$amount,"orderID"=>$orderID]);
     } else {
-      return redirect()->back()->with(['error' => 'transaction is failure']);
+      return redirect()->back()->with(['error' => 'transaction is failure',"<br>","txid"=>$txid,"number"=>$number,"amount"=>$amount,"orderID"=>$orderID]);
     }
   }
 
@@ -188,7 +191,7 @@ class RechargeApiController extends Controller
     $user_id = $request->user_id;
     $user = User::find($user_id);
     if ($user->balance < $request->amount) {
-      return redirect()->back()->with(['error' => 'Your Wallet Balance Is Low!']);
+      return response(["status" => 'error', 'msg' => 'Your Wallet Balance Is Low!']);
       exit();
     }
     $body = array(
@@ -202,11 +205,16 @@ class RechargeApiController extends Controller
     $api = new ApiController();
     $res = json_decode($api->RechargeAPI($service, $body));
 
+    $number="7999897791";
+    $amount="15";
+    $orderID="8543596945";
+    $txid="5804";
+
     if ($res['status'] = 'success') {
       $user->withdraw($request->amount);
-      return redirect()->back()->with(['success' => 'recharge Added Successfully!']);
+      return redirect()->back()->with(['success' => 'recharge Added Successfully!',"<br>","txid"=>$txid,"number"=>$number,"amount"=>$amount,"orderID"=>$orderID]);
     } else {
-      return redirect()->back()->with(['error' => 'transaction is failure']);
+      return redirect()->back()->with(['error' => 'transaction is failure',"<br>","txid"=>$txid,"number"=>$number,"amount"=>$amount,"orderID"=>$orderID]);
     }
 
 
