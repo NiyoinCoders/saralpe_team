@@ -15,13 +15,13 @@ class CreateTickets extends Migration
     {
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
+            $table->integer('user_id');
             $table->string('subject');
             $table->string('email');
             $table->longText('description')->nullable();
             $table->string('file');
             $table->string('ticket_type');
-            $table->bigInteger('status')->comment('0 open, 1 pending,2 completed')->nullable();
-           
+            $table->bigInteger('status')->default('0')->comment('0 open, 1 pending,2 completed')->nullable();
             $table->timestamps();
         });
     }

@@ -126,6 +126,7 @@ Route::group(['prefix' => 'b2b'], function () {
         Route::get('tech_support', [RetailerController::class, 'tech_support'])->name('b2b.tech_support');
         Route::get('commision_issue', [RetailerController::class, 'commision_issue'])->name('b2b.commision_issue');
         Route::get('other', [RetailerController::class, 'other'])->name('b2b.other');
+        Route::post('acconfi_add', [RetailerController::class, 'acconfi_add'])->name('b2b.acconfi_add');
         // ticket end
 
         // Cart Start
