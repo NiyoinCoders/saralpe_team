@@ -199,7 +199,7 @@
 <script>
     setTimeout(function() {
         $('#flash-message').fadeOut('fast');
-    }, 1000);
+    }, 4000);
 </script>
 <script>
     function printDiv(divName) {
