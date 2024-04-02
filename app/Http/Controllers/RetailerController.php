@@ -92,7 +92,7 @@ class RetailerController extends Controller
         $ticket->save();
         return redirect()->back()->with('success', 'Ticket submitted successfully!');
     }
-    function generateRandomCode($prefix = '', $length = 8)
+    public function generateRandomCode($prefix = '', $length = 8)
     {
         $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $numbers = '0123456789';
@@ -107,5 +107,11 @@ class RetailerController extends Controller
             $randomString .= $numbers[rand(0, strlen($numbers) - 1)];
         }
         return $randomString;
+    }
+    public function fetchList()
+    {
+        $tickets = Ticket::all();
+        $services = Service::whereIn('id', $tickets->pluck('product_type'))->get();
+        return response()->json(['tickets' => $tickets, 'services' => $services]);
     }
 }
