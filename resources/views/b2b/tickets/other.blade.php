@@ -10,7 +10,7 @@
                     Raise New Request
                 </p>
                 <div>
-                    <a href="track_complaint_page.html" class="btn btn-soft-danger btn-sm"><i class="bi bi-crosshair"></i>
+                    <a href="{{route('b2b.ticket')}}" class="btn btn-soft-danger btn-sm"><i class="bi bi-crosshair"></i>
                         Track
                         Complaint</a>
                 </div>
