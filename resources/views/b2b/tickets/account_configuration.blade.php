@@ -29,11 +29,12 @@
         </div>
 
         <div class="card-body">
-            <form action="{{route('b2b.acconfi_add')}}" method="POST" enctype="multipart/form-data">
+            <form action="{{route('b2b.ticket_add')}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row d-flex justify-content-center px-md-5">
                     <div class="col-md-6">
                         <div class="form-group">
+                            <input type="hidden" value="account_configuration" name="ticket_type">
                             <input type="text" class="form-control form-control-sm text-dark" id="end_date" value="" name="subject" placeholder="Subject">
                             @error('subject')
                             <span class="text-danger">{{ $message }}</span>

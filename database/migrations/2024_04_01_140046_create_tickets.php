@@ -18,9 +18,16 @@ class CreateTickets extends Migration
             $table->integer('user_id');
             $table->string('subject');
             $table->string('email');
+            $table->string('product_type')->nullable();
+            $table->string('issue_type')->nullable();
             $table->longText('description')->nullable();
             $table->string('file');
             $table->string('ticket_type');
+            $table->string('support_issue')->nullable();   
+            $table->longText('request_logs')->nullable();
+            $table->longText('response_logs')->nullable();
+            $table->longText('remark')->nullable();
+            $table->integer('mobile')->nullable();
             $table->bigInteger('status')->default('0')->comment('0 open, 1 pending,2 completed')->nullable();
             $table->timestamps();
         });
