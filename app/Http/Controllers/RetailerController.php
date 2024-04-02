@@ -80,6 +80,7 @@ class RetailerController extends Controller
             }
         }
         $ticket->ticket_type = $request->input('ticket_type');
+        $ticket->complaint_id = $this->generateRandomCode('SP-TICKET');
 
         if ($request->hasFile('file')) {
             $file = $request->file('file');
@@ -90,5 +91,21 @@ class RetailerController extends Controller
         }
         $ticket->save();
         return redirect()->back()->with('success', 'Ticket submitted successfully!');
+    }
+    function generateRandomCode($prefix = '', $length = 8)
+    {
+        $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $numbers = '0123456789';
+
+        $randomString = '';
+        $randomString .= $prefix;
+        for ($i = 0; $i < ($length - strlen($prefix)); $i++) {
+            $randomString .= $characters[rand(0, strlen($characters) - 1)];
+        }
+        $randomString .= '-';
+        for ($i = 0; $i < 4; $i++) {
+            $randomString .= $numbers[rand(0, strlen($numbers) - 1)];
+        }
+        return $randomString;
     }
 }
