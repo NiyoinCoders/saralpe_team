@@ -2,6 +2,33 @@
 @section('title', 'Recharge Prepaid')
 @section('content')
     <div class="conatiner-fluid content-inner mt-n5 py-0">
+    @if(session()->has('success') || session()->has('error'))
+    <div id="flash-message" class="container-fluid position-absolute vh-100 " style="z-index: 999;top: 0;right: 0; background-color:#0000005c;">
+        <div class="row vh-100 justify-content-center align-items-center">
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="text-center">
+                            @if(session()->has('success'))
+                            <i class="fa fa-check-circle-o" aria-hidden="true" style="font-size: 100px;color: #43cd43;"></i>
+                            @elseif(session()->has('error'))
+                            <i class="fa fa-times-circle-o" aria-hidden="true" style="font-size: 100px;color: #fd3f3f;"></i>
+                            @endif
+                        </div>
+                        <div class="text-center" style="font-size: 20px;font-family: sans-serif;">
+                            @if(session()->has('success'))
+                            {{ session('success') }}
+                            @elseif(session()->has('error'))
+                            {{ session('error') }}
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
+    <div>
         <div>
             <div class="row">
                 <div class="col-sm-12 col-lg-4">
@@ -145,4 +172,12 @@
             popupWin.document.close();
                 }
      </script>
+@endsection
+
+@section('scripts')
+<script>
+    setTimeout(function() {
+        $('#flash-message').fadeOut('fast');
+    }, 4000);
+</script>
 @endsection

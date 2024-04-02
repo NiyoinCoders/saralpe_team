@@ -134,7 +134,7 @@ class RechargeApiController extends Controller
       $user_id = $request->user_id;
       $user = User::find($user_id);
       if ($user->balance < $request->amount) {
-          //return response(["status" => 'error', 'msg' => 'Your Wallet Balance Is Low!']);
+          
           return redirect()->back()->with(['error' => 'Your Wallet Balance Is Low!']);
           exit();
       } 
@@ -188,7 +188,7 @@ class RechargeApiController extends Controller
     $user_id = $request->user_id;
     $user = User::find($user_id);
     if ($user->balance < $request->amount) {
-      return response(["status" => 'error', 'msg' => 'Your Wallet Balance Is Low!']);
+      return redirect()->back()->with(['error' => 'Your Wallet Balance Is Low!']);
       exit();
     }
     $body = array(
@@ -202,10 +202,11 @@ class RechargeApiController extends Controller
     $api = new ApiController();
     $res = json_decode($api->RechargeAPI($service, $body));
 
-    if ($res->response_code == 1) {
-      return redirect()->route('recharge.dth')->with("status", $res);
+    if ($res['status'] = 'success') {
+      $user->withdraw($request->amount);
+      return redirect()->back()->with(['success' => 'recharge Added Successfully!']);
     } else {
-      return redirect()->route("recharge.dth")->with("danger", $res->message);
+      return redirect()->back()->with(['error' => 'transaction is failure']);
     }
 
 
