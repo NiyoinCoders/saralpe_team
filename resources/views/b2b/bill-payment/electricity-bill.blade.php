@@ -313,7 +313,7 @@ function showPosition(position) {
                     $("input[name='userName']").val(response.data.bill_fetch.userName);
                     // $("#myForm").attr('action', '{{ route("paybill") }}');
                     // $("form").removeAttr("id");
-                   // alert(response.data.bill_fetch.ad2);
+                    alert(response.data.bill_fetch.ad2);
 
                 },
                 error: function(xhr, status, error) {
@@ -373,7 +373,7 @@ $.ajax({
         // Handle the response from the server
         console.log(response);
 
-       // alert(response.data.bill_fetch.ad2);
+        //alert(response.data.bill_fetch.ad2);
 
     },
     error: function(xhr, status, error) {
