@@ -9,6 +9,20 @@ class Ticket extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'subject', 'email', 'description', 'file', 'ticket_type', 'status'
+        'user_id',
+        'complaint_id',
+        'subject',
+        'email',
+        'product_type',
+        'issue_type',
+        'description',
+        'file',
+        'ticket_type',
+        'support_issue',
+        'request_logs',
+        'response_logs',
+        'remark',
+        'mobile',
+        'status',
     ];
 }

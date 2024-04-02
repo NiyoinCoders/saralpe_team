@@ -100,7 +100,7 @@
                             <th>Partner Code</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="tbody">
                         <tr data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
                             <td>101</td>
                             <td>PS-OTHER7949468 (Closed)</td>
@@ -236,4 +236,53 @@
     <!-- table end  -->
 </div>
 
+@endsection
+@section('scripts')
+<script type="text/javascript">
+    $(document).ready(function() {
+        function formatDate(dateString) {
+            var date = new Date(dateString);
+            var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+            var formattedDate = months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear() + ', ' + date.getHours() + ':' + ('0' + date.getMinutes()).slice(-2) + ':' + ('0' + date.getSeconds()).slice(-2);
+            return formattedDate;
+        }
+        const fetchList = () => {
+            $.ajax({
+                url: '{{route("b2b.fetchList")}}',
+                type: 'GET',
+                dataType: 'JSON',
+                success: function(response) {
+                    if (response.tickets != "") {
+                        let html;
+                        let i = 1;
+                        $.each(response.tickets, function(index, value) {
+                            html += `<tr data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                                        <td>${i}</td>
+                                        <td>${value.complaint_id}</td>
+                                        <td>${formatDate(value.created_at)}</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <button data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" data-bs-toggle="tooltip" data-bs-placement="left" title="View more" class="btn btn-sm">
+                                                <i class="bi bi-three-dots-vertical"></i>
+                                            </button>
+                                        </td>
+                                    </tr>`;
+                            i++;
+                        });
+                        $('#tbody').html(html);
+                    }
+                }
+            });
+        }
+
+        fetchList();
+    })
+</script>
 @endsection

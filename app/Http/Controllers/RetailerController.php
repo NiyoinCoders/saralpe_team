@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Ticket;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
-
+use App\Models\Service;
 
 class RetailerController extends Controller
 {
@@ -16,8 +16,6 @@ class RetailerController extends Controller
     }
     public function index()
     {
-
-
         return view("b2b.dashboard.retailer.index");
     }
     public function ticket()
@@ -38,7 +36,8 @@ class RetailerController extends Controller
     }
     public function tech_support()
     {
-        return view('b2b.tickets.tech_support');
+        $services = Service::all();
+        return view('b2b.tickets.tech_support')->with('services', $services);
     }
     public function commision_issue()
     {
@@ -49,37 +48,70 @@ class RetailerController extends Controller
         return view('b2b.tickets.other');
     }
 
-    public function acconfi_add(Request $request)
+    public function ticket_add(Request $request)
     {
-
-        $validator = Validator::make($request->all(), [
+        $rules = [
+            'file' => 'required|image|mimes:jpeg,jpg|max:100',
             'subject' => 'required|string',
             'email' => 'required|email',
             'description' => 'required|string',
-            'file' => 'required|image|mimes:jpeg,jpg|max:100',
-        ]);
-
+            'product_type' => 'required|string',
+            'support_issue' => 'required|string',
+            'request_logs' => 'required|string',
+            'response_logs' => 'required|string',
+            'remark' => 'required|string',
+            'mobile' => 'required|integer',
+        ];
+        $dynamicRules = [];
+        foreach ($rules as $field => $rule) {
+            if ($request->has($field)) {
+                $dynamicRules[$field] = $rule;
+            }
+        }
+        $validator = Validator::make($request->all(), $dynamicRules);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-
         $ticket = new Ticket();
         $ticket->user_id = Auth::id();
-        $ticket->subject = $request->input('subject');
-        $ticket->email = $request->input('email');
-        $ticket->description = $request->input('description');
-        $ticket->ticket_type = 'account_configuration';
+        foreach ($rules as $rule => $type) {
+            if ($request->has($rule) && $request->filled($rule)) {
+                $ticket->$rule = $request->input($rule);
+            }
+        }
+        $ticket->ticket_type = $request->input('ticket_type');
+        $ticket->complaint_id = $this->generateRandomCode('SP-TICKET');
 
         if ($request->hasFile('file')) {
             $file = $request->file('file');
             $fileName = time() . '_' . $file->getClientOriginalName();
-            $filePath = 'uploads/' . $fileName;
-            $file->move(public_path('uploads'), $fileName);
+            $filePath = 'uploads/complaint_ticket/' . $fileName;
+            $file->move(public_path('uploads/complaint_ticket'), $fileName);
             $ticket->file = $filePath;
         }
-
         $ticket->save();
-
         return redirect()->back()->with('success', 'Ticket submitted successfully!');
+    }
+    public function generateRandomCode($prefix = '', $length = 8)
+    {
+        $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $numbers = '0123456789';
+
+        $randomString = '';
+        $randomString .= $prefix;
+        for ($i = 0; $i < ($length - strlen($prefix)); $i++) {
+            $randomString .= $characters[rand(0, strlen($characters) - 1)];
+        }
+        $randomString .= '-';
+        for ($i = 0; $i < 4; $i++) {
+            $randomString .= $numbers[rand(0, strlen($numbers) - 1)];
+        }
+        return $randomString;
+    }
+    public function fetchList()
+    {
+        $tickets = Ticket::all();
+        $services = Service::whereIn('id', $tickets->pluck('product_type'))->get();
+        return response()->json(['tickets' => $tickets, 'services' => $services]);
     }
 }

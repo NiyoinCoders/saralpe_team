@@ -10,7 +10,7 @@
                     Raise New Request
                 </p>
                 <div>
-                    <a href="track_complaint_page.html" class="btn btn-soft-danger btn-sm"><i class="bi bi-crosshair"></i>
+                    <a href="{{route('b2b.ticket')}}" class="btn btn-soft-danger btn-sm"><i class="bi bi-crosshair"></i>
                         Track
                         Complaint</a>
                 </div>
@@ -27,13 +27,18 @@
                 <button class="btn btn-primary btn-sm">Account Configuration Change</button>
             </div>
         </div>
-
+        @if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
         <div class="card-body">
-            <form action="{{route('b2b.acconfi_add')}}" method="POST" enctype="multipart/form-data">
+            <form action="{{route('b2b.ticket_add')}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row d-flex justify-content-center px-md-5">
                     <div class="col-md-6">
                         <div class="form-group">
+                            <input type="hidden" value="account_configuration" name="ticket_type">
                             <input type="text" class="form-control form-control-sm text-dark" id="end_date" value="" name="subject" placeholder="Subject">
                             @error('subject')
                             <span class="text-danger">{{ $message }}</span>
