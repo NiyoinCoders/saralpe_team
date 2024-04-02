@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use App\Models\RechargePlan;
 use App\Models\RechargePlanCategory;
 use Illuminate\Http\Request;
+use App\Models\A1topup_operators;
 class RechargePlanController extends Controller
 {
     /**
@@ -12,12 +13,14 @@ class RechargePlanController extends Controller
      */
     public function index()
     {
-        $operators = array();
+        /* $operators = array();
         $service = 'recharge/recharge/getoperator';
         $res = json_decode(ApiController::post($service));
         if ($res->responsecode == 1) {
             $operators = $res->data;
-        }
+        } */
+        $operators = A1topup_operators::where('operator_service', '=', 'mobile')->get();
+    
         $rechargeplans = RechargePlan::all();
         return view('b2b.recharge-plan.index', compact('rechargeplans', 'operators'));
     }

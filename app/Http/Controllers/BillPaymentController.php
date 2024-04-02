@@ -20,8 +20,8 @@ class BillPaymentController extends Controller
 
        $res = json_decode(ApiController::post($service, $body));
        $apidata = $res->data;
-
-
+//print_r( $apidata);
+//exit();
         return view("b2b.bill-payment.electricity-bill", compact('apidata'));
     }
     public function mobile_postpaid(){

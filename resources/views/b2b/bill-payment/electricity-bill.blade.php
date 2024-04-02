@@ -98,7 +98,7 @@
                           </div>
                           <div class="form-group" id="amountfeild">
                             <label class="form-label" for="pwd">Amount:</label>
-                            <input type="text" name="amount" id="amount" disabled>
+                            <input type="text" name="amount" id="amount" disabled placeholder="enter amount">
 
                       </div>
                             <button type="submit" class="btn btn-primary" id="submit">Fetch Bill</button>
@@ -253,6 +253,7 @@ function showPosition(position) {
                 success: function(response) {
                     // Handle the response from the server
                     console.log(response);
+                    //alert(response.html);
                     $('#addfeilds').append(response.html);
                     regex = response.regex;
                     displayname = response.displayname;
