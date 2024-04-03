@@ -48,8 +48,8 @@
 
                               <div style="display: none">
                                 <div id="demo">
-                                    <input id="latitude" name="latitude">
-                                    <input id="longitude" name="longitude">
+                                    <input id="latitude" name="latitude" value="23.213280">
+                                    <input id="longitude" name="longitude" value="79.963820">
 
                                 </div>
                                 <div class="" id="fetchbill">
@@ -58,14 +58,14 @@
                                         </div>
                                     </div>
                                 </div>
-                                <input  name="billAmount" />
-                                <input name="billnetamount"/>
-                                <input name="billdate"/>
-                                <input name="dueDate"/>
-                                <input name="acceptPayment"/>
-                                <input name="acceptPartPay"/>
-                                <input name="cellNumber"/>
-                                <input name="userName"/>
+                                <input  type="text" name="billAmount" />
+                                <input type="text" name="billnetamount"/>
+                                <input type="text" name="billdate"/>
+                                <input type="text" name="dueDate"/>
+                                <input type="text" name="acceptPayment"/>
+                                <input type="text" name="acceptPartPay"/>
+                                <input type="text" name="cellNumber"/>
+                                <input type="text" name="userName"/>
                               </div>
 
 
@@ -313,7 +313,8 @@ function showPosition(position) {
                     $("input[name='userName']").val(response.data.bill_fetch.userName);
                     // $("#myForm").attr('action', '{{ route("paybill") }}');
                     // $("form").removeAttr("id");
-                    alert(response.data.bill_fetch.ad2);
+                    
+                    //alert(response.data.bill_fetch.ad2);
 
                 },
                 error: function(xhr, status, error) {
@@ -326,11 +327,12 @@ function showPosition(position) {
         //pay bill api
 
         $('#submit2').on('click', function(e) {
-
+;
 var selectedValue = $('#mySelect').val();
 var oprterid = $('#board').val();
 var mode = $('#mode').val();
 var latitude = $('#latitude').val();
+//alert(latitude)
 var longitude = $('#longitude').val();
 
  var  amount =   $('#amount').val();
@@ -343,7 +345,7 @@ var longitude = $('#longitude').val();
  var  cellNumber =   $("input[name='cellNumber']").val();
  var  userName =   $("input[name='userName']").val();
  var  name =   $("input[name='name']").val();
-
+//alert(name);
 // Send an AJAX request
 $.ajax({
     url: "{{ route('paybill') }}",
@@ -372,7 +374,7 @@ $.ajax({
     success: function(response) {
         // Handle the response from the server
         console.log(response);
-
+//alert(response);
         //alert(response.data.bill_fetch.ad2);
 
     },

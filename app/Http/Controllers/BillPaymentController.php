@@ -175,18 +175,20 @@ class BillPaymentController extends Controller
 
                 $htmlTable = '<div id="tablehide">';
                 $htmlTable .= '<table class="table">';
-                $htmlTable .= '<h3>Bills Detais</h3>';
+                $htmlTable .= '<h3>Bills  Detais</h3>';
                 $htmlTable .= '<tr><th>Name</th><th>Amount</th><th>Due Date</th></tr>';
                 $htmlTable .= '<tr>';
                 $htmlTable .= '<td><input type="hidden" name="name" value="'.$res->name.'">'.$res->name.'</td>';
                 $htmlTable .= '<td><input type="hidden" name="amount" id="amontval" value="'.$res->amount.'">'.$res->amount.'</td>';
                 $htmlTable .= '<td><input type="hidden" name="duedate" value="'.$res->duedate.'">'.$res->duedate.'</td>';
+               
                 $htmlTable .= '</tr>';
                 $htmlTable .= '</table>';
                 $htmlTable .= '</div>';
 
                 $data = (array) $res;
-
+                    
+                   //print_r($data);
 
                     return response()->json(['htmltable' => $htmlTable, 'data' => $data]);
 
