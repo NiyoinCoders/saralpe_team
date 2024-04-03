@@ -27,7 +27,7 @@ use App\Http\Controllers\NsdlpanController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\RechargeController;
 use App\Http\Controllers\RechargeApiController;
-
+use App\Http\Controllers\TicketController;
 use App\Http\Controllers\RechargePlanController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RetailerController;
@@ -390,6 +390,8 @@ Route::group(['prefix' => 'b2b'], function () {
 
         Route::get('ticket', [HomeController::class, 'ticket'])->name('ticket');
         Route::get('raise_ticket', [HomeController::class, 'raise_ticket'])->name('raise_ticket');
+        Route::get('fetchTicket', [TicketController::class, 'fetchTicket'])->name('fetchTicket');
+        Route::post('ticketDetails', [TicketController::class, 'ticketDetails'])->name('admin.ticketDetails');
 
         // Products Start
 
