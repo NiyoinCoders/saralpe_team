@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Validator;
+
 class ApiController extends Controller
 {
     // API POST FUNCTION
@@ -267,6 +268,26 @@ class ApiController extends Controller
 
     }
 
+    public function getIpaddress(){
+    
+        $ipaddress = $_SERVER['REMOTE_ADDR'];
+        return $ipaddress;
+       }
 
+       public function latitude(){
+        $ipaddress = $this->getIpaddress();
+        $new_arr[]= unserialize(file_get_contents('http://www.geoplugin.net/php.gp?ip='.$ipaddress));
+        $latitude=$new_arr[0]['geoplugin_latitude'];
+        return $latitude;
+       }
+      
+       public function longitude(){
+
+        
+        $ipaddress = $this->getIpaddress();
+        $new_arr[]= unserialize(file_get_contents('http://www.geoplugin.net/php.gp?ip='.$ipaddress));
+        $longitude=$new_arr[0]['geoplugin_longitude'];
+        return $longitude;
+       }
 
 }

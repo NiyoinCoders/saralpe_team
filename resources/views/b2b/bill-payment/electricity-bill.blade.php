@@ -48,8 +48,8 @@
 
                               <div style="display: none">
                                 <div id="demo">
-                                    <input id="latitude" name="latitude" value="23.213280">
-                                    <input id="longitude" name="longitude" value="79.963820">
+                                    <input id="latitude" name="latitude" value="{{$latitude}}">
+                                    <input id="longitude" name="longitude" value="{{$longitude}}">
 
                                 </div>
                                 <div class="" id="fetchbill">

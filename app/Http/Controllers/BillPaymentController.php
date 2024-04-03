@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\BillPayment;
 use DB;
+use App\Http\Controllers\ApiController;
 
 class BillPaymentController extends Controller
 {
@@ -22,7 +23,13 @@ class BillPaymentController extends Controller
        $apidata = $res->data;
 //print_r( $apidata);
 //exit();
-        return view("b2b.bill-payment.electricity-bill", compact('apidata'));
+         $dt=new ApiController();
+          $ipaddress=$dt->getIpaddress();
+         
+          $latitude=$dt->latitude();
+          $longitude=$dt->longitude();
+         //exit();
+        return view("b2b.bill-payment.electricity-bill", compact('apidata','ipaddress','latitude','longitude'));
     }
     public function mobile_postpaid(){
         $service = 'bill-payment/bill/getoperator';
