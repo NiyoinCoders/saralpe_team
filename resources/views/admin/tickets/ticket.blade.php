@@ -100,7 +100,7 @@
                             <th>Partner Code</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="tbody">
                         <tr data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
                             <td>101</td>
                             <td>PS-OTHER7949468 (Closed)</td>
@@ -225,7 +225,11 @@
                     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
                 <div class="offcanvas-body">
-                    content come here
+                    <table class="table">
+                        <tbody id="tbody2">
+
+                        </tbody>
+                    </table>
                 </div>
             </div>
             <!-- right model end  -->
@@ -234,6 +238,97 @@
         </div>
     </div>
     <!-- table end  -->
+
 </div>
 
+@endsection
+@section('scripts')
+<script type="text/javascript">
+    $(document).ready(function() {
+        function formatDate(dateString) {
+            var date = new Date(dateString);
+            var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+            var formattedDate = months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear() + ', ' + date.getHours() + ':' + ('0' + date.getMinutes()).slice(-2) + ':' + ('0' + date.getSeconds()).slice(-2);
+            return formattedDate;
+        }
+        const fetchList = () => {
+            $.ajax({
+                url: '{{route("fetchTicket")}}',
+                type: 'GET',
+                dataType: 'JSON',
+                success: function(response) {
+                    if (response.tickets != "") {
+                        let html;
+                        let i = 1;
+                        $.each(response.tickets, function(index, value) {
+                            html += `<tr data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                                        <td>${i}</td>
+                                        <td>${value.complaint_id}</td>
+                                        <td>${formatDate(value.created_at)}</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <button id="compDetailsBTN" data-id="${value.id}" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" data-bs-toggle="tooltip" data-bs-placement="left" title="View more" class="btn btn-sm">
+                                                <i class="bi bi-three-dots-vertical"></i>
+                                            </button>
+                                        </td>
+                                    </tr>`;
+                            i++;
+                        });
+                        $('#tbody').html(html);
+                    }
+                }
+            });
+        }
+        $(document).on('click', '#compDetailsBTN', function() {
+            let id = $(this).attr('data-id');
+            $.ajax({
+                url: '{{route("admin.ticketDetails")}}',
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    id: id,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    if (response != '') {
+                        if (response.tickets != "") {
+                            let html;
+                            $.each(response.tickets, function(index, value) {
+                                html = ` <tr>
+                                            <td>Complaint ID</td>
+                                            <td>${value.complaint_id}</td>
+                                        </tr>`;
+                                html += `<tr><td colspan="2" class="text-center"><a id="approvalBtn" data-id="${value.id}" class="btn btn-primary">Approve</a> <a class="btn btn-danger text-white" id="rejectBtn" data-id="${value.id}">Reject</a></td></tr>`
+                            });
+                            $('#tbody2').html(html);
+                        }
+                    }
+                }
+            });
+        });
+        $(document).on('click', '#approvalBtn', function() {
+            let id = $(this).attr('data-id');
+            $.ajax({
+                url: '{{route("admin.ticketDetails")}}',
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    id: id,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    console.log(response);
+                }
+            });
+        });
+        fetchList();
+    })
+</script>
 @endsection

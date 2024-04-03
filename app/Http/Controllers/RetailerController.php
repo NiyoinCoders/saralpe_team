@@ -110,7 +110,7 @@ class RetailerController extends Controller
     }
     public function fetchList()
     {
-        $tickets = Ticket::all();
+        $tickets = Ticket::where('user_id', Auth::id())->get();
         $services = Service::whereIn('id', $tickets->pluck('product_type'))->get();
         return response()->json(['tickets' => $tickets, 'services' => $services]);
     }
