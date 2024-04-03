@@ -274,7 +274,7 @@ class BillPaymentController extends Controller
 
         $res = json_decode(ApiController::post($service, $body));
 
-        $formData = new BillPayment;
+        /* $formData = new BillPayment;
         $formData->status = $res->status;
         $formData->refid = $res->refid;
         $formData->response_code = $res->response_code;
@@ -293,7 +293,7 @@ class BillPaymentController extends Controller
         $formData->cellNumber = $request->customer_id;
         $jsonString = json_encode($res); // Convert the $res object to a JSON string
         $formData->url_Json = $jsonString; // Assign the JSON string to the field
-        $formData->save();
+        $formData->save(); */
 
         if ($res->response_code == 1) {
             return redirect()->route('bbps.electricity_bill')->with("status", $res->message);
