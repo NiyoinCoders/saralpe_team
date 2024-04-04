@@ -15,6 +15,21 @@ class CreateCreditCards extends Migration
     {
         Schema::create('credit_cards', function (Blueprint $table) {
             $table->id();
+            $table->string('refid');
+            $table->integer('name');
+            $table->string('mobile');
+            $table->string('card_number');
+            $table->integer('amount');
+            $table->string('remarks');
+            $table->integer('network');
+            $table->string('payee_name');
+            $table->integer('status');
+            $table->integer('ackno');
+            $table->integer('message');
+            $table->string('uuid');
+            $table->integer('orderid');
+            $table->integer('cummison');
+            $table->string('ballance');
             $table->timestamps();
         });
     }

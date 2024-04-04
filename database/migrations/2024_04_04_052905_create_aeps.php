@@ -15,7 +15,24 @@ class CreateAeps extends Migration
     {
         Schema::create('aeps', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('latitude');
+            $table->string('longitude');
+            $table->string('mobilenumber');
+            $table->string('referenceno');
+            $table->string('ipaddress');
+            $table->string('adhaarnumber');
+            $table->string('accessmodetype');
+            $table->bigInteger('nationalbankidentification');
+            $table->text('requestremarks')->nullable();
+            $table->text('data');
+            $table->string('pipe');
+            $table->timestamp('timestamp');
+            $table->string('transactiontype');
+            $table->string('submerchantid');
+            $table->enum('is_iris', ['Yes', 'No']);
+            $table->decimal('amount', 10, 2);
+            $table->string('MerAuthTxnId')->nullable();
+            $table->timestamps(); // adds created_at and updated_at columns
         });
     }
 
