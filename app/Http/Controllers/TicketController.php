@@ -22,4 +22,18 @@ class TicketController extends Controller
         $services = Service::whereIn('id', $tickets->pluck('product_type'))->get();
         return response()->json(['tickets' => $tickets, 'services' => $services]);
     }
+    public function ticketApprove(Request $request)
+    {
+        $ticket = Ticket::findOrFail($request->id);
+        $ticket->status = 2;
+        $ticket->save();
+        return response()->json(['success' => 'Ticket approved successfully']);
+    }
+    public function ticketPending(Request $request)
+    {
+        $ticket = Ticket::findOrFail($request->id);
+        $ticket->status = 1;
+        $ticket->save();
+        return response()->json(['success' => 'Ticket is Pending']);
+    }
 }
