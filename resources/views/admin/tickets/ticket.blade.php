@@ -11,7 +11,7 @@
                             <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">
                                 All
                             </button>
-                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">
+                            <button class="nav-link" id="nav-openTicket" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">
                                 Open
                             </button>
                             <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">
@@ -345,6 +345,41 @@
             });
         });
         fetchList();
+        $(document).on('click', '#nav-openTicket', function() {
+            $.ajax({
+                url: '{{route("admin.openTicket")}}',
+                type: 'GET',
+                dataType: 'JSON',
+                success: function(response) {
+                    if (response.tickets != "") {
+                        let html;
+                        let i = 1;
+                        $.each(response.tickets, function(index, value) {
+                            html += `<tr data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                                        <td>${i}</td>
+                                        <td>${value.complaint_id}</td>
+                                        <td>${formatDate(value.created_at)}</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <button id="compDetailsBTN" data-id="${value.id}" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" data-bs-toggle="tooltip" data-bs-placement="left" title="View more" class="btn btn-sm">
+                                                <i class="bi bi-three-dots-vertical"></i>
+                                            </button>
+                                        </td>
+                                    </tr>`;
+                            i++;
+                        });
+                        $('#tbody').html(html);
+                    }
+                }
+            });
+        })
     })
 </script>
 @endsection
