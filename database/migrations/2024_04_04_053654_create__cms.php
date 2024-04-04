@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDMT extends Migration
+class CreateCms extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateDMT extends Migration
      */
     public function up()
     {
-        Schema::create('_d_m_t', function (Blueprint $table) {
+        Schema::create('_cms', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
         });
@@ -26,6 +26,6 @@ class CreateDMT extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('_d_m_t');
+        Schema::dropIfExists('_cms');
     }
 }

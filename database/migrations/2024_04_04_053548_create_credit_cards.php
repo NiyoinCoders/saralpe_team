@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCMS extends Migration
+class CreateCreditCards extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateCMS extends Migration
      */
     public function up()
     {
-        Schema::create('_c_m_s', function (Blueprint $table) {
+        Schema::create('credit_cards', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
         });
@@ -26,6 +26,6 @@ class CreateCMS extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('_c_m_s');
+        Schema::dropIfExists('credit_cards');
     }
 }

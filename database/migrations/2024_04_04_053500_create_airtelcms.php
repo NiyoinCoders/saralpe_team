@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateNSDLPAN extends Migration
+class CreateAirtelcms extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateNSDLPAN extends Migration
      */
     public function up()
     {
-        Schema::create('_n_s_d_l_p_a_n', function (Blueprint $table) {
+        Schema::create('airtelcms', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
         });
@@ -26,6 +26,6 @@ class CreateNSDLPAN extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('_n_s_d_l_p_a_n');
+        Schema::dropIfExists('airtelcms');
     }
 }

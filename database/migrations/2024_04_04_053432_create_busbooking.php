@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFASTAG extends Migration
+class CreateBusbooking extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateFASTAG extends Migration
      */
     public function up()
     {
-        Schema::create('_f_a_s_t_a_g', function (Blueprint $table) {
+        Schema::create('busbooking', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
         });
@@ -26,6 +26,6 @@ class CreateFASTAG extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('_f_a_s_t_a_g');
+        Schema::dropIfExists('busbooking');
     }
 }

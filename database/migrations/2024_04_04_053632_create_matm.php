@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFINOCMS extends Migration
+class CreateMatm extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateFINOCMS extends Migration
      */
     public function up()
     {
-        Schema::create('_f_i_n_o_c_m_s', function (Blueprint $table) {
+        Schema::create('matm', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
         });
@@ -26,6 +26,6 @@ class CreateFINOCMS extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('_f_i_n_o_c_m_s');
+        Schema::dropIfExists('matm');
     }
 }
