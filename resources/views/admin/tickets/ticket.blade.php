@@ -77,7 +77,7 @@
                     <button class="btn btn-sm btn-light"><i class="bi bi-caret-left"></i></button>
                     <button class="btn btn-sm btn-light"><i class="bi bi-caret-right"></i></button>
                     <button class="btn btn-soft-primary btn-sm"><i class=" pe-2 bi bi-arrow-down-square"></i>Export</button>
-                    <button class="btn btn-soft-info btn-sm"><i class="bi bi-arrow-clockwise"></i></button>
+                    <button onclick="fetchList()" class="btn btn-soft-info btn-sm"><i class="bi bi-arrow-clockwise"></i></button>
                 </div>
 
             </div>
@@ -222,7 +222,7 @@
                 <div class="offcanvas-header">
                     <h5 class="bg-primary text-white px-4 py-1" id="offcanvasRightLabel">Complain Details
                     </h5>
-                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    <button id="closeCompDetailSidebar" type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
                 <div class="offcanvas-body">
                     <table class="table">
@@ -301,11 +301,12 @@
                         if (response.tickets != "") {
                             let html;
                             $.each(response.tickets, function(index, value) {
-                                html = ` <tr>
+                                html = `<div class="border rounded my-2">${value.status == "0" ? '<i class="fa fa-circle text-secondary" aria-hidden="true"></i> Status : Open' : value.status == "1" ? '<i class="fa fa-circle text-warning" aria-hidden="true"></i> Status : Pending' : '<i class="fa fa-circle text-success" aria-hidden="true"></i> Status : Close'}</div>
+                                        <tr>
                                             <td>Complaint ID</td>
                                             <td>${value.complaint_id}</td>
                                         </tr>`;
-                                html += `<tr><td colspan="2" class="text-center"><a id="approvalBtn" data-id="${value.id}" class="btn btn-primary">Approve</a> <a class="btn btn-danger text-white" id="rejectBtn" data-id="${value.id}">Reject</a></td></tr>`
+                                html += `<tr><td colspan="2" class="text-center"><a id="approvalBtn" data-id="${value.id}" class="btn btn-primary">Close</a> <a class="btn btn-warning text-white" id="pendingBtn" data-id="${value.id}">Pending</a></td></tr>`
                             });
                             $('#tbody2').html(html);
                         }
@@ -316,7 +317,7 @@
         $(document).on('click', '#approvalBtn', function() {
             let id = $(this).attr('data-id');
             $.ajax({
-                url: '{{route("admin.ticketDetails")}}',
+                url: '{{route("admin.ticketApprove")}}',
                 type: 'post',
                 dataType: 'json',
                 data: {
@@ -324,7 +325,22 @@
                     _token: '{{ csrf_token() }}'
                 },
                 success: function(response) {
-                    console.log(response);
+                    $('#closeCompDetailSidebar').click();
+                }
+            });
+        });
+        $(document).on('click', '#pendingBtn', function() {
+            let id = $(this).attr('data-id');
+            $.ajax({
+                url: '{{route("admin.ticketPending")}}',
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    id: id,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    $('#closeCompDetailSidebar').click();
                 }
             });
         });

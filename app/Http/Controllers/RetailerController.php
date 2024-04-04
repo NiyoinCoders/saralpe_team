@@ -80,7 +80,7 @@ class RetailerController extends Controller
             }
         }
         $ticket->ticket_type = $request->input('ticket_type');
-        $ticket->complaint_id = $this->generateRandomCode('SP-TICKET');
+        $ticket->complaint_id = $this->generateRandomCode('#SPT');
 
         if ($request->hasFile('file')) {
             $file = $request->file('file');

@@ -392,6 +392,8 @@ Route::group(['prefix' => 'b2b'], function () {
         Route::get('raise_ticket', [HomeController::class, 'raise_ticket'])->name('raise_ticket');
         Route::get('fetchTicket', [TicketController::class, 'fetchTicket'])->name('fetchTicket');
         Route::post('ticketDetails', [TicketController::class, 'ticketDetails'])->name('admin.ticketDetails');
+        Route::post('ticketApprove', [TicketController::class, 'ticketApprove'])->name('admin.ticketApprove');
+        Route::post('ticketPending', [TicketController::class, 'ticketPending'])->name('admin.ticketPending');
 
         // Products Start
 
