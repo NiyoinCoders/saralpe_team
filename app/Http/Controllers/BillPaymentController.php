@@ -51,7 +51,8 @@ exit(); */
     public function gas(){
         $service = 'bill-payment/bill/getoperator';
         //  recharge/recharge/dorecharge
-
+        $latitude=22.7278848;
+        $longitude=75.8808576;
         $body = array(
           "mode" => "online",
       );
@@ -60,7 +61,7 @@ exit(); */
        $res = json_decode(ApiController::post($service, $body));
        $apidata = $res->data;
 
-        return view("b2b.bill-payment.gas", compact('apidata'));
+        return view("b2b.bill-payment.gas", compact('apidata','latitude','longitude'));
     }
     public function water(){
         $service = 'bill-payment/bill/getoperator';
