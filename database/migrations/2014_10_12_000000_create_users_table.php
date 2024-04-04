@@ -42,7 +42,7 @@ class CreateUsersTable extends Migration
             $table->string("city")->nullable();
             $table->string("state")->nullable();
             $table->string("pincode")->nullable();
-            $table->string("user_id")->nullable();
+            $table->string("merchant_code")->nullable();
             $table->bigInteger("onboarding_status")->comment('0 pending,1 approved,2 pending')->nullable();
             $table->integer('status')->default(1);
             $table->string('pan_image')->nullable();
