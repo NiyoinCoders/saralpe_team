@@ -21,14 +21,17 @@ class BillPaymentController extends Controller
 
        $res = json_decode(ApiController::post($service, $body));
        $apidata = $res->data;
-//print_r( $apidata);
-//exit();
+    /*  $result= json_encode($apidata);
+print_r( $result);
+exit(); */
          $dt=new ApiController();
           $ipaddress=$dt->getIpaddress();
          
-          $latitude=$dt->latitude();
-          $longitude=$dt->longitude();
-         //exit();
+          //$latitude=$dt->latitude();
+          $latitude=22.7278848;
+          $longitude=75.8808576;
+        // $longitude=$dt->longitude();
+         
         return view("b2b.bill-payment.electricity-bill", compact('apidata','ipaddress','latitude','longitude'));
     }
     public function mobile_postpaid(){
@@ -249,8 +252,8 @@ class BillPaymentController extends Controller
                 "cellNumber" => $request->customer_id,
                 "userName" => "SALMAN"
             )
-        );
-
+        ); 
+print_r($bodymain);
         // body use for test only
         $body = array(
             "operator" => "11",
@@ -273,11 +276,15 @@ class BillPaymentController extends Controller
         );
 
         $res = json_decode(ApiController::post($service, $body));
-
-        /* $formData = new BillPayment;
+        $merchant_code="sp00".rand(1000,999);
+        $uuid="sff";
+        $ballance="100";
+        $cummison="10";
+        $orderid=rand(10000,9999);
+         $formData = new BillPayment;
         $formData->status = $res->status;
-        $formData->refid = $res->refid;
-        $formData->response_code = $res->response_code;
+        $formData->referenceid = $res->refid;
+        //$formData->response_code = $res->response_code;
         $formData->ackno = $res->ackno;
         $formData->operatorid = $res->operatorid;
         $formData->message = $res->message;
@@ -286,14 +293,15 @@ class BillPaymentController extends Controller
         $formData->latitude = $request->latitude;
         $formData->longitude = $request->longitude;
         $formData->mode = $request->mode;
-        $formData->billAmount = $request->operator;
-        $formData->billnetamount = $request->operator;
-        $formData->billdate = now();
-        $formData->dueDate = $request->dueDate;
-        $formData->cellNumber = $request->customer_id;
-        $jsonString = json_encode($res); // Convert the $res object to a JSON string
-        $formData->url_Json = $jsonString; // Assign the JSON string to the field
-        $formData->save(); */
+        $formData->merchant_code =$merchant_code;
+        $formData->uuid =$uuid;
+        $formData->orderid =$orderid;
+        $formData->cummison =$cummison;
+        $formData->ballance =$ballance;
+    
+        $jsonString = json_encode($res->bill_fetchs); // Convert the $res object to a JSON string
+        $formData->bill_fetch = $jsonString; // Assign the JSON string to the field
+        $formData->save(); 
 
         if ($res->response_code == 1) {
             return redirect()->route('bbps.electricity_bill')->with("status", $res->message);

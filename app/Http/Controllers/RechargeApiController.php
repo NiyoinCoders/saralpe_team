@@ -10,6 +10,7 @@ use App\Imports\DataImport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\A1topup_operators;
 use App\Models\A1topup_circles;
+use App\models\MobileRecharge;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\RedirectResponse;
@@ -147,8 +148,12 @@ class RechargeApiController extends Controller
     );
     $amount = $request->amount;
 
+    
+
     $service =  'dorecharge';
      $api=new ApiController();
+
+
      $res = ($api->RechargeAPI($service, $body));
     //var_dump(json_decode($res));
     //print_r($res);
@@ -167,6 +172,20 @@ class RechargeApiController extends Controller
     $orderID="8543596945";
     $txid="5804";
 
+    $formData = new MobileRecharge;
+    $formData->circlecode = $res->status;
+    $formData->operatorcode = $request->refid;
+    $formData->number = $number;
+    $formData->amount =  $amount;
+    $formData->orderid = $orderID;
+    $formData->status = $res->refid;
+    $formData->txid =  $txid
+    $formData->opid = $res->refid;
+    $formData->merchant_code = $res->refid;
+    $formData->uuid = $res->refid;
+    $formData->cummison = $res->refid;
+    $formData->ballance = $res->refid;
+    $formData->save();
     if ($res['status'] = 'success') {
       $user->withdraw($request->amount);
       return redirect()->back()->with(['success' => 'recharge Added Successfully!',"<br>","txid"=>$txid,"number"=>$number,"amount"=>$amount,"orderID"=>$orderID]);
