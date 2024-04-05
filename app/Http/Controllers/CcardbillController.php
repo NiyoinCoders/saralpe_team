@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Redirect;
 
 class CcardbillController extends Controller
 {
-
     public function ccardbill()
     {
         return view("b2b.ccardbillpay.ccardbill");
@@ -32,24 +31,33 @@ class CcardbillController extends Controller
         $remark = $request->input('remark');
         $network = $request->input('network');
 
-        $data = [
+         $data = [
             'refid' => $refid,
             'name' => $name,
             'mobile' => $mobile,
             'card_number' => $cardno,
             'amount' => $amount,
             'remarks' => $remark,
-            'network' => $network
-        ];
-
+            'network' => $network,
+            'payee_name'=> "rukhsar bano ansari",
+        ]; 
+        
+//print_r($data);
+//exit();
        $jsonData = json_encode($data);
-
+//print_r($jsonData);
+//exit();
         $service = 'cc-payment/ccpayment/generateotp';
 
         $body = "$jsonData";
-        $res = ApiController::post($service, $body);
+       // $res = ApiController::post($service, $body);
 
-
+       $res= '{
+        "status": true,
+        "response_code": 1,
+        "message": "OTP Successfully send"
+      }';
+      echo $res;
         return redirect()->route('ccardbillpay.paybill', ['data1' => $data, 'data2' => $res]);
 
 
@@ -124,14 +132,81 @@ class CcardbillController extends Controller
         $service = 'cc-payment/ccpayment/paybill';
 
         $body = "$jsonData";
-        $res = ApiController::post($service, $body);
+       // $res = ApiController::post($service, $body);
 
 
-    return $res;
-
+    
+    $res= '{
+        "status": true,
+        "response_code": 1,
+        "ackno": 1547,
+        "message": "Transaction Successful"
+      }';
+return $res;
 
     }
 
+public function status_enquiry(){
+    $refid="20210428";
+    $data = [
+        'refid' => $refid,
+        
+    ];
 
+    $jsonData = json_encode($data);
+
+    $service = 'cc-payment/ccpayment/status';
+
+    $body = "$jsonData";
+    $res = ApiController::post($service, $body);
+    return $res;
+}
+
+public function refundOtp(){
+    $refid="20210428";
+    $ackno="1547";
+    $data = [
+        'refid' => $refid,
+        'ackno' => 1547,
+    ];
+
+    $jsonData = json_encode($data);
+
+    $service = 'cc-payment/ccpayment/resendotp';
+
+    $body = "$jsonData";
+    //$res = ApiController::post($service, $body);
+    $res='{
+        "response_code": 1,
+        "status": true,
+        "message": "Refund Otp Successfully Sent."
+      }';
+    return $res;
+}
+
+public function claimrefund(){
+    $refid="20210428";
+    $ackno="1547";
+    
+    $data = [
+        'refid' => $refid,
+        'ackno' => 1547,
+        'otp'  => 222111
+    ];
+
+    $jsonData = json_encode($data);
+
+    $service = 'cc-payment/ccpayment/resendotp';
+
+    $body = "$jsonData";
+    //$res = ApiController::post($service, $body);
+    $res='
+        {
+            "response_code": 1,
+            "status": true,
+            "message": "Transaction Successfully Refunded"
+          }';
+    return $res;
+}
 
 }
