@@ -30,10 +30,14 @@
 <div class="conatiner-fluid content-inner mt-n5 py-0">
     <div>
         <div class="row">
+        <div id="alertsuccess" class="alert alert-success d-none" role="alert">
+  
+</div>
             <div class="col-sm-12 col-lg-4">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
                         <div class="header-title">
+                            
                         @if(session('success'))
                         <script>
                             alert("{{ session('success') }}");
@@ -348,7 +352,7 @@ var longitude = $('#longitude').val();
 //alert(name);
 // Send an AJAX request
 $.ajax({
-    url: "{{ route('paybill') }}",
+    url: "{{ route('billpayelectricity') }}",
     method: "POST",
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -374,6 +378,14 @@ $.ajax({
     success: function(response) {
         // Handle the response from the server
         console.log(response);
+        if(response.success){
+            $('#alertsuccess').removeClass('d-none');
+            $('#alertsuccess').html(response.success);
+            setTimeout(() => {
+                $('#alertsuccess').addClass('d-none');
+                window.location.reload();
+            }, 2000);
+        }
 //alert(response);
         //alert(response.data.bill_fetch.ad2);
 
