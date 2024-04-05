@@ -8,10 +8,11 @@ jobs:
     name: FTP-Deploy-Action
     runs-on: ubuntu-latest
     steps:
-        uses: actions/checkout@v4
+        - uses: actions/checkout@v4.1.1
         with:
           fetch-depth: 2
       # Deploy to cPanel
+      - name: FTP-Deploy-Action
         uses:  SamKirkland/FTP-Deploy-Action@4.0.0
         with:
           ftp-server: ${{ secrets.FTP_SERVER }}
