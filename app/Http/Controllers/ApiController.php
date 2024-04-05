@@ -270,7 +270,8 @@ class ApiController extends Controller
 
     public function getIpaddress(){
     
-        $ipaddress = $_SERVER['REMOTE_ADDR'];
+       $ipaddress = $_SERVER['REMOTE_ADDR'];
+ 
         return $ipaddress;
        }
 

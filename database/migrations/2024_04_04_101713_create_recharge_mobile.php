@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Rechargemobile extends Migration
+class CreateRechargeMobile extends Migration
 {
     /**
      * Run the migrations.
@@ -25,15 +25,20 @@ class Rechargemobile extends Migration
             $table->string('opid');
             $table->integer('merchant_code');
             $table->string('uuid');
-            $table->integer('orderid');
             $table->integer('cummison');
             $table->string('ballance');
-           // $table->integer('mobile');
-            // Add more columns as needed
+          
             $table->timestamps();
+
+          
         });
     }
 
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
     public function down()
     {
         Schema::dropIfExists('recharge_mobile');
