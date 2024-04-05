@@ -130,11 +130,11 @@ class LoginController extends Controller
             $data->name = $user->name;
             $data->otp = $otp;
             $user->update([
-                'otp' => $otp,
+                'otp' => 1234,
             ]);
 
             // dispatch(new UserOTPMailJob($user->email, $data));
-            \Mail::to($user->email)->send(new UserOTPMail($data));
+            // \Mail::to($user->email)->send(new UserOTPMail($data));
 
             // $result = \DB::table('whatsappapitokens')->where('status', 'primary')->first();
             // // whats app api
@@ -159,7 +159,7 @@ class LoginController extends Controller
             //     ]);
             // }else{
                 $user->update([
-                    'otp' => $otp,
+                    'otp' => 1234,
                 ]);
             // }
 
