@@ -15,17 +15,18 @@ class CreateRechargeMobile extends Migration
     {
         Schema::create('recharge_mobile', function (Blueprint $table) {
             $table->id();
+            $table->string('operator_service');
             $table->string('circlecode');
-            $table->integer('operatorcode');
+            $table->string('operatorcode');
             $table->string('number');
             $table->string('amount');
-            $table->integer('orderid');
+            $table->string('orderid');
             $table->string('status');
-            $table->integer('txid');
+            $table->string('txid');
             $table->string('opid');
-            $table->integer('merchant_code');
+            $table->string('merchant_code');
             $table->string('uuid');
-            $table->integer('cummison');
+            $table->string('cummison');
             $table->string('ballance');
           
             $table->timestamps();

@@ -166,25 +166,32 @@ class RechargeApiController extends Controller
 
 
     //recharge::create($data);
-
+    $opid="Invalid IP 223.236.46.206";
+    $status="sucess";
     $number="7999897791";
     $amount="15";
     $orderID="8543596945";
     $txid="5804";
-
+    $user_id = $request->user_id;
+    $cummison="10";
+    $transactions = DB::table('transactions')->where('payable_id', $user_id)->first();
+ 
+    $uuid=$transactions->uuid;
+    ;
     $formData = new MobileRecharge;
-    $formData->circlecode = $res->status;
-    $formData->operatorcode = $request->refid;
-    $formData->number = $number;
-    $formData->amount =  $amount;
+    $formData->operator_service="mobile";
+    $formData->circlecode = $request->Circle;
+    $formData->operatorcode =$request->operator;
+    $formData->number = $request->phone;
+    $formData->amount =  $request->amount;
     $formData->orderid = $orderID;
-    $formData->status = $res->refid;
-    $formData->txid =  $txid
-    $formData->opid = $res->refid;
-    $formData->merchant_code = $res->refid;
-    $formData->uuid = $res->refid;
-    $formData->cummison = $res->refid;
-    $formData->ballance = $res->refid;
+    $formData->status = $status;
+    $formData->txid =  $txid;
+    $formData->opid = $opid;
+    $formData->merchant_code = $user->merchant_code;
+    $formData->uuid = $uuid;
+    $formData->cummison = $cummison;
+    $formData->ballance = $user->balance;
     $formData->save();
     if ($res['status'] = 'success') {
       $user->withdraw($request->amount);
@@ -215,19 +222,42 @@ class RechargeApiController extends Controller
     }
     $body = array(
       "operator" => $request->operator,
-      "customer_id" => $request->customer_id,
+      "number" => $request->number,
       "amount" => $request->amount,
       "Circle" => $request->Circle,
       "referenceid" => rand(9999999999, 1000000000)
     );
 
-    $api = new ApiController();
+    $service =  'doRechargedth';
+    $api=new ApiController();
     $res = json_decode($api->RechargeAPI($service, $body));
 
+    $opid="Invalid IP 223.236.46.206";
+    $status="sucess";
     $number="7999897791";
     $amount="15";
     $orderID="8543596945";
     $txid="5804";
+    $user_id = $request->user_id;
+    $cummison="10";
+    $transactions = DB::table('transactions')->where('payable_id', $user_id)->first();
+ 
+    $uuid=$transactions->uuid;
+    $formData = new MobileRecharge;
+    $formData->operator_service="DTH";
+    $formData->circlecode = $request->Circle;
+    $formData->operatorcode =$request->operator;
+    $formData->number = $request->number;
+    $formData->amount =  $request->amount;
+    $formData->orderid = $orderID;
+    $formData->status = $status;
+    $formData->txid =  $txid;
+    $formData->opid = $opid;
+    $formData->merchant_code = $user->merchant_code;
+    $formData->uuid = $uuid;
+    $formData->cummison = $cummison;
+    $formData->ballance = $user->balance;
+    $formData->save();
 
     if ($res['status'] = 'success') {
       $user->withdraw($request->amount);

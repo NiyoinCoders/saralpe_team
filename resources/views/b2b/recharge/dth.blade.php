@@ -5,7 +5,7 @@
     @if(session()->has('success') || session()->has('error'))
     <div id="flash-message" class="container-fluid position-absolute vh-100 " style="z-index: 999;top: 0;right: 0; background-color:#0000005c;">
         <div class="row vh-100 justify-content-center align-items-center">
-            <div class="col-md-3">
+            <div class="col-md-9">
                 <div class="card">
                     <div class="card-body">
                         <div class="text-center">
@@ -110,8 +110,8 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label class="form-label" for="customer_id">Customer ID:</label>
-                                    <input type="text" class="form-control" id="customer_id" name="customer_id">
+                                    <label class="form-label" for="customer_id">DTH number:</label>
+                                    <input type="text" class="form-control" id="number" name="number">
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label" for="pwd">Recharge Amount:</label>
