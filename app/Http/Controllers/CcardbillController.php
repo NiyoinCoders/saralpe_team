@@ -23,7 +23,7 @@ class CcardbillController extends Controller
             'network'=>'required'
         ]);
 
-        $refid = $randomNumber = rand(1000000000, 999999999999);
+        $refid = rand(1000000000, 999999999999);
         $name = $request->input('name');
         $mobile = $request->input('mobile');
         $cardno = $request->input('cardno');
