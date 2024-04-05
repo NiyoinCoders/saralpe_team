@@ -239,6 +239,10 @@ Route::group(['prefix' => 'b2b'], function () {
             Route::get('/ccardbillpay', [CcardbillController::class, 'ccardbillpay'])->name('ccardbillpay.paybill');
             Route::post('/ccardbillpost', [CcardbillController::class, 'ccardbillpost'])->name('ccardbillpost');
             Route::post('/ccardbillfinal', [CcardbillController::class, 'ccardbillfinal1'])->name('ccardbillfinal1');
+            Route::get('/status_enquiry', [CcardbillController::class, 'status_enquiry'])->name('ccardbillpay.paystatus_enquirybill');
+            Route::get('/refundOtp', [CcardbillController::class, 'refundOtp'])->name('ccardbillpay.refundOtp');
+            Route::get('/claimrefund', [CcardbillController::class, 'claimrefund'])->name('ccardbillpay.claimrefund');
+
         });
 
         Route::group(['prefix' => 'licbill'], function () {

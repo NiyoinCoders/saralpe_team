@@ -146,7 +146,7 @@ return $res;
 
     }
 
-public function status_enquiry(){
+public function status_enquiry(Request $request){
     $refid="20210428";
     $data = [
         'refid' => $refid,
@@ -158,11 +158,30 @@ public function status_enquiry(){
     $service = 'cc-payment/ccpayment/status';
 
     $body = "$jsonData";
-    $res = ApiController::post($service, $body);
+   // $res = ApiController::post($service, $body);
+   $res='{
+    "response_code": 1,
+    "status": true,
+    "data": {
+      "txnid": "1547",
+      "refid": "20210428",
+      "name": "NITESH KUMAR SHARMA",
+      "mobile": "8470000013",
+      "card_number": "4207XXXXXXXX5483",
+      "amount": "200.00",
+      "charge": "23.60",
+      "network": "VISA",
+      "remarks": "BILL PAYMENT",
+      "dateadded": "2021-04-15 18:35:29",
+      "status": "Success"
+    },
+    "message": "Transaction Success"
+  }';
     return $res;
+
 }
 
-public function refundOtp(){
+public function refundOtp(Request $request){
     $refid="20210428";
     $ackno="1547";
     $data = [
@@ -184,7 +203,7 @@ public function refundOtp(){
     return $res;
 }
 
-public function claimrefund(){
+public function claimrefund(Request $request){
     $refid="20210428";
     $ackno="1547";
     
