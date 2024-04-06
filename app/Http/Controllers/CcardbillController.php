@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ccardbill;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
-
+use Illuminate\Support\Facades\DB;
 class CcardbillController extends Controller
 {
     public function ccardbill()
@@ -138,27 +139,27 @@ class CcardbillController extends Controller
 
 
     
-    $res= '{
+    $response= '{
         "status": true,
         "response_code": 1,
         "ackno": 1547,
         "message": "Transaction Successful"
       }';
+$res=json_decode($response);
 
-return $res;
-$res->status=$status;
-$res->ackno=$ackno;
-$res->message=$message;
+      $status=$res->status;
+      $ackno=$res->ackno;
+      $message=$res->message;
 $user_id = $request->user_id;
     
     $transactions = DB::table('transactions')->where('payable_id', $user_id)->first();
  
-    $uuid=$transactions->uuid;
+    $uuid="1234";
     ;
     $user = User::find($user_id);
 $orderid="order".rand(1000000000, 999999999999);;
 $cummison="10";
-$ballance=$ballance; 
+$ballance="10"; 
    $ccardbill=new Ccardbill;
    $ccardbill->refid=$refid;
    $ccardbill->name =$name;
@@ -175,8 +176,10 @@ $ballance=$ballance;
    $ccardbill->uuid=$uuid;
    $ccardbill->orderid=$orderid;
    $ccardbill->cummison=$cummison;
-   $ccardbill->ballance=$user->balance;              
+   $ccardbill->ballance=$ballance;              
    $ccardbill->save();
+
+   return $res;
     }
 
 public function status_enquiry(Request $request){
