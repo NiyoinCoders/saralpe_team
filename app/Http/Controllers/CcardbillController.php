@@ -30,7 +30,7 @@ class CcardbillController extends Controller
         $amount = $request->input('amount');
         $remark = $request->input('remark');
         $network = $request->input('network');
-
+   $payee_name=  $request->input('payee_name');
          $data = [
             'refid' => $refid,
             'name' => $name,
@@ -39,7 +39,7 @@ class CcardbillController extends Controller
             'amount' => $amount,
             'remarks' => $remark,
             'network' => $network,
-            'payee_name'=> "rukhsar bano ansari",
+            'payee_name'=> $payee_name
         ]; 
         
 //print_r($data);
@@ -115,6 +115,7 @@ class CcardbillController extends Controller
         $remark = $request->input('remarks');
         $network = $request->input('network');
         $otp = $request->input('otp');
+        $payee_name=$request->input('payee_name');
 
         $data = [
             'refid' => $refid,
@@ -124,7 +125,8 @@ class CcardbillController extends Controller
             'amount' => $amount,
             'remarks' => $remark,
             'otp' => $otp,
-            'network' => $network
+            'network' => $network,
+            'payee_name' => $payee_name,
         ];
 
         $jsonData = json_encode($data);
@@ -142,8 +144,39 @@ class CcardbillController extends Controller
         "ackno": 1547,
         "message": "Transaction Successful"
       }';
-return $res;
 
+return $res;
+$res->status=$status;
+$res->ackno=$ackno;
+$res->message=$message;
+$user_id = $request->user_id;
+    
+    $transactions = DB::table('transactions')->where('payable_id', $user_id)->first();
+ 
+    $uuid=$transactions->uuid;
+    ;
+    $user = User::find($user_id);
+$orderid="order".rand(1000000000, 999999999999);;
+$cummison="10";
+$ballance=$ballance; 
+   $ccardbill=new Ccardbill;
+   $ccardbill->refid=$refid;
+   $ccardbill->name =$name;
+   $ccardbill->mobile= $mobile;
+   $ccardbill->card_number= $cardno;
+   $ccardbill->amount= $amount;
+   $ccardbill->remark=$remark;
+   $ccardbill->otp=$otp;
+   $ccardbill->network=$network;
+   $ccardbill->payee_name=$payee_name;
+   $ccardbill->status=$status;
+   $ccardbill->ackno=$ackno;
+   $ccardbill->message=$message;
+   $ccardbill->uuid=$uuid;
+   $ccardbill->orderid=$orderid;
+   $ccardbill->cummison=$cummison;
+   $ccardbill->ballance=$user->balance;              
+   $ccardbill->save();
     }
 
 public function status_enquiry(Request $request){

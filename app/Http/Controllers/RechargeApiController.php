@@ -172,8 +172,9 @@ class RechargeApiController extends Controller
     $amount="15";
     $orderID="8543596945";
     $txid="5804";
-    $user_id = $request->user_id;
     $cummison="10";
+    $user_id = $request->user_id;
+    
     $transactions = DB::table('transactions')->where('payable_id', $user_id)->first();
  
     $uuid=$transactions->uuid;

@@ -39,7 +39,7 @@
 
                                 </div>
                                 <div class="row">
-
+                                <input type="hidden" name="user_id" value="{{ Auth::id() }}">
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="form-label">Name: @error('name')<span class="text-danger">{{ $message }}</span>@enderror</label>
@@ -79,6 +79,12 @@
                                                 <option value="Mastercard">MasterCard</option>
                                                 <option value="AMEX">Amex</option>
                                             </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-label">payee_name: @error('payee_name')<span class="text-danger">{{ $message }}</span>@enderror</label>
+                                            <input type="text" class="form-control" placeholder="" name="payee_name">
                                         </div>
                                     </div>
 

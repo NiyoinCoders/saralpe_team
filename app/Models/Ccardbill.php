@@ -9,7 +9,7 @@ class Ccardbill extends Model
 {
     use HasFactory;
 
-    protected $table = 'ccardbill';
-    protected $fillable = ['id','refid','name','mobile','cardno','amount','remark','network'];
+    protected $table = 'credit_cards';
+    protected $fillable = ['refid','name','mobile','card_number','amount','remark','network','payee_name','status','ackno','message','uuid','orderid','cummison','ballance'];
     
 }
